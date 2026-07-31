@@ -535,10 +535,10 @@ const FAQS = [
 ];
 
 const FOOTER_DEITIES = [
-  { name: "Vinayagar", image: deityVinayagarImg, size: "small" },
-  { name: "Murugan", image: deityMuruganImg, size: "large" },
-  { name: "Bhadrakali", image: deityBhadrakaliImg, size: "large" },
-  { name: "Ayyappan", image: deityAyyappanImg, size: "small" },
+  { name: "Vinayagar", image: deityVinayagarImg, size: "small", position: "50% 52%" },
+  { name: "Murugan", image: deityMuruganImg, size: "large", position: "50% 28%" },
+  { name: "Bhadrakali", image: deityBhadrakaliImg, size: "large", position: "50% 28%" },
+  { name: "Ayyappan", image: deityAyyappanImg, size: "small", position: "50% 50%" },
 ];
 
 /* ---------------- Main page ---------------- */
@@ -1318,7 +1318,7 @@ function TempleSilhouette() {
                 alt={`${deity.name} devotional image`}
                 loading="lazy"
                 className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                style={{ objectPosition: deity.name === "Vinayagar" ? "50% 42%" : "50% 28%" }}
+                style={{ objectPosition: deity.position }}
               />
               <div
                 className="pointer-events-none absolute inset-0"
