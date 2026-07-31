@@ -1,6 +1,6 @@
-# Anugraha Jyothisham
+# Anugraha Jathakalaya
 
-A TanStack Start site for Anugraha Jyothisham.
+A TanStack Start site for Anugraha Jathakalaya.
 
 ## Development
 

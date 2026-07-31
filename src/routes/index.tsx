@@ -4,22 +4,22 @@ import gallery1 from "@/assets/gallery-1.jpg";
 import gallery2 from "@/assets/gallery-2.jpg";
 import gallery3 from "@/assets/gallery-3.jpg";
 import gallery4 from "@/assets/gallery-4.jpg";
-import astrologerImg from "@/assets/astrologer.jpg";
+import sreeChakraImg from "@/assets/sree-chakra.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Anugraha Jyotisham — Guiding Lives Through Ancient Wisdom" },
+      { title: "Anugraha Jathakalaya — Vedic Astrological Services" },
       {
         name: "description",
         content:
-          "Traditional Vedic astrology, tantrikam, mantrikam and spiritual remedies from Anugraha Jyotisham. Sixteen years of guidance rooted in the śāstras.",
+          "Vedic astrological services, horoscope predictions, marriage matching, numerology, muhurtha, lucky names, rasi gems and parikara rituals from Anugraha Jathakalaya.",
       },
-      { property: "og:title", content: "Anugraha Jyotisham — Ancient Vedic Wisdom" },
+      { property: "og:title", content: "Anugraha Jathakalaya — Vedic Astrological Services" },
       {
         property: "og:description",
         content:
-          "Personal consultations in Jyotisha, Nadi, Vaasthu and Numerology. Rooted in tradition, delivered with discretion.",
+          "Astrological consultations available anywhere in the world in Tamil, English, Hindi and Malayalam.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -646,7 +646,7 @@ function LandingPage() {
         >
           <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:px-10">
             <a href="#top" className="font-display text-[15px] tracking-[0.24em] text-ivory">
-              ANUGRAHA <span style={{ color: "#D4AF37" }}>·</span> JYOTISHAM
+              ANUGRAHA JATHAKALAYA
             </a>
             <nav className="hidden items-center gap-9 text-[12px] uppercase tracking-[0.22em] md:flex" style={{ color: "#C9C3B0" }}>
               <a href="#services" className="hover:text-ivory transition-colors">Services</a>
@@ -769,21 +769,33 @@ function LandingPage() {
       <section id="about" className="relative py-24" style={{ background: "#050F22" }}>
         <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 px-6 md:px-10 lg:grid-cols-2">
           <div className="relative">
-            <div className="relative overflow-hidden" style={{ borderRadius: 16 }}>
+            <div
+              className="relative overflow-hidden px-8 py-10 sm:px-12 sm:py-14"
+              style={{
+                borderRadius: 16,
+                background:
+                  "radial-gradient(circle at 50% 42%, rgba(212,175,55,0.16), rgba(109,31,45,0.22) 42%, rgba(5,15,34,0.96) 74%)",
+              }}
+            >
               <img
-                src={astrologerImg}
-                alt="Portrait of the astrologer"
-                width={1024}
-                height={1280}
+                src={sreeChakraImg}
+                alt="Sri Chakra yantra"
+                width={512}
+                height={512}
                 loading="lazy"
-                className="h-auto w-full object-cover"
+                className="mx-auto aspect-square w-full max-w-[520px] object-contain drop-shadow-[0_28px_60px_rgba(0,0,0,0.45)]"
               />
               <div
                 className="pointer-events-none absolute inset-0"
                 style={{
                   boxShadow: "inset 0 0 0 1px rgba(212,175,55,0.35)",
-                  background: "linear-gradient(180deg, transparent 50%, rgba(5,15,34,0.55) 100%)",
+                  background:
+                    "linear-gradient(180deg, rgba(247,244,234,0.04), rgba(5,15,34,0.28) 100%)",
                 }}
+              />
+              <div
+                className="pointer-events-none absolute inset-6"
+                style={{ border: "1px solid rgba(212,175,55,0.18)" }}
               />
             </div>
             <div
@@ -796,38 +808,48 @@ function LandingPage() {
               The Astrologer
             </div>
             <h2 className="mt-4 font-display text-4xl md:text-[44px] text-ivory leading-tight">
-              Pandit Sri Anantha Śāstri
+              Sri. V. Govindan Namboodiri
             </h2>
             <p className="mt-6 font-serif-italic text-xl" style={{ color: "#C9C3B0" }}>
-              "The sky is a mirror. My work is only to hold the mirror steady."
+              Vedic Astrologer
             </p>
             <div className="mt-6 space-y-4 text-[15px] leading-relaxed" style={{ color: "#C9C3B0" }}>
               <p>
-                Trained from the age of eleven in the temple town of Thanjavur, Sri Anantha is the
-                fifth in an unbroken lineage of Jyotisha ācāryas. His practice weaves the
-                Bṛhat Parāśara Horā Śāstra with the living traditions of Nadi and Tantrikam.
+                Basic horoscope predictions, total horoscope predictions and birthday annual
+                forecasts are offered with careful traditional guidance.
               </p>
               <p>
-                Over sixteen years he has consulted for families, monastics and public figures with
-                the same care — never sensational, never rushed, always faithful to the śāstras.
+                Marriage matching, muhurtha date and time selection, numerology predictions,
+                suitable and lucky names, lucky rasi guidance and gems consultation are also
+                available.
+              </p>
+              <p>
+                All kinds of parikara-related religious rituals and homam are performed.
               </p>
             </div>
             <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2">
               {[
-                ["1998", "Initiation at Thanjavur temple"],
-                ["2005", "Guru-paramparā ordination"],
-                ["2009", "Founded Anugraha Jyotisham"],
-                ["2019", "Lineage in Nadi śāstra completed"],
-              ].map(([yr, ev]) => (
-                <div key={yr} className="border-l pl-4" style={{ borderColor: "rgba(212,175,55,0.35)" }}>
+                ["Horoscope", "Basic, total and annual forecasts"],
+                ["Matching", "Marriage matching and muhurtha"],
+                ["Numerology", "Lucky name, rasi and gems"],
+                ["Rituals", "Parikara rituals and homam"],
+              ].map(([label, detail]) => (
+                <div key={label} className="border-l pl-4" style={{ borderColor: "rgba(212,175,55,0.35)" }}>
                   <div className="font-display text-[13px]" style={{ color: "#D4AF37" }}>
-                    {yr}
+                    {label}
                   </div>
                   <div className="mt-1 text-[14px]" style={{ color: "#F7F4EA" }}>
-                    {ev}
+                    {detail}
                   </div>
                 </div>
               ))}
+            </div>
+            <div
+              className="mt-10 border px-5 py-4 text-[13px] uppercase tracking-[0.16em]"
+              style={{ borderColor: "rgba(212,175,55,0.28)", color: "#F7F4EA" }}
+            >
+              We provide astrological services anywhere in the world in Tamil, English, Hindi and
+              Malayalam.
             </div>
           </div>
         </div>
@@ -1091,7 +1113,7 @@ function LandingPage() {
                 <span className="w-24 uppercase tracking-[0.22em] text-[11px]" style={{ color: "#D4AF37" }}>
                   Contact
                 </span>
-                <span>+91 99999 99999 · office@anugrahajyotisham.in</span>
+                <span>+91 99999 99999 · office@anugrahajathakalaya.in</span>
               </div>
             </div>
           </div>
@@ -1149,7 +1171,7 @@ function LandingPage() {
           <div className="grid grid-cols-1 gap-10 md:grid-cols-4">
             <div className="md:col-span-2">
               <div className="font-display text-[15px] tracking-[0.28em] text-ivory">
-                ANUGRAHA <span style={{ color: "#D4AF37" }}>·</span> JYOTISHAM
+                ANUGRAHA JATHAKALAYA
               </div>
               <p className="mt-5 max-w-md font-serif-italic text-lg" style={{ color: "#C9C3B0" }}>
                 A private consultancy in traditional Vedic astrology and spiritual practice.
@@ -1171,7 +1193,7 @@ function LandingPage() {
               </div>
               <ul className="mt-4 space-y-2 text-[14px]" style={{ color: "#C9C3B0" }}>
                 <li>+91 99999 99999</li>
-                <li>office@anugrahajyotisham.in</li>
+                <li>office@anugrahajathakalaya.in</li>
                 <li>Mylapore, Chennai</li>
               </ul>
             </div>
@@ -1185,7 +1207,7 @@ function LandingPage() {
             className="flex items-center justify-between border-t py-6 text-[11px] uppercase tracking-[0.22em]"
             style={{ borderColor: "rgba(212,175,55,0.2)", color: "#C9C3B0" }}
           >
-            <span>© 2026 Anugraha Jyotisham. All rights reserved.</span>
+            <span>© 2026 Anugraha Jathakalaya. All rights reserved.</span>
             <span className="font-serif-italic normal-case tracking-normal text-[13px]" style={{ color: "#D4AF37" }}>
               Ōm śānti śānti śānti
             </span>
