@@ -4,10 +4,10 @@ import gallery1 from "@/assets/gallery-1.jpg";
 import gallery2 from "@/assets/gallery-2.jpg";
 import gallery3 from "@/assets/gallery-3.jpg";
 import gallery4 from "@/assets/gallery-4.jpg";
-import deityAyyappanImg from "@/assets/deity-ayyappan.jpg";
+import deityAyyappanFooterImg from "@/assets/deity-ayyappan-footer.jpg";
 import deityBhadrakaliImg from "@/assets/deity-bhadrakali.jpg";
 import deityMuruganImg from "@/assets/deity-murugan.jpg";
-import deityVinayagarImg from "@/assets/deity-vinayagar.jpg";
+import deityVinayagarFooterImg from "@/assets/deity-vinayagar-footer.jpg";
 import sreeChakraImg from "@/assets/sree-chakra.png";
 
 export const Route = createFileRoute("/")({
@@ -535,10 +535,10 @@ const FAQS = [
 ];
 
 const FOOTER_DEITIES = [
-  { name: "Vinayagar", image: deityVinayagarImg, size: "small", position: "50% 50%" },
+  { name: "Vinayagar", image: deityVinayagarFooterImg, size: "small", position: "50% 50%" },
   { name: "Murugan", image: deityMuruganImg, size: "large", position: "50% 28%" },
   { name: "Bhadrakali", image: deityBhadrakaliImg, size: "large", position: "50% 28%" },
-  { name: "Ayyappan", image: deityAyyappanImg, size: "small", position: "50% 50%" },
+  { name: "Ayyappan", image: deityAyyappanFooterImg, size: "small", position: "50% 50%" },
 ];
 
 /* ---------------- Main page ---------------- */
@@ -1317,9 +1317,7 @@ function TempleSilhouette() {
                 src={deity.image}
                 alt={`${deity.name} devotional image`}
                 loading="lazy"
-                className={`h-full w-full transition-transform duration-700 group-hover:scale-105 ${
-                  isLarge ? "object-cover" : "object-contain p-4 md:p-5"
-                }`}
+                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                 style={{ objectPosition: deity.position }}
               />
               <div
