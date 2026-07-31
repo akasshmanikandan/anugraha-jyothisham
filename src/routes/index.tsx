@@ -4,6 +4,10 @@ import gallery1 from "@/assets/gallery-1.jpg";
 import gallery2 from "@/assets/gallery-2.jpg";
 import gallery3 from "@/assets/gallery-3.jpg";
 import gallery4 from "@/assets/gallery-4.jpg";
+import deityAyyappanImg from "@/assets/deity-ayyappan.jpg";
+import deityBhadrakaliImg from "@/assets/deity-bhadrakali.jpg";
+import deityMuruganImg from "@/assets/deity-murugan.jpg";
+import deityVinayagarImg from "@/assets/deity-vinayagar.jpg";
 import sreeChakraImg from "@/assets/sree-chakra.png";
 
 export const Route = createFileRoute("/")({
@@ -528,6 +532,13 @@ const FAQS = [
     q: "Do you offer follow-up consultations?",
     a: "Yes. Most clients return once or twice a year, and during significant dasha transitions or life events.",
   },
+];
+
+const FOOTER_DEITIES = [
+  { name: "Vinayagar", image: deityVinayagarImg, size: "small" },
+  { name: "Murugan", image: deityMuruganImg, size: "large" },
+  { name: "Bhadrakali", image: deityBhadrakaliImg, size: "large" },
+  { name: "Ayyappan", image: deityAyyappanImg, size: "small" },
 ];
 
 /* ---------------- Main page ---------------- */
@@ -1284,59 +1295,48 @@ function Field({
 }
 
 function TempleSilhouette() {
-  // Wide South-Indian gopuram silhouette. Thin gold hairline top edge.
   return (
-    <svg
-      viewBox="0 -20 1200 220"
-      className="w-full"
-      preserveAspectRatio="none"
-      aria-hidden="true"
-    >
-      <defs>
-        <linearGradient id="tg" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0%" stopColor="#0A2140" />
-          <stop offset="100%" stopColor="#050F22" />
-        </linearGradient>
-      </defs>
-      {/* left small shikhara */}
-      <path
-        d="M 0 200 L 0 140 L 60 140 L 60 120 L 80 100 L 100 80 L 120 100 L 140 120 L 140 140 L 200 140 L 200 200 Z"
-        fill="url(#tg)"
-        stroke="#D4AF37"
-        strokeWidth="0.6"
-        strokeOpacity="0.55"
+    <div className="relative">
+      <div className="grid grid-cols-2 items-end gap-4 md:grid-cols-[0.78fr_1.25fr_1.35fr_0.78fr] md:gap-8">
+        {FOOTER_DEITIES.map((deity) => {
+          const isLarge = deity.size === "large";
+          return (
+            <figure
+              key={deity.name}
+              className={`group relative overflow-hidden border ${
+                isLarge ? "h-52 md:h-72" : "h-40 md:h-48"
+              }`}
+              style={{
+                borderColor: "rgba(212,175,55,0.52)",
+                background: "#071832",
+                clipPath:
+                  "polygon(0 100%, 0 42%, 30% 42%, 30% 28%, 50% 8%, 70% 28%, 70% 42%, 100% 42%, 100% 100%)",
+              }}
+            >
+              <img
+                src={deity.image}
+                alt={`${deity.name} devotional image`}
+                loading="lazy"
+                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                style={{ objectPosition: deity.name === "Vinayagar" ? "50% 42%" : "50% 28%" }}
+              />
+              <div
+                className="pointer-events-none absolute inset-0"
+                style={{
+                  background:
+                    "linear-gradient(180deg, rgba(5,15,34,0.02) 30%, rgba(5,15,34,0.62) 100%)",
+                  boxShadow: "inset 0 0 0 1px rgba(212,175,55,0.28)",
+                }}
+              />
+              <figcaption className="sr-only">{deity.name}</figcaption>
+            </figure>
+          );
+        })}
+      </div>
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-px"
+        style={{ background: "rgba(212,175,55,0.28)" }}
       />
-      {/* main gopuram */}
-      <path
-        d="M 240 200 L 240 130 L 300 130 L 300 110 L 320 90 L 340 70 L 360 50 L 380 30 L 400 15 L 420 30 L 440 50 L 460 70 L 480 90 L 500 110 L 500 130 L 560 130 L 560 200 Z"
-        fill="url(#tg)"
-        stroke="#D4AF37"
-        strokeWidth="0.75"
-        strokeOpacity="0.65"
-      />
-      {/* kalasha */}
-      <circle cx="400" cy="10" r="4" fill="#D4AF37" opacity="0.85" />
-      <line x1="400" y1="4" x2="400" y2="15" stroke="#D4AF37" strokeWidth="0.7" opacity="0.7" />
-      {/* right big gopuram (mirrored, taller) */}
-      <path
-        d="M 600 200 L 600 150 L 660 150 L 660 130 L 680 110 L 700 90 L 720 70 L 740 45 L 760 20 L 780 0 L 800 20 L 820 45 L 840 70 L 860 90 L 880 110 L 900 130 L 900 150 L 960 150 L 960 200 Z"
-        fill="url(#tg)"
-        stroke="#D4AF37"
-        strokeWidth="0.75"
-        strokeOpacity="0.7"
-      />
-      <circle cx="780" cy="-4" r="4" fill="#D4AF37" opacity="0.9" />
-      <line x1="780" y1="-10" x2="780" y2="4" stroke="#D4AF37" strokeWidth="0.7" opacity="0.75" />
-      {/* right small shikhara */}
-      <path
-        d="M 1000 200 L 1000 140 L 1060 140 L 1060 120 L 1080 100 L 1100 80 L 1120 100 L 1140 120 L 1140 140 L 1200 140 L 1200 200 Z"
-        fill="url(#tg)"
-        stroke="#D4AF37"
-        strokeWidth="0.6"
-        strokeOpacity="0.55"
-      />
-      {/* horizon hairline */}
-      <line x1="0" y1="199" x2="1200" y2="199" stroke="#D4AF37" strokeOpacity="0.25" strokeWidth="0.6" />
-    </svg>
+    </div>
   );
 }
