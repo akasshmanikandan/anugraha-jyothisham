@@ -434,3 +434,65 @@
   .ember { display: none !important; }
   body::before { animation: none !important; }
 }
+
+/* ---------- Scroll-linked 3D depth ---------- */
+
+[data-d3] {
+  will-change: transform;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+/* Whole blocks recede/approach as they cross the viewport */
+[data-d3="float"] {
+  transform: perspective(1000px)
+    translate3d(0, calc(var(--p, 0) * 40px), calc(var(--p, 0) * -220px))
+    rotateX(calc(var(--p, 0) * -12deg));
+  opacity: calc(1 - max(var(--p, 0), calc(var(--p, 0) * -1)) * 0.35);
+}
+
+/* Media plates: stronger dolly + slight bank */
+[data-d3="deep"] {
+  transform: perspective(900px)
+    translate3d(0, calc(var(--p, 0) * 60px), calc(var(--p, 0) * -340px))
+    rotateX(calc(var(--p, 0) * -16deg))
+    rotateY(calc(var(--p, 0) * 8deg));
+  opacity: calc(1 - max(var(--p, 0), calc(var(--p, 0) * -1)) * 0.45);
+}
+
+/* Cards tilt like pages lifting off the manuscript */
+[data-d3="card"] {
+  transform: perspective(800px)
+    rotateX(calc(var(--p, 0) * 18deg))
+    translate3d(0, calc(var(--p, 0) * 24px), calc(var(--p, 0) * -160px));
+  opacity: calc(1 - max(var(--p, 0), calc(var(--p, 0) * -1)) * 0.4);
+}
+
+/* Foreground elements that come toward the reader */
+[data-d3="near"] {
+  transform: perspective(900px)
+    translate3d(0, calc(var(--p, 0) * -30px), calc(var(--p, 0) * 130px))
+    rotateX(calc(var(--p, 0) * 6deg));
+}
+
+/* Gentler on small screens / touch */
+@media (max-width: 640px) {
+  [data-d3="float"] {
+    transform: perspective(1000px) translate3d(0, calc(var(--p, 0) * 20px), calc(var(--p, 0) * -110px)) rotateX(calc(var(--p, 0) * -7deg));
+  }
+  [data-d3="deep"] {
+    transform: perspective(1000px) translate3d(0, calc(var(--p, 0) * 26px), calc(var(--p, 0) * -150px)) rotateX(calc(var(--p, 0) * -8deg));
+  }
+  [data-d3="card"] {
+    transform: perspective(900px) rotateX(calc(var(--p, 0) * 9deg)) translate3d(0, calc(var(--p, 0) * 12px), calc(var(--p, 0) * -80px));
+  }
+  [data-d3="near"] { transform: none; }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  [data-d3] { transform: none !important; }
+}
+
+/* Manual 3D toggle (button in the corner) */
+html[data-fx="off"] [data-d3] { transform: none !important; opacity: 1 !important; }

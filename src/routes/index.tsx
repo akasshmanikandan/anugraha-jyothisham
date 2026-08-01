@@ -1,30 +1,29 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { ClientOnly, createFileRoute } from "@tanstack/react-router";
+import { Suspense, lazy, useEffect, useMemo, useRef, useState } from "react";
+
+const VedicScene = lazy(() => import("@/components/VedicScene"));
+
 import gallery1 from "@/assets/gallery-1.jpg";
 import gallery2 from "@/assets/gallery-2.jpg";
 import gallery3 from "@/assets/gallery-3.jpg";
 import gallery4 from "@/assets/gallery-4.jpg";
-import deityAyyappanFooterImg from "@/assets/deity-ayyappan-footer.jpg";
-import deityBhadrakaliImg from "@/assets/deity-bhadrakali.jpg";
-import deityMuruganImg from "@/assets/deity-murugan.jpg";
-import deityVinayagarFooterImg from "@/assets/deity-vinayagar-footer.jpg";
-import sreeChakraImg from "@/assets/sree-chakra.png";
-import VedicScene from "@/components/VedicScene";
+import sreeChakra from "@/assets/sree-chakra.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Anugraha Jathakalaya — Vedic Astrological Services" },
+      { title: "Anugraha Jathakalaya — Vedic Astrology by Sri. V. Govindan Namboodiri" },
       {
         name: "description",
         content:
-          "Vedic astrological services, horoscope predictions, marriage matching, numerology, muhurtha, lucky names, rasi gems and parikara rituals from Anugraha Jathakalaya.",
+          "Anugraha Jathakalaya — Sri. V. Govindan Namboodiri, Vedic Astrologer. Horoscope, marriage matching, muhurtha, numerology, lucky name and rasi gems. Services anywhere in the world.",
       },
-      { property: "og:title", content: "Anugraha Jathakalaya — Vedic Astrological Services" },
+      { property: "og:title", content: "Anugraha Jathakalaya — Vedic Astrology" },
+
       {
         property: "og:description",
         content:
-          "Astrological consultations available anywhere in the world in Tamil, English, Hindi and Malayalam.",
+          "Personal consultations in Jyotisha, Nadi, Vaasthu and Numerology. Rooted in tradition, delivered with discretion.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -92,10 +91,11 @@ function ZodiacWheel() {
           {/* 12 divisions */}
           {Array.from({ length: 12 }).map((_, i) => {
             const a = (i * 30 * Math.PI) / 180;
-            const x1 = Math.cos(a) * 205;
-            const y1 = Math.sin(a) * 205;
-            const x2 = Math.cos(a) * 275;
-            const y2 = Math.sin(a) * 275;
+            const x1 = +(Math.cos(a) * 205).toFixed(3);
+            const y1 = +(Math.sin(a) * 205).toFixed(3);
+            const x2 = +(Math.cos(a) * 275).toFixed(3);
+            const y2 = +(Math.sin(a) * 275).toFixed(3);
+
             return (
               <line
                 key={i}
@@ -535,13 +535,6 @@ const FAQS = [
   },
 ];
 
-const FOOTER_DEITIES = [
-  { name: "Vinayagar", image: deityVinayagarFooterImg, size: "small", position: "50% 50%" },
-  { name: "Murugan", image: deityMuruganImg, size: "large", position: "50% 28%" },
-  { name: "Bhadrakali", image: deityBhadrakaliImg, size: "large", position: "50% 28%" },
-  { name: "Ayyappan", image: deityAyyappanFooterImg, size: "small", position: "50% 50%" },
-];
-
 /* ---------------- Main page ---------------- */
 
 function LandingPage() {
@@ -549,6 +542,13 @@ function LandingPage() {
   const timelineRef = useRef<HTMLDivElement>(null);
   const [wick, setWick] = useState(0);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [fx3d, setFx3d] = useState(true);
+
+  /* Reflect the 3D toggle on <html> so CSS transforms can be switched off */
+  useEffect(() => {
+    document.documentElement.dataset.fx = fx3d ? "on" : "off";
+  }, [fx3d]);
+
 
   /* Cursor embers — desktop hero only */
   useEffect(() => {
@@ -617,6 +617,41 @@ function LandingPage() {
     };
   }, []);
 
+  /* Scroll-linked 3D depth: sets --p (-1..1) on every [data-d3] element */
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let raf = 0;
+    let queued = false;
+
+    const update = () => {
+      queued = false;
+      const vh = window.innerHeight;
+      const nodes = document.querySelectorAll<HTMLElement>("[data-d3]");
+      nodes.forEach((el) => {
+        const r = el.getBoundingClientRect();
+        if (r.bottom < -vh * 0.4 || r.top > vh * 1.4) return;
+        const center = r.top + r.height / 2;
+        const p = Math.max(-1, Math.min(1, (center - vh / 2) / vh));
+        el.style.setProperty("--p", p.toFixed(4));
+      });
+    };
+
+    const onScroll = () => {
+      if (queued) return;
+      queued = true;
+      raf = requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+
   /* Timeline wick fill on scroll */
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -646,6 +681,26 @@ function LandingPage() {
 
   return (
     <div className="min-h-screen text-ivory" style={{ background: "#081A34", color: "#F7F4EA" }}>
+      {/* 3D effects toggle */}
+      <button
+        type="button"
+        onClick={() => setFx3d((v) => !v)}
+        aria-pressed={fx3d}
+        className="fixed bottom-5 right-5 z-50 flex items-center gap-2.5 border px-4 py-2.5 text-[10px] uppercase tracking-[0.24em] backdrop-blur transition-colors"
+        style={{
+          borderColor: "rgba(212,175,55,0.4)",
+          background: "rgba(5,15,34,0.72)",
+          color: fx3d ? "#D4AF37" : "#C9C3B0",
+        }}
+      >
+        <span
+          className="inline-block h-1.5 w-1.5 rounded-full transition-colors"
+          style={{ background: fx3d ? "#D4AF37" : "rgba(201,195,176,0.4)" }}
+        />
+        3D {fx3d ? "On" : "Off"}
+      </button>
+
+
       {/* Navigation */}
       <header className="fixed top-0 left-0 right-0 z-40">
         <div
@@ -658,7 +713,8 @@ function LandingPage() {
         >
           <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:px-10">
             <a href="#top" className="font-display text-[15px] tracking-[0.24em] text-ivory">
-              ANUGRAHA JATHAKALAYA
+              ANUGRAHA <span style={{ color: "#D4AF37" }}>·</span> JATHAKALAYA
+
             </a>
             <nav className="hidden items-center gap-9 text-[12px] uppercase tracking-[0.22em] md:flex" style={{ color: "#C9C3B0" }}>
               <a href="#services" className="hover:text-ivory transition-colors">Services</a>
@@ -735,11 +791,18 @@ function LandingPage() {
             </div>
           </div>
 
-          <div className="relative mx-auto flex items-center justify-center">
-            <div className="aspect-square w-full max-w-[560px]">
-              <VedicScene />
-            </div>
+          <div data-d3="near" className="relative mx-auto flex w-full items-center justify-center">
+            {fx3d ? (
+              <ClientOnly fallback={<ZodiacWheel />}>
+                <Suspense fallback={<ZodiacWheel />}>
+                  <VedicScene />
+                </Suspense>
+              </ClientOnly>
+            ) : (
+              <ZodiacWheel />
+            )}
           </div>
+
         </div>
       </section>
 
@@ -756,9 +819,11 @@ function LandingPage() {
           {SERVICES.map((s) => (
             <article
               key={s.title}
+              data-d3="card"
               className="service-card group relative overflow-hidden p-8 md:p-10"
               style={{ background: "#081A34" }}
             >
+
               <div className="mb-6">
                 <s.Icon />
               </div>
@@ -782,34 +847,22 @@ function LandingPage() {
       {/* About */}
       <section id="about" className="relative py-24" style={{ background: "#050F22" }}>
         <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 px-6 md:px-10 lg:grid-cols-2">
-          <div className="relative">
-            <div
-              className="relative overflow-hidden px-8 py-10 sm:px-12 sm:py-14"
-              style={{
-                borderRadius: 16,
-                background:
-                  "radial-gradient(circle at 50% 42%, rgba(212,175,55,0.16), rgba(109,31,45,0.22) 42%, rgba(5,15,34,0.96) 74%)",
-              }}
-            >
+          <div data-d3="deep" className="relative">
+            <div className="relative overflow-hidden" style={{ borderRadius: 16, background: "#050F22" }}>
               <img
-                src={sreeChakraImg}
-                alt="Sri Chakra yantra"
+                src={sreeChakra.url}
+                alt="Sri Chakra (Sri Yantra) plaque in gold and maroon"
                 width={512}
                 height={512}
                 loading="lazy"
-                className="mx-auto aspect-square w-full max-w-[520px] object-contain drop-shadow-[0_28px_60px_rgba(0,0,0,0.45)]"
+                className="h-auto w-full object-contain"
               />
               <div
                 className="pointer-events-none absolute inset-0"
                 style={{
                   boxShadow: "inset 0 0 0 1px rgba(212,175,55,0.35)",
-                  background:
-                    "linear-gradient(180deg, rgba(247,244,234,0.04), rgba(5,15,34,0.28) 100%)",
+                  background: "linear-gradient(180deg, transparent 60%, rgba(5,15,34,0.45) 100%)",
                 }}
-              />
-              <div
-                className="pointer-events-none absolute inset-6"
-                style={{ border: "1px solid rgba(212,175,55,0.18)" }}
               />
             </div>
             <div
@@ -824,46 +877,39 @@ function LandingPage() {
             <h2 className="mt-4 font-display text-4xl md:text-[44px] text-ivory leading-tight">
               Sri. V. Govindan Namboodiri
             </h2>
-            <p className="mt-6 font-serif-italic text-xl" style={{ color: "#C9C3B0" }}>
+            <p className="mt-3 text-[12px] uppercase tracking-[0.28em]" style={{ color: "#D4AF37" }}>
               Vedic Astrologer
             </p>
-            <div className="mt-6 space-y-4 text-[15px] leading-relaxed" style={{ color: "#C9C3B0" }}>
-              <p>
-                Basic horoscope predictions, total horoscope predictions and birthday annual
-                forecasts are offered with careful traditional guidance.
-              </p>
-              <p>
-                Marriage matching, muhurtha date and time selection, numerology predictions,
-                suitable and lucky names, lucky rasi guidance and gems consultation are also
-                available.
-              </p>
-              <p>
-                All kinds of parikara-related religious rituals and homam are performed.
-              </p>
-            </div>
-            <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div className="mt-8 grid grid-cols-1 gap-x-8 gap-y-3 sm:grid-cols-2">
               {[
-                ["Horoscope", "Basic, total and annual forecasts"],
-                ["Matching", "Marriage matching and muhurtha"],
-                ["Numerology", "Lucky name, rasi and gems"],
-                ["Rituals", "Parikara rituals and homam"],
-              ].map(([label, detail]) => (
-                <div key={label} className="border-l pl-4" style={{ borderColor: "rgba(212,175,55,0.35)" }}>
-                  <div className="font-display text-[13px]" style={{ color: "#D4AF37" }}>
-                    {label}
-                  </div>
-                  <div className="mt-1 text-[14px]" style={{ color: "#F7F4EA" }}>
-                    {detail}
-                  </div>
+                "Basic Horoscope, Predictions",
+                "Total Horoscope, Predictions",
+                "Birthday Annual Forecast",
+                "Marriage Matching",
+                "Muhurtha Date and Time",
+                "Numerology Predictions",
+                "Suitable & Lucky Name",
+                "Lucky Rasi Gems",
+              ].map((item) => (
+                <div key={item} className="flex items-start gap-3 text-[15px]" style={{ color: "#C9C3B0" }}>
+                  <span style={{ color: "#D4AF37" }}>◆</span>
+                  <span>{item}</span>
                 </div>
               ))}
             </div>
+            <p className="mt-8 text-[15px] leading-relaxed" style={{ color: "#C9C3B0" }}>
+              All kinds of parihara related religious rituals and Homam are performed.
+            </p>
             <div
-              className="mt-10 border px-5 py-4 text-[13px] uppercase tracking-[0.16em]"
-              style={{ borderColor: "rgba(212,175,55,0.28)", color: "#F7F4EA" }}
+              className="mt-8 border-l pl-5"
+              style={{ borderColor: "rgba(212,175,55,0.35)" }}
             >
-              We provide astrological services anywhere in the world in Tamil, English, Hindi and
-              Malayalam.
+              <p className="font-display text-[15px] leading-relaxed tracking-[0.08em] text-ivory">
+                WE PROVIDE ASTROLOGICAL SERVICES “ANYWHERE IN THE WORLD”
+              </p>
+              <p className="mt-2 text-[13px] uppercase tracking-[0.24em]" style={{ color: "#D4AF37" }}>
+                Tamil · English · Hindi · Malayalam
+              </p>
             </div>
           </div>
         </div>
@@ -1014,9 +1060,15 @@ function LandingPage() {
           {[gallery1, gallery2, gallery3, gallery4].map((g, i) => (
             <figure
               key={i}
+              data-d3="deep"
               className="relative overflow-hidden"
-              style={{ borderRadius: 12, border: "1px solid rgba(212,175,55,0.2)" }}
+              style={{
+                borderRadius: 12,
+                border: "1px solid rgba(212,175,55,0.2)",
+                transitionDelay: `${i * 40}ms`,
+              }}
             >
+
               <img
                 src={g}
                 alt=""
@@ -1127,7 +1179,7 @@ function LandingPage() {
                 <span className="w-24 uppercase tracking-[0.22em] text-[11px]" style={{ color: "#D4AF37" }}>
                   Contact
                 </span>
-                <span>+91 99999 99999 · office@anugrahajathakalaya.in</span>
+                <span>+91 99999 99999 · office@anugrahajyotisham.in</span>
               </div>
             </div>
           </div>
@@ -1185,7 +1237,7 @@ function LandingPage() {
           <div className="grid grid-cols-1 gap-10 md:grid-cols-4">
             <div className="md:col-span-2">
               <div className="font-display text-[15px] tracking-[0.28em] text-ivory">
-                ANUGRAHA JATHAKALAYA
+                ANUGRAHA <span style={{ color: "#D4AF37" }}>·</span> JATHAKALAYA
               </div>
               <p className="mt-5 max-w-md font-serif-italic text-lg" style={{ color: "#C9C3B0" }}>
                 A private consultancy in traditional Vedic astrology and spiritual practice.
@@ -1207,7 +1259,7 @@ function LandingPage() {
               </div>
               <ul className="mt-4 space-y-2 text-[14px]" style={{ color: "#C9C3B0" }}>
                 <li>+91 99999 99999</li>
-                <li>office@anugrahajathakalaya.in</li>
+                <li>office@anugrahajyotisham.in</li>
                 <li>Mylapore, Chennai</li>
               </ul>
             </div>
@@ -1260,7 +1312,7 @@ function SectionHeading({
   quote: string;
 }) {
   return (
-    <div className="mx-auto max-w-3xl text-center">
+    <div data-d3="float" className="mx-auto max-w-3xl text-center">
       <div className="text-[10px] uppercase tracking-[0.36em]" style={{ color: "#D4AF37" }}>
         {eyebrow}
       </div>
@@ -1298,48 +1350,59 @@ function Field({
 }
 
 function TempleSilhouette() {
+  // Wide South-Indian gopuram silhouette. Thin gold hairline top edge.
   return (
-    <div className="relative">
-      <div className="grid grid-cols-2 items-end gap-4 md:grid-cols-[0.78fr_1.25fr_1.35fr_0.78fr] md:gap-8">
-        {FOOTER_DEITIES.map((deity) => {
-          const isLarge = deity.size === "large";
-          return (
-            <figure
-              key={deity.name}
-              className={`group relative overflow-hidden border ${
-                isLarge ? "h-52 md:h-72" : "h-40 md:h-48"
-              }`}
-              style={{
-                borderColor: "rgba(212,175,55,0.52)",
-                background: "#071832",
-                clipPath:
-                  "polygon(0 100%, 0 42%, 30% 42%, 30% 28%, 50% 8%, 70% 28%, 70% 42%, 100% 42%, 100% 100%)",
-              }}
-            >
-              <img
-                src={deity.image}
-                alt={`${deity.name} devotional image`}
-                loading="lazy"
-                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                style={{ objectPosition: deity.position }}
-              />
-              <div
-                className="pointer-events-none absolute inset-0"
-                style={{
-                  background:
-                    "linear-gradient(180deg, rgba(5,15,34,0.02) 30%, rgba(5,15,34,0.62) 100%)",
-                  boxShadow: "inset 0 0 0 1px rgba(212,175,55,0.28)",
-                }}
-              />
-              <figcaption className="sr-only">{deity.name}</figcaption>
-            </figure>
-          );
-        })}
-      </div>
-      <div
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-px"
-        style={{ background: "rgba(212,175,55,0.28)" }}
+    <svg
+      viewBox="0 -20 1200 220"
+      className="w-full"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      <defs>
+        <linearGradient id="tg" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0%" stopColor="#0A2140" />
+          <stop offset="100%" stopColor="#050F22" />
+        </linearGradient>
+      </defs>
+      {/* left small shikhara */}
+      <path
+        d="M 0 200 L 0 140 L 60 140 L 60 120 L 80 100 L 100 80 L 120 100 L 140 120 L 140 140 L 200 140 L 200 200 Z"
+        fill="url(#tg)"
+        stroke="#D4AF37"
+        strokeWidth="0.6"
+        strokeOpacity="0.55"
       />
-    </div>
+      {/* main gopuram */}
+      <path
+        d="M 240 200 L 240 130 L 300 130 L 300 110 L 320 90 L 340 70 L 360 50 L 380 30 L 400 15 L 420 30 L 440 50 L 460 70 L 480 90 L 500 110 L 500 130 L 560 130 L 560 200 Z"
+        fill="url(#tg)"
+        stroke="#D4AF37"
+        strokeWidth="0.75"
+        strokeOpacity="0.65"
+      />
+      {/* kalasha */}
+      <circle cx="400" cy="10" r="4" fill="#D4AF37" opacity="0.85" />
+      <line x1="400" y1="4" x2="400" y2="15" stroke="#D4AF37" strokeWidth="0.7" opacity="0.7" />
+      {/* right big gopuram (mirrored, taller) */}
+      <path
+        d="M 600 200 L 600 150 L 660 150 L 660 130 L 680 110 L 700 90 L 720 70 L 740 45 L 760 20 L 780 0 L 800 20 L 820 45 L 840 70 L 860 90 L 880 110 L 900 130 L 900 150 L 960 150 L 960 200 Z"
+        fill="url(#tg)"
+        stroke="#D4AF37"
+        strokeWidth="0.75"
+        strokeOpacity="0.7"
+      />
+      <circle cx="780" cy="-4" r="4" fill="#D4AF37" opacity="0.9" />
+      <line x1="780" y1="-10" x2="780" y2="4" stroke="#D4AF37" strokeWidth="0.7" opacity="0.75" />
+      {/* right small shikhara */}
+      <path
+        d="M 1000 200 L 1000 140 L 1060 140 L 1060 120 L 1080 100 L 1100 80 L 1120 100 L 1140 120 L 1140 140 L 1200 140 L 1200 200 Z"
+        fill="url(#tg)"
+        stroke="#D4AF37"
+        strokeWidth="0.6"
+        strokeOpacity="0.55"
+      />
+      {/* horizon hairline */}
+      <line x1="0" y1="199" x2="1200" y2="199" stroke="#D4AF37" strokeOpacity="0.25" strokeWidth="0.6" />
+    </svg>
   );
 }

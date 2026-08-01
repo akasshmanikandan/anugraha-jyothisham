@@ -54,6 +54,9 @@ export default function VedicScene() {
 
     const R = 2.0; // radius of the inner girdle circle
 
+    /* ---------- Nine interlocking trikonas ---------- */
+    // [base y, apex y] — symmetric about the vertical axis; base vertices sit
+    // on the inner girdle circle, as in the traditional construction.
     const up: Array<[number, number]> = [
       [-0.735, 1.0],
       [-0.51, 0.588],
@@ -80,6 +83,9 @@ export default function VedicScene() {
     down.forEach(([by, ay], i) => trikonas.add(seg(triPts(by, ay), GOLD, 0.8, 0.12 + i * 0.05)));
     root.add(trikonas);
 
+
+
+    /* ---------- Bindu ---------- */
     const bindu = new THREE.Mesh(
       new THREE.SphereGeometry(0.075, 20, 20),
       new THREE.MeshBasicMaterial({ color: GOLD })
@@ -87,6 +93,7 @@ export default function VedicScene() {
     bindu.position.set(0, 0, 0.45);
     root.add(bindu);
 
+    /* ---------- Girdle circles ---------- */
     const circle = (r: number, color: number, opacity: number, z: number) => {
       const pts: number[] = [];
       const n = 180;
@@ -103,17 +110,20 @@ export default function VedicScene() {
     root.add(circle(R * 1.68, IVORY, 0.25, -0.22));
     root.add(circle(R * 1.74, GOLD, 0.7, -0.24));
 
+    /* ---------- Lotus petal rings ---------- */
     const lotus = (count: number, rIn: number, rOut: number, color: number, opacity: number, z: number) => {
       const pts: number[] = [];
       const step = (Math.PI * 2) / count;
       for (let i = 0; i < count; i++) {
         const c = i * step;
+        // petal = two arcs bulging out from the inner ring, meeting at tips
         for (const dir of [-1, 1]) {
           const steps = 14;
           let px = 0;
           let py = 0;
           for (let s = 0; s <= steps; s++) {
             const t = s / steps;
+            // angle sweeps across the petal, radius bulges mid-way
             const a = c - step / 2 + t * step;
             const bulge = Math.sin(t * Math.PI);
             const off = dir * bulge * step * 0.28;
@@ -132,11 +142,13 @@ export default function VedicScene() {
     const lotus16 = lotus(16, R * 1.33, R * 1.6, GOLD, 0.65, -0.15);
     root.add(lotus8, lotus16);
 
+    /* ---------- Bhupura: three nested squares with four gates ---------- */
     const bhupura = new THREE.Group();
     const gatedSquare = (h: number, gate: number, depth: number, color: number, opacity: number, z: number) => {
       const pts: number[] = [];
       const line = (x1: number, y1: number, x2: number, y2: number) =>
         pts.push(x1, y1, 0, x2, y2, 0);
+      // one side with a T-gate, rotated four times
       const side = (rot: number) => {
         const rp = (x: number, y: number): [number, number] => [
           x * Math.cos(rot) - y * Math.sin(rot),
@@ -168,6 +180,7 @@ export default function VedicScene() {
     bhupura.add(gatedSquare(R * 2.18, R * 0.34, R * 0.14, GOLD, 0.55, -0.42));
     root.add(bhupura);
 
+    /* ---------- Depth starfield ---------- */
     const starCount = 320;
     const starPos = new Float32Array(starCount * 3);
     for (let i = 0; i < starCount; i++) {
@@ -183,6 +196,7 @@ export default function VedicScene() {
     );
     scene.add(stars);
 
+    /* ---------- Interaction ---------- */
     let scrollP = 0;
     let pointerX = 0;
     let pointerY = 0;
@@ -227,6 +241,8 @@ export default function VedicScene() {
       pointerY += (targetY - pointerY) * 0.05;
 
       if (!reduced) {
+        // the yantra itself stays upright (it is a fixed sacred diagram);
+        // only the lotus rings and outer frame breathe / turn slowly
         lotus8.rotation.z = t * 0.05;
         lotus16.rotation.z = -t * 0.035;
         bhupura.rotation.z = Math.sin(t * 0.18) * 0.03;
@@ -234,35 +250,41 @@ export default function VedicScene() {
         stars.rotation.z = t * 0.008;
       }
 
-      camera.position.x = pointerX * 1.3;
-      camera.position.y = pointerY * 0.75;
-      camera.lookAt(0, 0, 0);
+      root.rotation.x = -0.35 * scrollP + pointerY * 0.25;
+      root.rotation.y = 0.5 * scrollP + pointerX * 0.32;
+      root.position.z = -4.5 * scrollP;
+      root.position.y = 0.8 * scrollP;
+      camera.position.z = 12 + scrollP * 1.5;
 
       renderer.render(scene, camera);
     };
-
     tick();
 
     return () => {
+      cancelAnimationFrame(raf);
+      io.disconnect();
+      ro.disconnect();
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", resize);
       window.removeEventListener("pointermove", onPointer);
-      ro.disconnect();
-      io.disconnect();
-      cancelAnimationFrame(raf);
-      renderer.dispose();
-      scene.traverse((obj) => {
-        if (obj instanceof THREE.Mesh) {
-          obj.geometry.dispose();
-          if (Array.isArray(obj.material)) {
-            obj.material.forEach((mat) => mat.dispose());
-          } else {
-            obj.material.dispose();
-          }
-        }
+      scene.traverse((o) => {
+        const any = o as THREE.Mesh;
+        if (any.geometry) any.geometry.dispose();
+        const m = any.material as THREE.Material | THREE.Material[] | undefined;
+        if (Array.isArray(m)) m.forEach((x) => x.dispose());
+        else m?.dispose();
       });
+      renderer.dispose();
+      renderer.domElement.remove();
     };
   }, []);
 
-  return <div ref={mountRef} className="w-full h-full" />;
+  return (
+    <div
+      ref={mountRef}
+      aria-hidden
+      className="relative w-full max-w-[560px]"
+      style={{ aspectRatio: "1 / 1", minWidth: "260px" }}
+    />
+  );
 }
