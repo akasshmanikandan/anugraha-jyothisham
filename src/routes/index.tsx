@@ -8,6 +8,10 @@ import gallery2 from "@/assets/gallery-2.jpg";
 import gallery3 from "@/assets/gallery-3.jpg";
 import gallery4 from "@/assets/gallery-4.jpg";
 import sreeChakra from "@/assets/sree-chakra.png.asset.json";
+import deityVinayagar from "@/assets/deity-vinayagar.jpg";
+import deityBhadrakali from "@/assets/deity-bhadrakali.jpg";
+import deityMurugan from "@/assets/deity-murugan.jpg";
+import deityAyyappan from "@/assets/deity-ayyappan.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -1350,59 +1354,147 @@ function Field({
 }
 
 function TempleSilhouette() {
-  // Wide South-Indian gopuram silhouette. Thin gold hairline top edge.
+  // 4 equal South-Indian gopuram temples with deity photos clipped inside each one.
+  // Layout (viewBox 0 0 1200 280): Vinayagar | Bhadrakali | Murugan | Ayyappan
+  // Each temple occupies a 300-wide slot. The gopuram shape is identical for all four.
+
+  // Temple slot width = 300, inner photo area starts at x+40, width=220
+  // Gopuram path (relative to slot origin X, slot bottom at Y=280):
+  // Base rect: X+10 → X+290, Y=200 → Y=280
+  // Side walls: X+40 → X+260, Y=120 → Y=200
+  // Shikhara: stepped pyramid rising to top point at X+150, Y=10
+
+  const temples = [
+    { id: "t1", x: 0,   img: deityVinayagar,  name: "Vinayagar"  },
+    { id: "t2", x: 300, img: deityBhadrakali, name: "Bhadrakali" },
+    { id: "t3", x: 600, img: deityMurugan,    name: "Murugan"    },
+    { id: "t4", x: 900, img: deityAyyappan,   name: "Ayyappan"   },
+  ];
+
+  // Shared gopuram outline path (local coords, slot width=300, height=280)
+  // We use a clipping mask that covers the interior photo region inside the temple walls.
+  const templeClipPath = (x: number) =>
+    `M ${x+10} 280
+     L ${x+10} 200
+     L ${x+40} 200
+     L ${x+40} 160
+     L ${x+60} 140
+     L ${x+80} 120
+     L ${x+100} 100
+     L ${x+120} 80
+     L ${x+140} 55
+     L ${x+150} 32
+     L ${x+160} 55
+     L ${x+180} 80
+     L ${x+200} 100
+     L ${x+220} 120
+     L ${x+240} 140
+     L ${x+260} 160
+     L ${x+260} 200
+     L ${x+290} 200
+     L ${x+290} 280
+     Z`;
+
+  // Photo clip region: interior of the temple walls (below the shikhara top)
+  const photoClipPath = (x: number) =>
+    `M ${x+40} 280
+     L ${x+40} 200
+     L ${x+60} 180
+     L ${x+80} 155
+     L ${x+100} 130
+     L ${x+120} 105
+     L ${x+140} 80
+     L ${x+150} 60
+     L ${x+160} 80
+     L ${x+180} 105
+     L ${x+200} 130
+     L ${x+220} 155
+     L ${x+240} 180
+     L ${x+260} 200
+     L ${x+260} 280
+     Z`;
+
   return (
     <svg
-      viewBox="0 -20 1200 220"
+      viewBox="0 0 1200 280"
       className="w-full"
-      preserveAspectRatio="none"
+      preserveAspectRatio="xMidYMax meet"
       aria-hidden="true"
+      style={{ display: "block" }}
     >
       <defs>
-        <linearGradient id="tg" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0%" stopColor="#0A2140" />
-          <stop offset="100%" stopColor="#050F22" />
+        <linearGradient id="tg2" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0%" stopColor="#0A2140" stopOpacity="0.55" />
+          <stop offset="60%" stopColor="#050F22" stopOpacity="0.85" />
+          <stop offset="100%" stopColor="#050F22" stopOpacity="1" />
         </linearGradient>
+        {temples.map(({ id, x }) => (
+          <clipPath key={`clip-${id}`} id={`photo-clip-${id}`}>
+            <path d={photoClipPath(x)} />
+          </clipPath>
+        ))}
       </defs>
-      {/* left small shikhara */}
-      <path
-        d="M 0 200 L 0 140 L 60 140 L 60 120 L 80 100 L 100 80 L 120 100 L 140 120 L 140 140 L 200 140 L 200 200 Z"
-        fill="url(#tg)"
-        stroke="#D4AF37"
-        strokeWidth="0.6"
-        strokeOpacity="0.55"
-      />
-      {/* main gopuram */}
-      <path
-        d="M 240 200 L 240 130 L 300 130 L 300 110 L 320 90 L 340 70 L 360 50 L 380 30 L 400 15 L 420 30 L 440 50 L 460 70 L 480 90 L 500 110 L 500 130 L 560 130 L 560 200 Z"
-        fill="url(#tg)"
-        stroke="#D4AF37"
-        strokeWidth="0.75"
-        strokeOpacity="0.65"
-      />
-      {/* kalasha */}
-      <circle cx="400" cy="10" r="4" fill="#D4AF37" opacity="0.85" />
-      <line x1="400" y1="4" x2="400" y2="15" stroke="#D4AF37" strokeWidth="0.7" opacity="0.7" />
-      {/* right big gopuram (mirrored, taller) */}
-      <path
-        d="M 600 200 L 600 150 L 660 150 L 660 130 L 680 110 L 700 90 L 720 70 L 740 45 L 760 20 L 780 0 L 800 20 L 820 45 L 840 70 L 860 90 L 880 110 L 900 130 L 900 150 L 960 150 L 960 200 Z"
-        fill="url(#tg)"
-        stroke="#D4AF37"
-        strokeWidth="0.75"
-        strokeOpacity="0.7"
-      />
-      <circle cx="780" cy="-4" r="4" fill="#D4AF37" opacity="0.9" />
-      <line x1="780" y1="-10" x2="780" y2="4" stroke="#D4AF37" strokeWidth="0.7" opacity="0.75" />
-      {/* right small shikhara */}
-      <path
-        d="M 1000 200 L 1000 140 L 1060 140 L 1060 120 L 1080 100 L 1100 80 L 1120 100 L 1140 120 L 1140 140 L 1200 140 L 1200 200 Z"
-        fill="url(#tg)"
-        stroke="#D4AF37"
-        strokeWidth="0.6"
-        strokeOpacity="0.55"
-      />
-      {/* horizon hairline */}
-      <line x1="0" y1="199" x2="1200" y2="199" stroke="#D4AF37" strokeOpacity="0.25" strokeWidth="0.6" />
+
+      {temples.map(({ id, x, img, name }) => (
+        <g key={id}>
+          {/* Deity photo clipped to temple interior */}
+          <image
+            href={img}
+            x={x + 40}
+            y={0}
+            width={220}
+            height={280}
+            preserveAspectRatio="xMidYMax slice"
+            clipPath={`url(#photo-clip-${id})`}
+          />
+          {/* Dark overlay gradient over the photo for depth */}
+          <path
+            d={photoClipPath(x)}
+            fill="url(#tg2)"
+          />
+          {/* Temple outline stroke (the gopuram silhouette) */}
+          <path
+            d={templeClipPath(x)}
+            fill="#050F22"
+            fillOpacity="0"
+            stroke="#D4AF37"
+            strokeWidth="1"
+            strokeOpacity="0.75"
+          />
+          {/* Temple solid base fill (below photo region) */}
+          <rect
+            x={x + 10}
+            y={200}
+            width={280}
+            height={80}
+            fill="#050F22"
+            fillOpacity="0"
+          />
+          {/* Kalasha (golden orb at top) */}
+          <circle cx={x + 150} cy={28} r={5} fill="#D4AF37" opacity="0.95" />
+          <line
+            x1={x + 150} y1={22}
+            x2={x + 150} y2={33}
+            stroke="#D4AF37" strokeWidth="1" opacity="0.8"
+          />
+          {/* God name label at the base */}
+          <text
+            x={x + 150}
+            y={268}
+            textAnchor="middle"
+            fontFamily="Cormorant Garamond, Georgia, serif"
+            fontSize="13"
+            fill="#D4AF37"
+            opacity="0.9"
+            letterSpacing="2"
+          >
+            {name.toUpperCase()}
+          </text>
+        </g>
+      ))}
+
+      {/* Full horizon hairline */}
+      <line x1="0" y1="278" x2="1200" y2="278" stroke="#D4AF37" strokeOpacity="0.3" strokeWidth="0.6" />
     </svg>
   );
 }
