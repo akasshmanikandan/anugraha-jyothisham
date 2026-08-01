@@ -1354,147 +1354,107 @@ function Field({
 }
 
 function TempleSilhouette() {
-  // 4 equal South-Indian gopuram temples with deity photos clipped inside each one.
-  // Layout (viewBox 0 0 1200 280): Vinayagar | Bhadrakali | Murugan | Ayyappan
-  // Each temple occupies a 300-wide slot. The gopuram shape is identical for all four.
-
-  // Temple slot width = 300, inner photo area starts at x+40, width=220
-  // Gopuram path (relative to slot origin X, slot bottom at Y=280):
-  // Base rect: X+10 → X+290, Y=200 → Y=280
-  // Side walls: X+40 → X+260, Y=120 → Y=200
-  // Shikhara: stepped pyramid rising to top point at X+150, Y=10
-
   const temples = [
-    { id: "t1", x: 0,   img: deityVinayagar,  name: "Vinayagar"  },
-    { id: "t2", x: 300, img: deityBhadrakali, name: "Bhadrakali" },
-    { id: "t3", x: 600, img: deityMurugan,    name: "Murugan"    },
-    { id: "t4", x: 900, img: deityAyyappan,   name: "Ayyappan"   },
+    { id: "t1", img: deityVinayagar,  name: "Vinayagar"  },
+    { id: "t2", img: deityBhadrakali, name: "Bhadrakali" },
+    { id: "t3", img: deityMurugan,    name: "Murugan"    },
+    { id: "t4", img: deityAyyappan,   name: "Ayyappan"   },
   ];
 
-  // Shared gopuram outline path (local coords, slot width=300, height=280)
-  // We use a clipping mask that covers the interior photo region inside the temple walls.
-  const templeClipPath = (x: number) =>
-    `M ${x+10} 280
-     L ${x+10} 200
-     L ${x+40} 200
-     L ${x+40} 160
-     L ${x+60} 140
-     L ${x+80} 120
-     L ${x+100} 100
-     L ${x+120} 80
-     L ${x+140} 55
-     L ${x+150} 32
-     L ${x+160} 55
-     L ${x+180} 80
-     L ${x+200} 100
-     L ${x+220} 120
-     L ${x+240} 140
-     L ${x+260} 160
-     L ${x+260} 200
-     L ${x+290} 200
-     L ${x+290} 280
-     Z`;
+  // Temple arch as a CSS polygon clip-path (percentage-based).
+  // Wide stepped gopuram: narrow peak at very top, broad base — face always
+  // sits in the wide middle section of the arch where plenty of width is visible.
+  const archClip =
+    "polygon(50% 0%, 56% 3%, 62% 7%, 68% 12%, 74% 19%, 80% 28%, 85% 39%, 89% 51%, 92% 65%, 94% 80%, 96% 100%, 4% 100%, 6% 80%, 8% 65%, 11% 51%, 15% 39%, 20% 28%, 26% 19%, 32% 12%, 38% 7%, 44% 3%)";
 
-  // Photo clip region: interior of the temple walls (below the shikhara top)
-  const photoClipPath = (x: number) =>
-    `M ${x+40} 280
-     L ${x+40} 200
-     L ${x+60} 180
-     L ${x+80} 155
-     L ${x+100} 130
-     L ${x+120} 105
-     L ${x+140} 80
-     L ${x+150} 60
-     L ${x+160} 80
-     L ${x+180} 105
-     L ${x+200} 130
-     L ${x+220} 155
-     L ${x+240} 180
-     L ${x+260} 200
-     L ${x+260} 280
-     Z`;
+  // Same polygon in 0-100 coordinate space for the SVG border overlay
+  const archPoints =
+    "50,0 56,3 62,7 68,12 74,19 80,28 85,39 89,51 92,65 94,80 96,100 4,100 6,80 8,65 11,51 15,39 20,28 26,19 32,12 38,7 44,3";
 
   return (
-    <svg
-      viewBox="0 0 1200 280"
-      className="w-full"
-      preserveAspectRatio="xMidYMax meet"
-      aria-hidden="true"
-      style={{ display: "block" }}
-    >
-      <defs>
-        <linearGradient id="tg2" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0%" stopColor="#0A2140" stopOpacity="0.55" />
-          <stop offset="60%" stopColor="#050F22" stopOpacity="0.85" />
-          <stop offset="100%" stopColor="#050F22" stopOpacity="1" />
-        </linearGradient>
-        {temples.map(({ id, x }) => (
-          <clipPath key={`clip-${id}`} id={`photo-clip-${id}`}>
-            <path d={photoClipPath(x)} />
-          </clipPath>
-        ))}
-      </defs>
-
-      {temples.map(({ id, x, img, name }) => (
-        <g key={id}>
-          {/* Deity photo clipped to temple interior */}
-          <image
-            href={img}
-            x={x + 40}
-            y={-30}
-            width={220}
-            height={310}
-            preserveAspectRatio="xMidYMin slice"
-            clipPath={`url(#photo-clip-${id})`}
-          />
-          {/* Dark overlay gradient over the photo for depth */}
-          <path
-            d={photoClipPath(x)}
-            fill="url(#tg2)"
-          />
-          {/* Temple outline stroke (the gopuram silhouette) */}
-          <path
-            d={templeClipPath(x)}
-            fill="#050F22"
-            fillOpacity="0"
-            stroke="#D4AF37"
-            strokeWidth="1"
-            strokeOpacity="0.75"
-          />
-          {/* Temple solid base fill (below photo region) */}
-          <rect
-            x={x + 10}
-            y={200}
-            width={280}
-            height={80}
-            fill="#050F22"
-            fillOpacity="0"
-          />
-          {/* Kalasha (golden orb at top) */}
-          <circle cx={x + 150} cy={28} r={5} fill="#D4AF37" opacity="0.95" />
-          <line
-            x1={x + 150} y1={22}
-            x2={x + 150} y2={33}
-            stroke="#D4AF37" strokeWidth="1" opacity="0.8"
-          />
-          {/* God name label at the base */}
-          <text
-            x={x + 150}
-            y={268}
-            textAnchor="middle"
-            fontFamily="Cormorant Garamond, Georgia, serif"
-            fontSize="13"
-            fill="#D4AF37"
-            opacity="0.9"
-            letterSpacing="2"
+    <div style={{ display: "flex", gap: "6px", width: "100%", alignItems: "flex-end" }}>
+      {temples.map(({ id, img, name }) => (
+        <div key={id} style={{ flex: 1, position: "relative" }}>
+          <div style={{ position: "relative" }}>
+            {/* Deity photo — objectPosition "center 20%" keeps face/head in view */}
+            <img
+              src={img}
+              alt={name}
+              style={{
+                width: "100%",
+                height: "300px",
+                objectFit: "cover",
+                objectPosition: "center 20%",
+                display: "block",
+                clipPath: archClip,
+              }}
+            />
+            {/* Subtle bottom-fade so name label reads cleanly */}
+            <div
+              style={{
+                position: "absolute",
+                inset: 0,
+                background:
+                  "linear-gradient(to bottom, transparent 50%, rgba(5,15,34,0.7) 100%)",
+                clipPath: archClip,
+                pointerEvents: "none",
+              }}
+            />
+            {/* Gold border drawn as an SVG polygon overlay */}
+            <svg
+              viewBox="0 0 100 100"
+              preserveAspectRatio="none"
+              style={{
+                position: "absolute",
+                inset: 0,
+                width: "100%",
+                height: "100%",
+                overflow: "visible",
+                pointerEvents: "none",
+              }}
+            >
+              <polygon
+                points={archPoints}
+                fill="none"
+                stroke="#D4AF37"
+                strokeWidth="0.8"
+                vectorEffect="non-scaling-stroke"
+              />
+            </svg>
+            {/* Kalasha — gold orb at the very tip */}
+            <div
+              style={{
+                position: "absolute",
+                top: "-5px",
+                left: "50%",
+                transform: "translateX(-50%)",
+                width: "11px",
+                height: "11px",
+                borderRadius: "50%",
+                background: "#D4AF37",
+                boxShadow: "0 0 8px rgba(212,175,55,0.7)",
+              }}
+            />
+          </div>
+          {/* Deity name label */}
+          <div
+            style={{
+              textAlign: "center",
+              color: "#D4AF37",
+              fontSize: "11px",
+              letterSpacing: "3px",
+              fontFamily: "Cormorant Garamond, Georgia, serif",
+              marginTop: "10px",
+              paddingBottom: "4px",
+            }}
           >
             {name.toUpperCase()}
-          </text>
-        </g>
+          </div>
+        </div>
       ))}
-
-      {/* Full horizon hairline */}
-      <line x1="0" y1="278" x2="1200" y2="278" stroke="#D4AF37" strokeOpacity="0.3" strokeWidth="0.6" />
-    </svg>
+    </div>
   );
 }
+
+
+
