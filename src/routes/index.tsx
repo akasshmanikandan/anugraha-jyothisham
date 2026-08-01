@@ -9,6 +9,7 @@ import deityBhadrakaliImg from "@/assets/deity-bhadrakali.jpg";
 import deityMuruganImg from "@/assets/deity-murugan.jpg";
 import deityVinayagarFooterImg from "@/assets/deity-vinayagar-footer.jpg";
 import sreeChakraImg from "@/assets/sree-chakra.png";
+import VedicScene from "@/components/VedicScene";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -735,7 +736,9 @@ function LandingPage() {
           </div>
 
           <div className="relative mx-auto flex items-center justify-center">
-            <ZodiacWheel />
+            <div className="aspect-square w-full max-w-[560px]">
+              <VedicScene />
+            </div>
           </div>
         </div>
       </section>
