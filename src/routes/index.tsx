@@ -7,7 +7,7 @@ import gallery1 from "@/assets/gallery-1.jpg";
 import gallery2 from "@/assets/gallery-2.jpg";
 import gallery3 from "@/assets/gallery-3.jpg";
 import gallery4 from "@/assets/gallery-4.jpg";
-import sreeChakra from "@/assets/sree-chakra.png.asset.json";
+import sreeChakra from "@/assets/sree-chakra.png";
 import deityVinayagar from "@/assets/deity-vinayagar.jpg";
 import deityBhadrakali from "@/assets/deity-bhadrakali.jpg";
 import deityMurugan from "@/assets/deity-murugan.jpg";
@@ -854,7 +854,7 @@ function LandingPage() {
           <div data-d3="deep" className="relative">
             <div className="relative overflow-hidden" style={{ borderRadius: 16, background: "#050F22" }}>
               <img
-                src={sreeChakra.url}
+                src={sreeChakra}
                 alt="Sri Chakra (Sri Yantra) plaque in gold and maroon"
                 width={512}
                 height={512}
@@ -1441,10 +1441,10 @@ function TempleSilhouette() {
           <image
             href={img}
             x={x + 40}
-            y={0}
+            y={-30}
             width={220}
-            height={280}
-            preserveAspectRatio="xMidYMax slice"
+            height={310}
+            preserveAspectRatio="xMidYMin slice"
             clipPath={`url(#photo-clip-${id})`}
           />
           {/* Dark overlay gradient over the photo for depth */}
