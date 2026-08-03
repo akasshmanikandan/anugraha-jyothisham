@@ -12,6 +12,8 @@ import deityVinayagar from "@/assets/deity-vinayagar.jpg";
 import deityBhadrakali from "@/assets/deity-bhadrakali.jpg";
 import deityMurugan from "@/assets/deity-murugan.jpg";
 import deityAyyappan from "@/assets/deity-ayyappan.jpg";
+import bgBhadrakali from "@/assets/bg-bhadrakali.png";
+import bgVishnumaya from "@/assets/bg-vishnumaya.png";
 import { TRANSLATIONS, type Language } from "@/lib/translations";
 
 export const Route = createFileRoute("/")({
@@ -772,61 +774,107 @@ function LandingPage() {
 
       {/* About */}
       <section id="about" className="relative py-24" style={{ background: "#050F22" }}>
-        <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 px-6 md:px-10 lg:grid-cols-2">
-          <div data-d3="deep" className="relative">
-            <div className="relative overflow-hidden" style={{ borderRadius: 16, background: "#050F22" }}>
+        <div className="mx-auto grid max-w-7xl grid-cols-1 items-stretch gap-16 px-6 md:px-10 lg:grid-cols-2">
+          {/* Sri Chakra with Bhadrakali background */}
+          <div data-d3="deep" className="relative flex items-center justify-center">
+            <div
+              className="relative w-full overflow-hidden flex items-center justify-center p-6 md:p-8"
+              style={{
+                borderRadius: 20,
+                background: "#050F22",
+                border: "1px solid rgba(212,175,55,0.35)",
+                boxShadow: "0 10px 40px rgba(0,0,0,0.5)",
+              }}
+            >
+              {/* Bhadrakali Background Image */}
+              <img
+                src={bgBhadrakali}
+                alt=""
+                className="absolute inset-0 h-full w-full object-cover opacity-25 filter contrast-125"
+                style={{ mixBlendMode: "luminosity" }}
+              />
+              <div
+                className="pointer-events-none absolute inset-0 z-0"
+                style={{
+                  background:
+                    "radial-gradient(circle at center, rgba(5,15,34,0.4) 0%, rgba(5,15,34,0.85) 100%)",
+                }}
+              />
+
+              {/* Sree Chakra Image */}
               <img
                 src={sreeChakra}
                 alt="Sri Chakra (Sri Yantra) plaque in gold and maroon"
                 width={512}
                 height={512}
                 loading="lazy"
-                className="h-auto w-full object-contain"
-              />
-              <div
-                className="pointer-events-none absolute inset-0"
-                style={{
-                  boxShadow: "inset 0 0 0 1px rgba(212,175,55,0.35)",
-                  background: "linear-gradient(180deg, transparent 60%, rgba(5,15,34,0.45) 100%)",
-                }}
+                className="relative z-10 h-auto w-full max-w-[440px] object-contain drop-shadow-[0_10px_25px_rgba(0,0,0,0.8)]"
               />
             </div>
             <div
-              className="absolute -bottom-6 -right-6 hidden h-24 w-24 border md:block"
+              className="absolute -bottom-6 -right-6 hidden h-24 w-24 border md:block pointer-events-none z-0"
               style={{ borderColor: "rgba(212,175,55,0.4)" }}
             />
           </div>
-          <div>
-            <div className="text-[10px] uppercase tracking-[0.32em]" style={{ color: "#D4AF37" }}>
-              {t.about.eyebrow}
-            </div>
-            <h2 className="mt-4 font-display text-4xl md:text-[44px] text-ivory leading-tight">
-              {t.about.title}
-            </h2>
-            <p className="mt-3 text-[12px] uppercase tracking-[0.28em]" style={{ color: "#D4AF37" }}>
-              {t.about.sub}
-            </p>
-            <div className="mt-8 grid grid-cols-1 gap-x-8 gap-y-3 sm:grid-cols-2">
-              {t.about.bullets.map((item: string) => (
-                <div key={item} className="flex items-start gap-3 text-[15px]" style={{ color: "#C9C3B0" }}>
-                  <span style={{ color: "#D4AF37" }}>◆</span>
-                  <span>{item}</span>
-                </div>
-              ))}
-            </div>
-            <p className="mt-8 text-[15px] leading-relaxed" style={{ color: "#C9C3B0" }}>
-              {t.about.parihara}
-            </p>
+
+          {/* Astrologer Description with Vishnumaya background */}
+          <div
+            className="relative overflow-hidden p-8 md:p-10 flex flex-col justify-center"
+            style={{
+              borderRadius: 20,
+              background: "#050F22",
+              border: "1px solid rgba(212,175,55,0.35)",
+              boxShadow: "0 10px 40px rgba(0,0,0,0.5)",
+            }}
+          >
+            {/* Vishnumaya Background Image */}
+            <img
+              src={bgVishnumaya}
+              alt=""
+              className="absolute inset-0 h-full w-full object-cover object-top opacity-30"
+            />
             <div
-              className="mt-8 border-l pl-5"
-              style={{ borderColor: "rgba(212,175,55,0.35)" }}
-            >
-              <p className="font-display text-[15px] leading-relaxed tracking-[0.08em] text-ivory">
-                {t.about.bannerText}
+              className="pointer-events-none absolute inset-0 z-0"
+              style={{
+                background:
+                  "linear-gradient(135deg, rgba(8,26,52,0.88) 0%, rgba(5,15,34,0.92) 100%)",
+                backdropFilter: "blur(2px)",
+              }}
+            />
+
+            {/* Description Text Content */}
+            <div className="relative z-10">
+              <div className="text-[10px] uppercase tracking-[0.32em]" style={{ color: "#D4AF37" }}>
+                {t.about.eyebrow}
+              </div>
+              <h2 className="mt-4 font-display text-4xl md:text-[44px] text-ivory leading-tight">
+                {t.about.title}
+              </h2>
+              <p className="mt-3 text-[12px] uppercase tracking-[0.28em]" style={{ color: "#D4AF37" }}>
+                {t.about.sub}
               </p>
-              <p className="mt-2 text-[13px] uppercase tracking-[0.24em]" style={{ color: "#D4AF37" }}>
-                {t.about.languagesText}
+              <div className="mt-8 grid grid-cols-1 gap-x-8 gap-y-3 sm:grid-cols-2">
+                {t.about.bullets.map((item: string) => (
+                  <div key={item} className="flex items-start gap-3 text-[15px]" style={{ color: "#C9C3B0" }}>
+                    <span style={{ color: "#D4AF37" }}>◆</span>
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+              <p className="mt-8 text-[15px] leading-relaxed" style={{ color: "#C9C3B0" }}>
+                {t.about.parihara}
               </p>
+              <div
+                className="mt-8 border-l pl-5"
+                style={{ borderColor: "rgba(212,175,55,0.35)" }}
+              >
+                <p className="font-display text-[15px] leading-relaxed tracking-[0.08em] text-ivory">
+                  {t.about.bannerText}
+                </p>
+                <p className="mt-2 text-[13px] uppercase tracking-[0.24em]" style={{ color: "#D4AF37" }}>
+                  {t.about.languagesText}
+                </p>
+              </div>
             </div>
           </div>
         </div>
