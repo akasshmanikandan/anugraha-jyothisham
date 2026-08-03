@@ -790,14 +790,13 @@ function LandingPage() {
               <img
                 src={bgBhadrakali}
                 alt=""
-                className="absolute inset-0 h-full w-full object-cover opacity-25 filter contrast-125"
-                style={{ mixBlendMode: "luminosity" }}
+                className="absolute inset-0 h-full w-full object-cover opacity-65 filter contrast-110"
               />
               <div
                 className="pointer-events-none absolute inset-0 z-0"
                 style={{
                   background:
-                    "radial-gradient(circle at center, rgba(5,15,34,0.4) 0%, rgba(5,15,34,0.85) 100%)",
+                    "radial-gradient(circle at center, rgba(5,15,34,0.2) 0%, rgba(5,15,34,0.7) 100%)",
                 }}
               />
 
@@ -808,7 +807,7 @@ function LandingPage() {
                 width={512}
                 height={512}
                 loading="lazy"
-                className="relative z-10 h-auto w-full max-w-[440px] object-contain drop-shadow-[0_10px_25px_rgba(0,0,0,0.8)]"
+                className="relative z-10 h-auto w-full max-w-[440px] object-contain drop-shadow-[0_12px_30px_rgba(0,0,0,0.9)]"
               />
             </div>
             <div
@@ -831,19 +830,18 @@ function LandingPage() {
             <img
               src={bgVishnumaya}
               alt=""
-              className="absolute inset-0 h-full w-full object-cover object-top opacity-30"
+              className="absolute inset-0 h-full w-full object-cover object-top opacity-60 filter brightness-95"
             />
             <div
               className="pointer-events-none absolute inset-0 z-0"
               style={{
                 background:
-                  "linear-gradient(135deg, rgba(8,26,52,0.88) 0%, rgba(5,15,34,0.92) 100%)",
-                backdropFilter: "blur(2px)",
+                  "linear-gradient(135deg, rgba(8,26,52,0.65) 0%, rgba(5,15,34,0.75) 100%)",
               }}
             />
 
             {/* Description Text Content */}
-            <div className="relative z-10">
+            <div className="relative z-10 [text-shadow:_0_2px_8px_rgba(0,0,0,0.95)]">
               <div className="text-[10px] uppercase tracking-[0.32em]" style={{ color: "#D4AF37" }}>
                 {t.about.eyebrow}
               </div>
