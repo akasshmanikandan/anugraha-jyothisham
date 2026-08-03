@@ -12,6 +12,7 @@ import deityVinayagar from "@/assets/deity-vinayagar.jpg";
 import deityBhadrakali from "@/assets/deity-bhadrakali.jpg";
 import deityMurugan from "@/assets/deity-murugan.jpg";
 import deityAyyappan from "@/assets/deity-ayyappan.jpg";
+import { TRANSLATIONS, type Language } from "@/lib/translations";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -412,131 +413,16 @@ function IconNumerology() {
   );
 }
 
-const SERVICES = [
-  {
-    title: "Jyotisha",
-    sub: "Astrology",
-    body: "Vedic birth-chart analysis, dasha periods, and planetary remedies read from the sidereal śāstras.",
-    Icon: IconAstrology,
-  },
-  {
-    title: "Tantrikam",
-    sub: "Sacred Rituals",
-    body: "Traditional yantra installation and homa ceremonies for protection, prosperity and clarity.",
-    Icon: IconTantrikam,
-  },
-  {
-    title: "Mantrikam",
-    sub: "Mantra Sādhana",
-    body: "Personalised bīja and moola mantras with proper vidhi for chanting, initiation and japa.",
-    Icon: IconMantrikam,
-  },
-  {
-    title: "Vaithiyam",
-    sub: "Ayurvedic Guidance",
-    body: "Prakṛti-based counsel for restoring balance across dosha, diet and daily discipline.",
-    Icon: IconVaithiyam,
-  },
-  {
-    title: "Thambulam",
-    sub: "Betel Leaf Divination",
-    body: "Ancient south-Indian oracle reading for time-sensitive questions and turning points.",
-    Icon: IconThambulam,
-  },
-  {
-    title: "Sāmudrika",
-    sub: "Face Reading",
-    body: "Reading the temperament and destiny inscribed in the features of the face.",
-    Icon: IconFaceReading,
-  },
-  {
-    title: "Nadi",
-    sub: "Palm-Leaf Reading",
-    body: "Consultation of the Nadi granthas — recorded lives inscribed centuries before your birth.",
-    Icon: IconNadi,
-  },
-  {
-    title: "Vaasthu",
-    sub: "Sacred Geometry",
-    body: "Aligning homes, workplaces and temples with the directions, elements and mandala grid.",
-    Icon: IconVaasthu,
-  },
-  {
-    title: "Numerology",
-    sub: "Science of Numbers",
-    body: "Names, dates and vibrational numbers harmonised for personal and family wellbeing.",
-    Icon: IconNumerology,
-  },
-];
-
-/* ---------------- Testimonials ---------------- */
-
-const TESTIMONIALS = [
-  {
-    q: "The remedies suggested were precise and deeply rooted in scripture. My family found peace after years of turbulence.",
-    n: "Lakshmi Narayanan",
-    r: "Chennai",
-  },
-  {
-    q: "A rare astrologer who does not sensationalise. Every reading carried the weight of tradition and calm authority.",
-    n: "Ananya Iyer",
-    r: "Bengaluru",
-  },
-  {
-    q: "Consulted for my son's marriage compatibility. The clarity we received made the decision effortless.",
-    n: "Rajesh Menon",
-    r: "Kochi",
-  },
-  {
-    q: "Vaasthu recommendations for our new home changed the entire atmosphere. Quiet, dignified guidance.",
-    n: "Priya Subramanian",
-    r: "Coimbatore",
-  },
-  {
-    q: "The Nadi reading was uncanny. Nothing embellished, nothing withheld — an honest window into karma.",
-    n: "Vikram Bhatt",
-    r: "Mumbai",
-  },
-  {
-    q: "After a year of practising the mantra given to me, I feel a stillness I did not know was possible.",
-    n: "Meera Krishnan",
-    r: "Trivandrum",
-  },
-];
-
-/* ---------------- Process Steps ---------------- */
-
-const PROCESS = [
-  { n: "01", t: "Book", d: "Reserve a private slot at a time of your choosing." },
-  { n: "02", t: "Birth Details", d: "Share date, time and place of birth in confidence." },
-  { n: "03", t: "Consultation", d: "A one-on-one reading held in person or by call." },
-  { n: "04", t: "Remedies", d: "Receive personalised mantras, yantras and rituals." },
-  { n: "05", t: "Follow-up", d: "Periodic guidance as the dasha and planets shift." },
-];
-
-/* ---------------- FAQ ---------------- */
-
-const FAQS = [
-  {
-    q: "How is a traditional consultation different from an online report?",
-    a: "A śāstric reading examines the interplay of chart, dasha, transits and lineage — nuances a template cannot see. Every remedy prescribed considers your capacity to practise it.",
-  },
-  {
-    q: "What information do I need to share before booking?",
-    a: "Your date of birth, exact time of birth (as close as possible), and place of birth. If unknown, we can perform a rectification session first.",
-  },
-  {
-    q: "Are the remedies difficult to follow?",
-    a: "Remedies are always calibrated to your life. Some are as simple as a mantra at dawn; others involve pooja on specific tithis. Nothing is asked of you that cannot be honoured.",
-  },
-  {
-    q: "Is my consultation confidential?",
-    a: "Absolutely. Every reading, chart and personal detail remains strictly between you and the astrologer.",
-  },
-  {
-    q: "Do you offer follow-up consultations?",
-    a: "Yes. Most clients return once or twice a year, and during significant dasha transitions or life events.",
-  },
+const SERVICE_ICONS = [
+  IconAstrology,
+  IconTantrikam,
+  IconMantrikam,
+  IconVaithiyam,
+  IconThambulam,
+  IconFaceReading,
+  IconNadi,
+  IconVaasthu,
+  IconNumerology,
 ];
 
 /* ---------------- Main page ---------------- */
@@ -547,11 +433,26 @@ function LandingPage() {
   const [wick, setWick] = useState(0);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [fx3d, setFx3d] = useState(true);
+  const [lang, setLang] = useState<Language>("en");
 
   /* Reflect the 3D toggle on <html> so CSS transforms can be switched off */
   useEffect(() => {
     document.documentElement.dataset.fx = fx3d ? "on" : "off";
   }, [fx3d]);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("preferredLanguage");
+    if (saved === "en" || saved === "ta" || saved === "ml") {
+      setLang(saved as Language);
+    }
+  }, []);
+
+  const handleLangChange = (newLang: Language) => {
+    setLang(newLang);
+    localStorage.setItem("preferredLanguage", newLang);
+  };
+
+  const t = TRANSLATIONS[lang];
 
 
   /* Cursor embers — desktop hero only */
@@ -679,8 +580,8 @@ function LandingPage() {
   }, []);
 
   const headline = useMemo(
-    () => ["Guiding", "Lives", "Through", "Ancient", "Wisdom"],
-    []
+    () => t.hero.headline,
+    [t]
   );
 
   return (
@@ -718,22 +619,39 @@ function LandingPage() {
           <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:px-10">
             <a href="#top" className="font-display text-[15px] tracking-[0.24em] text-ivory">
               ANUGRAHA <span style={{ color: "#D4AF37" }}>·</span> JATHAKALAYA
-
             </a>
             <nav className="hidden items-center gap-9 text-[12px] uppercase tracking-[0.22em] md:flex" style={{ color: "#C9C3B0" }}>
-              <a href="#services" className="hover:text-ivory transition-colors">Services</a>
-              <a href="#about" className="hover:text-ivory transition-colors">About</a>
-              <a href="#process" className="hover:text-ivory transition-colors">Process</a>
-              <a href="#testimonials" className="hover:text-ivory transition-colors">Voices</a>
-              <a href="#faq" className="hover:text-ivory transition-colors">FAQ</a>
+              <a href="#services" className="hover:text-ivory transition-colors">{t.nav.services}</a>
+              <a href="#about" className="hover:text-ivory transition-colors">{t.nav.about}</a>
+              <a href="#process" className="hover:text-ivory transition-colors">{t.nav.process}</a>
+              <a href="#testimonials" className="hover:text-ivory transition-colors">{t.nav.voices}</a>
+              <a href="#faq" className="hover:text-ivory transition-colors">{t.nav.faq}</a>
             </nav>
-            <a
-              href="#book"
-              className="hidden text-[12px] uppercase tracking-[0.22em] md:inline-block"
-              style={{ color: "#D4AF37" }}
-            >
-              Book →
-            </a>
+            <div className="flex items-center gap-6">
+              {/* Header language switcher */}
+              <div className="flex items-center gap-2 border px-2.5 py-1 rounded" style={{ borderColor: "rgba(212,175,55,0.25)", background: "rgba(5,15,34,0.4)" }}>
+                {(["en", "ta", "ml"] as const).map((l) => (
+                  <button
+                    key={l}
+                    onClick={() => handleLangChange(l)}
+                    className="px-1.5 py-0.5 rounded text-[10px] uppercase font-semibold transition-all"
+                    style={{
+                      background: lang === l ? "#D4AF37" : "transparent",
+                      color: lang === l ? "#050F22" : "#C9C3B0",
+                    }}
+                  >
+                    {l}
+                  </button>
+                ))}
+              </div>
+              <a
+                href="#book"
+                className="hidden text-[12px] uppercase tracking-[0.22em] md:inline-block"
+                style={{ color: "#D4AF37" }}
+              >
+                {t.nav.book}
+              </a>
+            </div>
           </div>
         </div>
       </header>
@@ -759,11 +677,11 @@ function LandingPage() {
               style={{ borderColor: "rgba(212,175,55,0.35)", color: "#D4AF37" }}
             >
               <span className="h-1 w-1 rounded-full" style={{ background: "#D4AF37" }} />
-              Since 2009 · Rooted in Śāstra
+              {t.hero.tagline}
             </div>
 
             <h1 className="font-display text-[42px] leading-[1.05] tracking-tight text-ivory sm:text-[54px] md:text-[64px] lg:text-[68px]">
-              {headline.map((w, i) => (
+              {headline.map((w: string, i: number) => (
                 <span key={i}>
                   <span className="hero-word" style={{ ["--i" as string]: i }}>
                     {w}
@@ -777,21 +695,48 @@ function LandingPage() {
               className="hero-tagline mt-8 max-w-xl font-serif-italic text-xl md:text-[22px]"
               style={{ color: "#C9C3B0" }}
             >
-              A private consultancy in Vedic astrology, sacred ritual and the quiet arts of remedy —
-              carried forward from a lineage of temple astrologers.
+              {t.hero.description}
             </p>
 
+            {/* Language Selector in Hero */}
+            <div className="mt-8 hero-tagline">
+              <span className="block text-[10px] uppercase tracking-[0.24em] mb-3" style={{ color: "#D4AF37" }}>
+                {t.hero.chooseLang}
+              </span>
+              <div className="flex flex-wrap gap-3">
+                {[
+                  { code: "en", label: "English" },
+                  { code: "ta", label: "தமிழ்" },
+                  { code: "ml", label: "മലയാളം" },
+                ].map((item) => (
+                  <button
+                    key={item.code}
+                    onClick={() => handleLangChange(item.code as Language)}
+                    className="px-5 py-2.5 text-[11px] uppercase tracking-[0.16em] font-medium border transition-all duration-300"
+                    style={{
+                      background: lang === item.code ? "rgba(212,175,55,0.15)" : "rgba(8,26,52,0.35)",
+                      borderColor: lang === item.code ? "#D4AF37" : "rgba(212,175,55,0.3)",
+                      color: lang === item.code ? "#D4AF37" : "#C9C3B0",
+                      boxShadow: lang === item.code ? "0 0 12px rgba(212,175,55,0.2)" : "none",
+                    }}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
             <div className="hero-ctas mt-10 flex flex-wrap items-center gap-4">
-              <CtaButton href="#book">Book Consultation</CtaButton>
+              <CtaButton href="#book">{t.hero.bookBtn}</CtaButton>
               <CtaButton href="https://wa.me/919999999999" variant="maroon">
-                WhatsApp
+                {t.hero.whatsappBtn}
               </CtaButton>
             </div>
 
             <div className="hero-stats mt-16 grid grid-cols-3 gap-6 border-t pt-8" style={{ borderColor: "rgba(212,175,55,0.18)" }}>
-              <StatBlock end={16} suffix="+" label="Years of Practice" />
-              <StatBlock end={5000} suffix="+" label="Clients Guided" />
-              <StatBlock end={9} suffix="" label="Sacred Disciplines" />
+              <StatBlock end={16} suffix="+" label={t.hero.yearsPractice} />
+              <StatBlock end={5000} suffix="+" label={t.hero.clientsGuided} />
+              <StatBlock end={9} suffix="" label={t.hero.sacredDisciplines} />
             </div>
           </div>
 
@@ -922,31 +867,15 @@ function LandingPage() {
       <SectionDivider />
 
       {/* Why Choose Us */}
+      {/* Why Choose Us */}
       <section className="mx-auto max-w-7xl px-6 md:px-10">
         <SectionHeading
-          eyebrow="Why Anugraha"
-          title="Tradition, Held Whole"
-          quote="What is old must not be antique — it must be alive."
+          eyebrow={t.whyChooseUs.eyebrow}
+          title={t.whyChooseUs.title}
+          quote={t.whyChooseUs.quote}
         />
         <div className="mt-16 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
-          {[
-            {
-              t: "Unbroken Lineage",
-              d: "Five generations of temple astrologers, taught in the classical guru-śiṣya tradition.",
-            },
-            {
-              t: "Śāstric Fidelity",
-              d: "Every reading grounded in Parāśara, Jaimini and Nadi literature — never intuition alone.",
-            },
-            {
-              t: "Discreet Practice",
-              d: "Consultations by appointment only, held with the confidentiality of a physician.",
-            },
-            {
-              t: "Practical Remedies",
-              d: "Prescriptions calibrated to your life — never asking what you cannot faithfully do.",
-            },
-          ].map((x, i) => (
+          {t.whyChooseUs.items.map((x: any, i: number) => (
             <div key={i} className="glass-card p-8">
               <div
                 className="mb-5 font-display text-[13px] tracking-[0.3em]"
@@ -969,9 +898,9 @@ function LandingPage() {
       <section id="process" className="relative py-24" style={{ background: "#050F22" }}>
         <div className="mx-auto max-w-7xl px-6 md:px-10">
           <SectionHeading
-            eyebrow="Consultation Path"
-            title="Five Steps, Held with Care"
-            quote="The right path is walked slowly, one lamp at a time."
+            eyebrow={t.process.eyebrow}
+            title={t.process.title}
+            quote={t.process.quote}
           />
 
           <div ref={timelineRef} className="relative mt-20">
@@ -979,8 +908,8 @@ function LandingPage() {
             <div className="wick-fill" style={{ ["--wick" as string]: `${wick}%` }} />
 
             <ol className="relative grid grid-cols-2 gap-y-14 md:grid-cols-5 md:gap-y-0">
-              {PROCESS.map((p, i) => {
-                const active = wick > (i / (PROCESS.length - 1)) * 100 - 5;
+              {t.process.steps.map((p: any, i: number) => {
+                const active = wick > (i / (t.process.steps.length - 1)) * 100 - 5;
                 return (
                   <li key={p.n} className="relative flex flex-col items-center px-3 text-center">
                     <div
@@ -1018,9 +947,9 @@ function LandingPage() {
       <section id="testimonials" className="overflow-hidden">
         <div className="mx-auto max-w-7xl px-6 md:px-10">
           <SectionHeading
-            eyebrow="Voices"
-            title="Words Left Behind"
-            quote="Gratitude is the only offering that outlasts the ritual."
+            eyebrow={t.testimonials.eyebrow}
+            title={t.testimonials.title}
+            quote={t.testimonials.quote}
           />
         </div>
         <div className="marquee relative mt-16 overflow-hidden">
@@ -1034,16 +963,16 @@ function LandingPage() {
             style={{ background: "linear-gradient(to left, #081A34, transparent)" }}
           />
           <div className="marquee-track flex gap-6 w-max py-4">
-            {[...TESTIMONIALS, ...TESTIMONIALS].map((t, i) => (
+            {[...t.testimonials.items, ...t.testimonials.items].map((tm: any, i: number) => (
               <figure key={i} className="glass-card w-[380px] shrink-0 p-8">
                 <div className="font-display text-3xl leading-none" style={{ color: "#D4AF37" }}>
                   &ldquo;
                 </div>
                 <blockquote className="mt-3 font-serif-italic text-[17px] leading-relaxed text-ivory">
-                  {t.q}
+                  {tm.q}
                 </blockquote>
                 <figcaption className="mt-6 text-[12px] uppercase tracking-[0.22em]" style={{ color: "#C9C3B0" }}>
-                  {t.n} · <span style={{ color: "#D4AF37" }}>{t.r}</span>
+                  {tm.n} · <span style={{ color: "#D4AF37" }}>{tm.r}</span>
                 </figcaption>
               </figure>
             ))}
@@ -1056,9 +985,9 @@ function LandingPage() {
       {/* Gallery */}
       <section className="mx-auto max-w-7xl px-6 md:px-10">
         <SectionHeading
-          eyebrow="From the Practice"
-          title="Instruments & Rituals"
-          quote="The tools are old; the questions, always new."
+          eyebrow={t.gallery.eyebrow}
+          title={t.gallery.title}
+          quote={t.gallery.quote}
         />
         <div className="mt-16 grid grid-cols-2 gap-4 md:grid-cols-4">
           {[gallery1, gallery2, gallery3, gallery4].map((g, i) => (
@@ -1098,12 +1027,12 @@ function LandingPage() {
       {/* FAQ */}
       <section id="faq" className="mx-auto max-w-4xl px-6 md:px-10">
         <SectionHeading
-          eyebrow="Questions"
-          title="Before You Begin"
-          quote="Ask freely — clarity is itself a first remedy."
+          eyebrow={t.faq.eyebrow}
+          title={t.faq.title}
+          quote={t.faq.quote}
         />
         <div className="mt-14 divide-y" style={{ borderColor: "rgba(212,175,55,0.2)" }}>
-          {FAQS.map((f, i) => {
+          {t.faq.items.map((f: any, i: number) => {
             const open = openFaq === i;
             return (
               <div key={i} className="py-6" style={{ borderTop: i === 0 ? "1px solid rgba(212,175,55,0.2)" : undefined, borderBottom: "1px solid rgba(212,175,55,0.2)" }}>
@@ -1157,33 +1086,32 @@ function LandingPage() {
         <div className="mx-auto grid max-w-6xl grid-cols-1 gap-16 px-6 md:px-10 lg:grid-cols-[1fr_1.1fr]">
           <div>
             <div className="text-[10px] uppercase tracking-[0.32em]" style={{ color: "#D4AF37" }}>
-              Reserve a Sitting
+              {t.book.eyebrow}
             </div>
             <h2 className="mt-4 font-display text-4xl leading-tight text-ivory md:text-[44px]">
-              A private hour with the śāstra.
+              {t.book.title}
             </h2>
             <p className="mt-6 font-serif-italic text-xl" style={{ color: "#C9C3B0" }}>
-              Consultations by appointment. In person at our study in Chennai, or by secure video
-              call.
+              {t.book.quote}
             </p>
             <div className="mt-10 space-y-4 text-[14px]" style={{ color: "#C9C3B0" }}>
               <div className="flex items-baseline gap-4">
                 <span className="w-24 uppercase tracking-[0.22em] text-[11px]" style={{ color: "#D4AF37" }}>
-                  Hours
+                  {t.book.hoursLabel}
                 </span>
-                <span>Mon–Sat · 07:00 – 19:00 IST</span>
+                <span>{t.book.hoursVal}</span>
               </div>
               <div className="flex items-baseline gap-4">
                 <span className="w-24 uppercase tracking-[0.22em] text-[11px]" style={{ color: "#D4AF37" }}>
-                  Address
+                  {t.book.addressLabel}
                 </span>
-                <span>No. 7, Kutchery Road, Mylapore, Chennai 600004</span>
+                <span>{t.book.addressVal}</span>
               </div>
               <div className="flex items-baseline gap-4">
                 <span className="w-24 uppercase tracking-[0.22em] text-[11px]" style={{ color: "#D4AF37" }}>
-                  Contact
+                  {t.book.contactLabel}
                 </span>
-                <span>+91 99999 99999 · office@anugrahajyotisham.in</span>
+                <span>{t.book.contactVal}</span>
               </div>
             </div>
           </div>
@@ -1195,40 +1123,38 @@ function LandingPage() {
             }}
           >
             <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-              <Field label="Full Name" placeholder="Your name" />
-              <Field label="Phone" placeholder="+91 …" />
-              <Field label="Date of Birth" type="date" />
-              <Field label="Time of Birth" type="time" />
+              <Field label={t.book.form.name} placeholder={t.book.form.namePlaceholder} />
+              <Field label={t.book.form.phone} placeholder={t.book.form.phonePlaceholder} />
+              <Field label={t.book.form.dob} type="date" />
+              <Field label={t.book.form.tob} type="time" />
               <div className="md:col-span-2">
-                <Field label="Place of Birth" placeholder="Town, State" />
+                <Field label={t.book.form.pob} placeholder={t.book.form.pobPlaceholder} />
               </div>
               <div className="md:col-span-2">
                 <label className="mb-2 block text-[11px] uppercase tracking-[0.22em]" style={{ color: "#D4AF37" }}>
-                  Nature of Consultation
+                  {t.book.form.nature}
                 </label>
                 <select className="field w-full px-4 py-3 text-[14px]">
-                  <option>Jyotisha — Birth chart reading</option>
-                  <option>Nadi — Palm-leaf consultation</option>
-                  <option>Vaasthu — Home / workplace</option>
-                  <option>Marriage compatibility</option>
-                  <option>Other</option>
+                  {t.book.form.natureOptions.map((opt: string) => (
+                    <option key={opt}>{opt}</option>
+                  ))}
                 </select>
               </div>
               <div className="md:col-span-2">
                 <label className="mb-2 block text-[11px] uppercase tracking-[0.22em]" style={{ color: "#D4AF37" }}>
-                  Your Question
+                  {t.book.form.question}
                 </label>
                 <textarea
                   rows={4}
                   className="field w-full px-4 py-3 text-[14px]"
-                  placeholder="Briefly describe the concern you wish to bring…"
+                  placeholder={t.book.form.questionPlaceholder}
                 />
               </div>
             </div>
             <div className="mt-8 flex flex-wrap items-center gap-4">
-              <CtaButton type="submit">Request Appointment</CtaButton>
+              <CtaButton type="submit">{t.book.form.submit}</CtaButton>
               <span className="font-serif-italic text-[13px]" style={{ color: "#C9C3B0" }}>
-                We reply within one working day.
+                {t.book.form.replyNote}
               </span>
             </div>
           </form>
@@ -1244,22 +1170,22 @@ function LandingPage() {
                 ANUGRAHA <span style={{ color: "#D4AF37" }}>·</span> JATHAKALAYA
               </div>
               <p className="mt-5 max-w-md font-serif-italic text-lg" style={{ color: "#C9C3B0" }}>
-                A private consultancy in traditional Vedic astrology and spiritual practice.
+                {t.footer.description}
               </p>
             </div>
             <div>
               <div className="text-[11px] uppercase tracking-[0.28em]" style={{ color: "#D4AF37" }}>
-                Consultation
+                {t.footer.headers.consultation}
               </div>
               <ul className="mt-4 space-y-2 text-[14px]" style={{ color: "#C9C3B0" }}>
-                <li><a href="#services">Nine Disciplines</a></li>
-                <li><a href="#process">Process</a></li>
-                <li><a href="#book">Book a Sitting</a></li>
+                <li><a href="#services">{t.nav.services}</a></li>
+                <li><a href="#process">{t.nav.process}</a></li>
+                <li><a href="#book">{t.nav.book}</a></li>
               </ul>
             </div>
             <div>
               <div className="text-[11px] uppercase tracking-[0.28em]" style={{ color: "#D4AF37" }}>
-                Contact
+                {t.footer.headers.contact}
               </div>
               <ul className="mt-4 space-y-2 text-[14px]" style={{ color: "#C9C3B0" }}>
                 <li>+91 99999 99999</li>
@@ -1271,15 +1197,15 @@ function LandingPage() {
 
           {/* Temple silhouette */}
           <div className="mt-16 -mb-2">
-            <TempleSilhouette />
+            <TempleSilhouette lang={lang} />
           </div>
           <div
             className="flex items-center justify-between border-t py-6 text-[11px] uppercase tracking-[0.22em]"
             style={{ borderColor: "rgba(212,175,55,0.2)", color: "#C9C3B0" }}
           >
-            <span>© 2026 Anugraha Jathakalaya. All rights reserved.</span>
+            <span>{t.footer.copyright}</span>
             <span className="font-serif-italic normal-case tracking-normal text-[13px]" style={{ color: "#D4AF37" }}>
-              Ōm śānti śānti śānti
+              {t.footer.shanti}
             </span>
           </div>
         </div>
@@ -1353,12 +1279,20 @@ function Field({
   );
 }
 
-function TempleSilhouette() {
+function TempleSilhouette({ lang = "en" }: { lang?: Language }) {
+  const deityNames = {
+    en: ["Vinayagar", "Bhadrakali", "Murugan", "Ayyappan"],
+    ta: ["விநாயகர்", "பத்ரகாளி", "முருகன்", "ஐயப்பன்"],
+    ml: ["ഗണപതി", "ഭദ്രകാളി", "മുരുകൻ", "അയ്യപ്പൻ"],
+  };
+
+  const names = deityNames[lang] || deityNames.en;
+
   const temples = [
-    { id: "t1", img: deityVinayagar,  name: "Vinayagar"  },
-    { id: "t2", img: deityBhadrakali, name: "Bhadrakali" },
-    { id: "t3", img: deityMurugan,    name: "Murugan"    },
-    { id: "t4", img: deityAyyappan,   name: "Ayyappan"   },
+    { id: "t1", img: deityVinayagar,  name: names[0] },
+    { id: "t2", img: deityBhadrakali, name: names[1] },
+    { id: "t3", img: deityMurugan,    name: names[2] },
+    { id: "t4", img: deityAyyappan,   name: names[3] },
   ];
 
   // Temple arch as a CSS polygon clip-path (percentage-based).
