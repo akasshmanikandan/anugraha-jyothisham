@@ -760,34 +760,36 @@ function LandingPage() {
       {/* Services */}
       <section id="services" className="mx-auto max-w-7xl px-6 md:px-10">
         <SectionHeading
-          eyebrow="The Nine Disciplines"
-          title="Sacred Consultations"
-          quote="Each art a lamp; together, they illumine the whole of one life."
+          eyebrow={t.services.eyebrow}
+          title={t.services.title}
+          quote={t.services.quote}
         />
         <div className="mt-16 grid grid-cols-1 gap-px sm:grid-cols-2 lg:grid-cols-3" style={{ background: "rgba(212,175,55,0.15)" }}>
-          {SERVICES.map((s) => (
-            <article
-              key={s.title}
-              data-d3="card"
-              className="service-card group relative overflow-hidden p-8 md:p-10"
-              style={{ background: "#081A34" }}
-            >
-
-              <div className="mb-6">
-                <s.Icon />
-              </div>
-              <div
-                className="mb-1 text-[10px] uppercase tracking-[0.28em]"
-                style={{ color: "#D4AF37" }}
+          {t.services.items.map((s: any, idx: number) => {
+            const Icon = SERVICE_ICONS[idx];
+            return (
+              <article
+                key={idx}
+                data-d3="card"
+                className="service-card group relative overflow-hidden p-8 md:p-10"
+                style={{ background: "#081A34" }}
               >
-                {s.sub}
-              </div>
-              <h3 className="font-display text-2xl text-ivory">{s.title}</h3>
-              <p className="mt-4 text-[14.5px] leading-relaxed" style={{ color: "#C9C3B0" }}>
-                {s.body}
-              </p>
-            </article>
-          ))}
+                <div className="mb-6">
+                  {Icon && <Icon />}
+                </div>
+                <div
+                  className="mb-1 text-[10px] uppercase tracking-[0.28em]"
+                  style={{ color: "#D4AF37" }}
+                >
+                  {s.sub}
+                </div>
+                <h3 className="font-display text-2xl text-ivory">{s.title}</h3>
+                <p className="mt-4 text-[14.5px] leading-relaxed" style={{ color: "#C9C3B0" }}>
+                  {s.body}
+                </p>
+              </article>
+            );
+          })}
         </div>
       </section>
 
@@ -821,25 +823,16 @@ function LandingPage() {
           </div>
           <div>
             <div className="text-[10px] uppercase tracking-[0.32em]" style={{ color: "#D4AF37" }}>
-              The Astrologer
+              {t.about.eyebrow}
             </div>
             <h2 className="mt-4 font-display text-4xl md:text-[44px] text-ivory leading-tight">
-              Sri. V. Govindan Namboodiri
+              {t.about.title}
             </h2>
             <p className="mt-3 text-[12px] uppercase tracking-[0.28em]" style={{ color: "#D4AF37" }}>
-              Vedic Astrologer
+              {t.about.sub}
             </p>
             <div className="mt-8 grid grid-cols-1 gap-x-8 gap-y-3 sm:grid-cols-2">
-              {[
-                "Basic Horoscope, Predictions",
-                "Total Horoscope, Predictions",
-                "Birthday Annual Forecast",
-                "Marriage Matching",
-                "Muhurtha Date and Time",
-                "Numerology Predictions",
-                "Suitable & Lucky Name",
-                "Lucky Rasi Gems",
-              ].map((item) => (
+              {t.about.bullets.map((item: string) => (
                 <div key={item} className="flex items-start gap-3 text-[15px]" style={{ color: "#C9C3B0" }}>
                   <span style={{ color: "#D4AF37" }}>◆</span>
                   <span>{item}</span>
@@ -847,17 +840,17 @@ function LandingPage() {
               ))}
             </div>
             <p className="mt-8 text-[15px] leading-relaxed" style={{ color: "#C9C3B0" }}>
-              All kinds of parihara related religious rituals and Homam are performed.
+              {t.about.parihara}
             </p>
             <div
               className="mt-8 border-l pl-5"
               style={{ borderColor: "rgba(212,175,55,0.35)" }}
             >
               <p className="font-display text-[15px] leading-relaxed tracking-[0.08em] text-ivory">
-                WE PROVIDE ASTROLOGICAL SERVICES “ANYWHERE IN THE WORLD”
+                {t.about.bannerText}
               </p>
               <p className="mt-2 text-[13px] uppercase tracking-[0.24em]" style={{ color: "#D4AF37" }}>
-                Tamil · English · Hindi · Malayalam
+                {t.about.languagesText}
               </p>
             </div>
           </div>
