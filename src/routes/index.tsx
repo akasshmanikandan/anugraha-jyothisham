@@ -451,6 +451,15 @@ function LandingPage() {
     }
   }, []);
 
+  useEffect(() => {
+    const titles: Record<Language, string> = {
+      en: "Anugraha Jyothishalaya - Vedic Astrology by Govindan Namboodiri VG",
+      ta: "அனுக்ரஹ ஜோதிஷாலயா - கோவிந்தன் நம்பூதிரி VG",
+      ml: "അനുഗ്രഹ ജ്യോതിഷാലയ - ഗോവിന്ദൻ നമ്പൂതിരി VG",
+    };
+    document.title = titles[lang];
+  }, [lang]);
+
   const handleLangChange = (newLang: Language) => {
     setLang(newLang);
     localStorage.setItem("preferredLanguage", newLang);
