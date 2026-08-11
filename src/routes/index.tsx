@@ -15,7 +15,6 @@ import sreeChakra from "@/assets/sree-chakra.png";
 import deityVinayagar from "@/assets/deity-vinayagar.jpg";
 import deityAyyappan from "@/assets/deity-ayyappan.jpg";
 import bgBhadrakali from "@/assets/bg-bhadrakali.png";
-import descriptionBg from "@/assets/image.png";
 import templePhoto from "@/assets/photo.png";
 import { TRANSLATIONS, type Language } from "@/lib/translations";
 
@@ -846,15 +845,15 @@ function LandingPage() {
           >
             {/* Description background image */}
             <img
-              src={descriptionBg}
+              src={templePhoto}
               alt="Pooja ceremony photo"
-              className="absolute inset-0 h-full w-full object-cover object-center opacity-82 filter brightness-105 contrast-110"
+              className="absolute inset-0 h-full w-full object-cover object-center opacity-88 filter brightness-110 contrast-115"
             />
             <div
               className="pointer-events-none absolute inset-0 z-0"
               style={{
                 background:
-                  "linear-gradient(135deg, rgba(8,26,52,0.38) 0%, rgba(5,15,34,0.60) 100%)",
+                  "linear-gradient(135deg, rgba(8,26,52,0.28) 0%, rgba(5,15,34,0.52) 100%)",
               }}
             />
 
