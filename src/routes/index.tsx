@@ -844,7 +844,7 @@ function LandingPage() {
                 width={512}
                 height={512}
                 loading="lazy"
-                className="relative z-10 h-auto w-full max-w-[340px] object-contain opacity-82 mix-blend-screen drop-shadow-[0_6px_14px_rgba(0,0,0,0.42)]"
+                className="relative z-10 h-auto w-full max-w-[340px] object-contain opacity-90 mix-blend-screen drop-shadow-[0_6px_14px_rgba(0,0,0,0.42)]"
               />
             </div>
             <div
