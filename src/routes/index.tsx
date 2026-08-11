@@ -14,7 +14,7 @@ import ritual8 from "@/assets/ritual-8.jpeg";
 import sreeChakra from "@/assets/sree-chakra.png";
 import deityVinayagar from "@/assets/deity-vinayagar.jpg";
 
-import bgBhadrakali from "@/assets/bg-bhadrakali.png";
+import bgBhadrakali from "@/assets/god-photo-4.jpeg";
 import templePhoto from "@/assets/photo.png";
 import godPhoto3 from "@/assets/god-photo-3.jpeg";
 import { TRANSLATIONS, type Language } from "@/lib/translations";
@@ -844,7 +844,7 @@ function LandingPage() {
                 width={512}
                 height={512}
                 loading="lazy"
-                className="relative z-10 h-auto w-full max-w-[340px] object-contain opacity-50 mix-blend-screen drop-shadow-[0_6px_14px_rgba(0,0,0,0.42)]"
+                className="relative z-10 h-auto w-full max-w-[340px] object-contain opacity-68 mix-blend-screen drop-shadow-[0_6px_14px_rgba(0,0,0,0.42)]"
               />
             </div>
             <div
