@@ -18,6 +18,7 @@ import deityMurugan from "@/assets/deity-murugan.jpg";
 import deityAyyappan from "@/assets/deity-ayyappan.jpg";
 import bgBhadrakali from "@/assets/bg-bhadrakali.png";
 import bgVishnumaya from "@/assets/bg-vishnumaya.png";
+import templePhoto from "@/assets/photo.png";
 import { TRANSLATIONS, type Language } from "@/lib/translations";
 
 export const Route = createFileRoute("/")({
@@ -809,13 +810,13 @@ function LandingPage() {
               <img
                 src={bgBhadrakali}
                 alt="Pooja ceremony photo"
-                className="absolute inset-0 h-full w-full object-cover opacity-82 filter contrast-115 saturate-110"
+                className="absolute inset-0 h-full w-full object-cover opacity-92 filter contrast-125 saturate-125 brightness-105"
               />
               <div
                 className="pointer-events-none absolute inset-0 z-0"
                 style={{
                   background:
-                    "radial-gradient(circle at center, rgba(5,15,34,0.08) 0%, rgba(5,15,34,0.52) 100%)",
+                    "radial-gradient(circle at center, rgba(5,15,34,0.02) 0%, rgba(5,15,34,0.36) 100%)",
                 }}
               />
 
@@ -826,7 +827,7 @@ function LandingPage() {
                 width={512}
                 height={512}
                 loading="lazy"
-                className="relative z-10 h-auto w-full max-w-[400px] object-contain opacity-82 drop-shadow-[0_10px_24px_rgba(0,0,0,0.72)]"
+                className="relative z-10 h-auto w-full max-w-[360px] object-contain opacity-72 drop-shadow-[0_8px_18px_rgba(0,0,0,0.62)]"
               />
             </div>
             <div
@@ -849,13 +850,18 @@ function LandingPage() {
             <img
               src={bgVishnumaya}
               alt="Pooja ceremony photo"
-              className="absolute inset-0 h-full w-full object-cover object-top opacity-60 filter brightness-95"
+              className="absolute inset-0 h-full w-full object-cover object-top opacity-68 filter brightness-100 contrast-110"
+            />
+            <img
+              src={templePhoto}
+              alt="Temple deity close-up"
+              className="absolute right-6 top-6 z-0 hidden w-40 rotate-3 rounded-2xl border border-[rgba(212,175,55,0.22)] object-cover opacity-55 shadow-2xl md:block lg:w-48"
             />
             <div
               className="pointer-events-none absolute inset-0 z-0"
               style={{
                 background:
-                  "linear-gradient(135deg, rgba(8,26,52,0.65) 0%, rgba(5,15,34,0.75) 100%)",
+                  "linear-gradient(135deg, rgba(8,26,52,0.52) 0%, rgba(5,15,34,0.68) 100%)",
               }}
             />
 
