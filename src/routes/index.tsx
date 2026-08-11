@@ -3,10 +3,14 @@ import { Suspense, lazy, useEffect, useMemo, useRef, useState } from "react";
 
 const VedicScene = lazy(() => import("@/components/VedicScene"));
 
-import gallery1 from "@/assets/gallery-1.jpg";
-import gallery2 from "@/assets/gallery-2.jpg";
-import gallery3 from "@/assets/gallery-3.jpg";
-import gallery4 from "@/assets/gallery-4.jpg";
+import godPhoto1 from "@/assets/god-photo-1.jpeg";
+import ritual1 from "@/assets/ritual-1.jpeg";
+import ritual2 from "@/assets/ritual-2.jpeg";
+import ritual3 from "@/assets/ritual-3.jpeg";
+import ritual4 from "@/assets/ritual-4.jpeg";
+import ritual5 from "@/assets/ritual-5.jpeg";
+import ritual6 from "@/assets/ritual-6.jpeg";
+import ritual8 from "@/assets/ritual-8.jpeg";
 import sreeChakra from "@/assets/sree-chakra.png";
 import deityVinayagar from "@/assets/deity-vinayagar.jpg";
 import deityBhadrakali from "@/assets/deity-bhadrakali.jpg";
@@ -19,13 +23,13 @@ import { TRANSLATIONS, type Language } from "@/lib/translations";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Anugraha Jathakalaya — Vedic Astrology by Sri. V. Govindan Namboodiri" },
+      { title: "Anugraha Jyothishalaya — Vedic Astrology by Govindan Namboodiri VG" },
       {
         name: "description",
         content:
-          "Anugraha Jathakalaya — Sri. V. Govindan Namboodiri, Vedic Astrologer. Horoscope, marriage matching, muhurtha, numerology, lucky name and rasi gems. Services anywhere in the world.",
+          "Anugraha Jyothishalaya — Govindan Namboodiri VG, Vedic Astrologer. Horoscope, marriage matching, muhurtha, numerology, lucky name and rasi gems. Services anywhere in the world.",
       },
-      { property: "og:title", content: "Anugraha Jathakalaya — Vedic Astrology" },
+      { property: "og:title", content: "Anugraha Jyothishalaya — Vedic Astrology" },
 
       {
         property: "og:description",
@@ -432,6 +436,7 @@ const SERVICE_ICONS = [
 function LandingPage() {
   const heroRef = useRef<HTMLDivElement>(null);
   const timelineRef = useRef<HTMLDivElement>(null);
+  const galleryStripRef = useRef<HTMLDivElement>(null);
   const [wick, setWick] = useState(0);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [lang, setLang] = useState<Language>("en");
@@ -585,6 +590,20 @@ function LandingPage() {
     [t]
   );
 
+  const galleryPhotos = useMemo(
+    () => [
+      { src: godPhoto1, alt: "Temple deity adorned with flowers" },
+      { src: ritual1, alt: "Ritual fire ceremony at night" },
+      { src: ritual2, alt: "Ritual altar with lamps and floral arrangement" },
+      { src: ritual3, alt: "Floor ritual with lamps and offerings" },
+      { src: ritual4, alt: "Temple ritual with central fire and devotees" },
+      { src: ritual5, alt: "Decorated shrine with multiple deity frames" },
+      { src: ritual6, alt: "Pooja arrangement with lamps and flowers" },
+      { src: ritual8, alt: "Sacred fire burning in a ritual pit" },
+    ],
+    []
+  );
+
   return (
     <div className="min-h-screen text-ivory" style={{ background: "#081A34", color: "#F7F4EA" }}>
       {/* Navigation */}
@@ -709,7 +728,7 @@ function LandingPage() {
 
             <div className="hero-ctas mt-10 flex flex-wrap items-center gap-4">
               <CtaButton href="#book">{t.hero.bookBtn}</CtaButton>
-              <CtaButton href="https://wa.me/919999999999" variant="maroon">
+              <CtaButton href="https://wa.me/918778236182" variant="maroon">
                 {t.hero.whatsappBtn}
               </CtaButton>
             </div>
@@ -789,14 +808,14 @@ function LandingPage() {
               {/* Bhadrakali Background Image */}
               <img
                 src={bgBhadrakali}
-                alt=""
-                className="absolute inset-0 h-full w-full object-cover opacity-65 filter contrast-110"
+                alt="Pooja ceremony photo"
+                className="absolute inset-0 h-full w-full object-cover opacity-82 filter contrast-115 saturate-110"
               />
               <div
                 className="pointer-events-none absolute inset-0 z-0"
                 style={{
                   background:
-                    "radial-gradient(circle at center, rgba(5,15,34,0.2) 0%, rgba(5,15,34,0.7) 100%)",
+                    "radial-gradient(circle at center, rgba(5,15,34,0.08) 0%, rgba(5,15,34,0.52) 100%)",
                 }}
               />
 
@@ -807,7 +826,7 @@ function LandingPage() {
                 width={512}
                 height={512}
                 loading="lazy"
-                className="relative z-10 h-auto w-full max-w-[440px] object-contain drop-shadow-[0_12px_30px_rgba(0,0,0,0.9)]"
+                className="relative z-10 h-auto w-full max-w-[400px] object-contain opacity-82 drop-shadow-[0_10px_24px_rgba(0,0,0,0.72)]"
               />
             </div>
             <div
@@ -829,7 +848,7 @@ function LandingPage() {
             {/* Vishnumaya Background Image */}
             <img
               src={bgVishnumaya}
-              alt=""
+              alt="Pooja ceremony photo"
               className="absolute inset-0 h-full w-full object-cover object-top opacity-60 filter brightness-95"
             />
             <div
@@ -1003,36 +1022,72 @@ function LandingPage() {
           title={t.gallery.title}
           quote={t.gallery.quote}
         />
-        <div className="mt-16 grid grid-cols-2 gap-4 md:grid-cols-4">
-          {[gallery1, gallery2, gallery3, gallery4].map((g, i) => (
-            <figure
-              key={i}
-              data-d3="deep"
-              className="relative overflow-hidden"
-              style={{
-                borderRadius: 12,
-                border: "1px solid rgba(212,175,55,0.2)",
-                transitionDelay: `${i * 40}ms`,
-              }}
-            >
-
-              <img
-                src={g}
-                alt=""
-                width={1024}
-                height={1280}
-                loading="lazy"
-                className="h-64 w-full object-cover md:h-80"
-              />
-              <div
-                className="pointer-events-none absolute inset-0"
-                style={{
-                  background:
-                    "linear-gradient(180deg, transparent 60%, rgba(5,15,34,0.7) 100%)",
+        <div className="mt-16">
+          <div className="mb-5 flex items-center justify-between gap-4">
+            <p className="text-[11px] uppercase tracking-[0.28em]" style={{ color: "#C9C3B0" }}>
+              Scroll through the ritual archive
+            </p>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  galleryStripRef.current?.scrollBy({ left: -420, behavior: "smooth" });
                 }}
-              />
-            </figure>
-          ))}
+                className="border px-3 py-2 text-[11px] uppercase tracking-[0.2em] transition-colors hover:bg-[rgba(212,175,55,0.08)]"
+                style={{ borderColor: "rgba(212,175,55,0.25)", color: "#D4AF37" }}
+                aria-label="Scroll gallery left"
+              >
+                Prev
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  galleryStripRef.current?.scrollBy({ left: 420, behavior: "smooth" });
+                }}
+                className="border px-3 py-2 text-[11px] uppercase tracking-[0.2em] transition-colors hover:bg-[rgba(212,175,55,0.08)]"
+                style={{ borderColor: "rgba(212,175,55,0.25)", color: "#D4AF37" }}
+                aria-label="Scroll gallery right"
+              >
+                Next
+              </button>
+            </div>
+          </div>
+          <div
+            ref={galleryStripRef}
+            className="flex gap-4 overflow-x-auto pb-4 pr-2"
+            style={{ scrollbarWidth: "thin", scrollbarColor: "rgba(212,175,55,0.35) transparent" }}
+          >
+            {galleryPhotos.map((photo, i) => (
+              <figure
+                key={photo.src}
+                data-d3="deep"
+                className="relative shrink-0 overflow-hidden"
+                style={{
+                  borderRadius: 12,
+                  border: "1px solid rgba(212,175,55,0.2)",
+                  width: "min(78vw, 320px)",
+                  aspectRatio: "3 / 4",
+                  transitionDelay: `${i * 40}ms`,
+                }}
+              >
+                <img
+                  src={photo.src}
+                  alt={photo.alt}
+                  width={1024}
+                  height={1280}
+                  loading="lazy"
+                  className="h-full w-full object-cover"
+                />
+                <div
+                  className="pointer-events-none absolute inset-0"
+                  style={{
+                    background:
+                      "linear-gradient(180deg, transparent 58%, rgba(5,15,34,0.72) 100%)",
+                  }}
+                />
+              </figure>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -1403,6 +1458,8 @@ function TempleSilhouette({ lang = "en" }: { lang?: Language }) {
     </div>
   );
 }
+
+
 
 
 

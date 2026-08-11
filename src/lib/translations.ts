@@ -76,7 +76,7 @@ export const TRANSLATIONS: Record<Language, any> = {
     },
     about: {
       eyebrow: "The Astrologer",
-      title: "Sri. V. Govindan Namboodiri",
+      title: "Govindan Namboodiri VG",
       sub: "Vedic Astrologer",
       bullets: [
         "Basic Horoscope, Predictions",
@@ -165,9 +165,9 @@ export const TRANSLATIONS: Record<Language, any> = {
       ],
     },
     gallery: {
-      eyebrow: "From the Practice",
-      title: "Instruments & Rituals",
-      quote: "The tools are old; the questions, always new.",
+      eyebrow: "Pooja Photos",
+      title: "Temple Rituals",
+      quote: "Moments from the living practice.",
     },
     faq: {
       eyebrow: "Questions",
@@ -201,11 +201,11 @@ export const TRANSLATIONS: Record<Language, any> = {
       title: "A private hour with the śāstra.",
       quote: "Consultations by appointment. In person at our study in Chennai, or by secure video call.",
       hoursLabel: "Hours",
-      hoursVal: "Mon–Sat · 07:00 – 19:00 IST",
+      hoursVal: "Mon–Sat · 08:00 – 17:00 IST",
       addressLabel: "Address",
-      addressVal: "No. 7, Kutchery Road, Mylapore, Chennai 600004",
+      addressVal: "Flat No. 6, Saravana Villa, Meenakshi Street, Perambur, Chennai 600011",
       contactLabel: "Contact",
-      contactVal: "+91 99999 99999 · office@anugrahajyotisham.in",
+      contactVal: "+91 877 823 6182 · WhatsApp available",
       form: {
         name: "Full Name",
         namePlaceholder: "Your name",
@@ -235,7 +235,7 @@ export const TRANSLATIONS: Record<Language, any> = {
         consultation: "Consultation",
         contact: "Contact",
       },
-      copyright: "© 2026 Anugraha Jathakalaya. All rights reserved.",
+      copyright: "© 2026 Anugraha Jyothishalaya. All rights reserved.",
       shanti: "Ōm śānti śānti śānti",
     },
   },
@@ -443,7 +443,7 @@ export const TRANSLATIONS: Record<Language, any> = {
       addressLabel: "முகவரி",
       addressVal: "எண். 7, கச்சேரி சாலை, மயிலாப்பூர், சென்னை 600004",
       contactLabel: "தொடர்புக்கு",
-      contactVal: "+91 99999 99999 · office@anugrahajyotisham.in",
+      contactVal: "+91 877 823 6182 · WhatsApp available",
       form: {
         name: "முழு பெயர்",
         namePlaceholder: "உங்கள் பெயர்",
@@ -681,7 +681,7 @@ export const TRANSLATIONS: Record<Language, any> = {
       addressLabel: "മേൽവിലാസം",
       addressVal: "നമ്പർ 7, കച്ചേരി റോഡ്, മൈലാപ്പൂർ, ചെന്നൈ 600004",
       contactLabel: "ബന്ധപ്പെടാൻ",
-      contactVal: "+91 99999 99999 · office@anugrahajyotisham.in",
+      contactVal: "+91 877 823 6182 · WhatsApp available",
       form: {
         name: "മുഴുപേര്",
         namePlaceholder: "നിങ്ങളുടെ പേര്",
@@ -716,3 +716,5 @@ export const TRANSLATIONS: Record<Language, any> = {
     },
   },
 };
+
+
