@@ -21,13 +21,13 @@ import { TRANSLATIONS, type Language } from "@/lib/translations";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Anugraha Jyothishalaya — Vedic Astrology by Govindan Namboodiri VG" },
+      { title: "Anugraha Jyothishalaya â€” Vedic Astrology by Govindan Namboodiri VG" },
       {
         name: "description",
         content:
-          "Anugraha Jyothishalaya — Govindan Namboodiri VG, Vedic Astrologer. Horoscope, marriage matching, muhurtha, numerology, lucky name and rasi gems. Services anywhere in the world.",
+          "Anugraha Jyothishalaya â€” Govindan Namboodiri VG, Vedic Astrologer. Horoscope, marriage matching, muhurtha, numerology, lucky name and rasi gems. Services anywhere in the world.",
       },
-      { property: "og:title", content: "Anugraha Jyothishalaya — Vedic Astrology" },
+      { property: "og:title", content: "Anugraha Jyothishalaya â€” Vedic Astrology" },
 
       {
         property: "og:description",
@@ -43,7 +43,7 @@ export const Route = createFileRoute("/")({
 
 /* ---------------- Zodiac Wheel ---------------- */
 
-const ZODIAC_GLYPHS = ["♈", "♉", "♊", "♋", "♌", "♍", "♎", "♏", "♐", "♑", "♒", "♓"];
+const ZODIAC_GLYPHS = ["â™ˆ", "â™‰", "â™Š", "â™‹", "â™Œ", "â™", "â™Ž", "â™", "â™", "â™‘", "â™’", "â™“"];
 
 function ZodiacWheel() {
   return (
@@ -459,7 +459,7 @@ function LandingPage() {
   const t = TRANSLATIONS[lang];
 
 
-  /* Cursor embers — desktop hero only */
+  /* Cursor embers â€” desktop hero only */
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
@@ -616,7 +616,7 @@ function LandingPage() {
         >
           <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:px-10">
             <a href="#top" className="font-display text-[15px] tracking-[0.24em] text-ivory">
-              ANUGRAHA <span style={{ color: "#D4AF37" }}>�</span> JYOTHISHALAYA
+              ANUGRAHA <span style={{ color: "#D4AF37" }}>·</span> JYOTHISHALAYA
             </a>
             <nav className="hidden items-center gap-9 text-[12px] uppercase tracking-[0.22em] md:flex" style={{ color: "#C9C3B0" }}>
               <a href="#services" className="hover:text-ivory transition-colors">{t.nav.services}</a>
@@ -660,7 +660,7 @@ function LandingPage() {
         ref={heroRef}
         className="relative overflow-hidden pt-40 pb-24 md:pt-44 md:pb-32"
       >
-        {/* Subtle vignette — not a pulsing orb */}
+        {/* Subtle vignette â€” not a pulsing orb */}
         <div
           className="pointer-events-none absolute inset-0"
           style={{
@@ -704,8 +704,8 @@ function LandingPage() {
               <div className="flex flex-wrap gap-3">
                 {[
                   { code: "en", label: "English" },
-                  { code: "ta", label: "தமிழ்" },
-                  { code: "ml", label: "മലയാളം" },
+                  { code: "ta", label: "à®¤à®®à®¿à®´à¯" },
+                  { code: "ml", label: "à´®à´²à´¯à´¾à´³à´‚" },
                 ].map((item) => (
                   <button
                     key={item.code}
@@ -871,7 +871,7 @@ function LandingPage() {
               <div className="mt-8 grid grid-cols-1 gap-x-8 gap-y-3 sm:grid-cols-2">
                 {t.about.bullets.map((item: string) => (
                   <div key={item} className="flex items-start gap-3 text-[15px]" style={{ color: "#C9C3B0" }}>
-                    <span style={{ color: "#D4AF37" }}>◆</span>
+                    <span style={{ color: "#D4AF37" }}>â—†</span>
                     <span>{item}</span>
                   </div>
                 ))}
@@ -1003,7 +1003,7 @@ function LandingPage() {
                   {tm.q}
                 </blockquote>
                 <figcaption className="mt-6 text-[12px] uppercase tracking-[0.22em]" style={{ color: "#C9C3B0" }}>
-                  {tm.n} · <span style={{ color: "#D4AF37" }}>{tm.r}</span>
+                  {tm.n} Â· <span style={{ color: "#D4AF37" }}>{tm.r}</span>
                 </figcaption>
               </figure>
             ))}
@@ -1234,7 +1234,7 @@ function LandingPage() {
           <div className="grid grid-cols-1 gap-10 md:grid-cols-4">
             <div className="md:col-span-2">
               <div className="font-display text-[15px] tracking-[0.28em] text-ivory">
-                ANUGRAHA <span style={{ color: "#D4AF37" }}>�</span> JYOTHISHALAYA
+                ANUGRAHA <span style={{ color: "#D4AF37" }}>·</span> JYOTHISHALAYA
               </div>
               <p className="mt-5 max-w-md font-serif-italic text-lg" style={{ color: "#C9C3B0" }}>
                 {t.footer.description}
@@ -1349,8 +1349,8 @@ function Field({
 function TempleSilhouette({ lang = "en" }: { lang?: Language }) {
   const deityNames = {
     en: ["Ayyappan", "Vinayagar", "Bhadrakali"],
-    ta: ["ஐயப்பன்", "விநாயகர்", "பத்ரகாளி"],
-    ml: ["അയ്യപ്പൻ", "ഗണപതി", "ഭദ്രകാളി"],
+    ta: ["à®à®¯à®ªà¯à®ªà®©à¯", "à®µà®¿à®¨à®¾à®¯à®•à®°à¯", "à®ªà®¤à¯à®°à®•à®¾à®³à®¿"],
+    ml: ["à´…à´¯àµà´¯à´ªàµà´ªàµ»", "à´—à´£à´ªà´¤à´¿", "à´­à´¦àµà´°à´•à´¾à´³à´¿"],
   };
 
   const names = deityNames[lang] || deityNames.en;
@@ -1362,7 +1362,7 @@ function TempleSilhouette({ lang = "en" }: { lang?: Language }) {
   ];
 
   // Temple arch as a CSS polygon clip-path (percentage-based).
-  // Wide stepped gopuram: narrow peak at very top, broad base — face always
+  // Wide stepped gopuram: narrow peak at very top, broad base â€” face always
   // sits in the wide middle section of the arch where plenty of width is visible.
   const archClip =
     "polygon(50% 0%, 56% 3%, 62% 7%, 68% 12%, 74% 19%, 80% 28%, 85% 39%, 89% 51%, 92% 65%, 94% 80%, 96% 100%, 4% 100%, 6% 80%, 8% 65%, 11% 51%, 15% 39%, 20% 28%, 26% 19%, 32% 12%, 38% 7%, 44% 3%)";
@@ -1376,7 +1376,7 @@ function TempleSilhouette({ lang = "en" }: { lang?: Language }) {
       {temples.map(({ id, img, name }) => (
         <div key={id} style={{ flex: 1, position: "relative" }}>
           <div style={{ position: "relative" }}>
-            {/* Deity photo — objectPosition "center 20%" keeps face/head in view */}
+            {/* Deity photo â€” objectPosition "center 20%" keeps face/head in view */}
             <img
               src={img}
               alt={name}
@@ -1421,7 +1421,7 @@ function TempleSilhouette({ lang = "en" }: { lang?: Language }) {
                 vectorEffect="non-scaling-stroke"
               />
             </svg>
-            {/* Kalasha — gold orb at the very tip */}
+            {/* Kalasha â€” gold orb at the very tip */}
             <div
               style={{
                 position: "absolute",
