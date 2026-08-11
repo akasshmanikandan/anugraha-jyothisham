@@ -13,11 +13,9 @@ import ritual6 from "@/assets/ritual-6.jpeg";
 import ritual8 from "@/assets/ritual-8.jpeg";
 import sreeChakra from "@/assets/sree-chakra.png";
 import deityVinayagar from "@/assets/deity-vinayagar.jpg";
-import deityBhadrakali from "@/assets/deity-bhadrakali.jpg";
-import deityMurugan from "@/assets/deity-murugan.jpg";
 import deityAyyappan from "@/assets/deity-ayyappan.jpg";
 import bgBhadrakali from "@/assets/bg-bhadrakali.png";
-import bgVishnumaya from "@/assets/bg-vishnumaya.png";
+import descriptionBg from "@/assets/image.png";
 import templePhoto from "@/assets/photo.png";
 import { TRANSLATIONS, type Language } from "@/lib/translations";
 
@@ -810,13 +808,13 @@ function LandingPage() {
               <img
                 src={bgBhadrakali}
                 alt="Pooja ceremony photo"
-                className="absolute inset-0 h-full w-full object-cover opacity-92 filter contrast-125 saturate-125 brightness-105"
+                className="absolute inset-0 h-full w-full object-cover opacity-96 filter contrast-130 saturate-120 brightness-110"
               />
               <div
                 className="pointer-events-none absolute inset-0 z-0"
                 style={{
                   background:
-                    "radial-gradient(circle at center, rgba(5,15,34,0.02) 0%, rgba(5,15,34,0.36) 100%)",
+                    "radial-gradient(circle at center, rgba(5,15,34,0.0) 0%, rgba(5,15,34,0.28) 100%)",
                 }}
               />
 
@@ -827,7 +825,7 @@ function LandingPage() {
                 width={512}
                 height={512}
                 loading="lazy"
-                className="relative z-10 h-auto w-full max-w-[360px] object-contain opacity-72 drop-shadow-[0_8px_18px_rgba(0,0,0,0.62)]"
+                className="relative z-10 h-auto w-full max-w-[340px] object-contain opacity-50 mix-blend-screen drop-shadow-[0_6px_14px_rgba(0,0,0,0.42)]"
               />
             </div>
             <div
@@ -846,22 +844,17 @@ function LandingPage() {
               boxShadow: "0 10px 40px rgba(0,0,0,0.5)",
             }}
           >
-            {/* Vishnumaya Background Image */}
+            {/* Description background image */}
             <img
-              src={bgVishnumaya}
+              src={descriptionBg}
               alt="Pooja ceremony photo"
-              className="absolute inset-0 h-full w-full object-cover object-top opacity-68 filter brightness-100 contrast-110"
-            />
-            <img
-              src={templePhoto}
-              alt="Temple deity close-up"
-              className="absolute right-6 top-6 z-0 hidden w-40 rotate-3 rounded-2xl border border-[rgba(212,175,55,0.22)] object-cover opacity-55 shadow-2xl md:block lg:w-48"
+              className="absolute inset-0 h-full w-full object-cover object-center opacity-82 filter brightness-105 contrast-110"
             />
             <div
               className="pointer-events-none absolute inset-0 z-0"
               style={{
                 background:
-                  "linear-gradient(135deg, rgba(8,26,52,0.52) 0%, rgba(5,15,34,0.68) 100%)",
+                  "linear-gradient(135deg, rgba(8,26,52,0.38) 0%, rgba(5,15,34,0.60) 100%)",
               }}
             />
 
@@ -1356,18 +1349,17 @@ function Field({
 
 function TempleSilhouette({ lang = "en" }: { lang?: Language }) {
   const deityNames = {
-    en: ["Vinayagar", "Bhadrakali", "Murugan", "Ayyappan"],
-    ta: ["விநாயகர்", "பத்ரகாளி", "முருகன்", "ஐயப்பன்"],
-    ml: ["ഗണപതി", "ഭദ്രകാളി", "മുരുകൻ", "അയ്യപ്പൻ"],
+    en: ["Ayyappan", "Vinayagar", "Bhadrakali"],
+    ta: ["ஐயப்பன்", "விநாயகர்", "பத்ரகாளி"],
+    ml: ["അയ്യപ്പൻ", "ഗണപതി", "ഭദ്രകാളി"],
   };
 
   const names = deityNames[lang] || deityNames.en;
 
   const temples = [
-    { id: "t1", img: deityVinayagar,  name: names[0] },
-    { id: "t2", img: deityBhadrakali, name: names[1] },
-    { id: "t3", img: deityMurugan,    name: names[2] },
-    { id: "t4", img: deityAyyappan,   name: names[3] },
+    { id: "t1", img: deityAyyappan, name: names[0] },
+    { id: "t2", img: deityVinayagar, name: names[1] },
+    { id: "t3", img: templePhoto, name: names[2] },
   ];
 
   // Temple arch as a CSS polygon clip-path (percentage-based).
