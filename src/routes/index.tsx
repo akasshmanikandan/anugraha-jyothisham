@@ -701,12 +701,12 @@ function LandingPage() {
               <span className="block text-[10px] uppercase tracking-[0.24em] mb-3" style={{ color: "#D4AF37" }}>
                 {t.hero.chooseLang}
               </span>
-              <div className="flex flex-wrap gap-3">
-                {[
-                  { code: "en", label: "English" },
-                  { code: "ta", label: "à®¤à®®à®¿à®´à¯" },
-                  { code: "ml", label: "à´®à´²à´¯à´¾à´³à´‚" },
-                ].map((item) => (
+                <div className="flex flex-wrap gap-3">
+                  {[
+                    { code: "en", label: "English" },
+                    { code: "ta", label: "தமிழ்" },
+                    { code: "ml", label: "മലയാളം" },
+                  ].map((item) => (
                   <button
                     key={item.code}
                     onClick={() => handleLangChange(item.code as Language)}
