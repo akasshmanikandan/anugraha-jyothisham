@@ -208,7 +208,7 @@ export const TRANSLATIONS: Record<Language, any> = {
       addressLabel: "Address",
       addressVal: "Flat No. 6, Saravana Villa, Meenakshi Street, Perambur, Chennai 600011",
       contactLabel: "Contact",
-      contactVal: "+91 877 823 6182 · WhatsApp available",
+      contactVal: "+91 917 609 6471 · +91 877 823 6182 · WhatsApp available",
       form: {
         name: "Full Name",
         namePlaceholder: "Your name",
@@ -446,7 +446,7 @@ export const TRANSLATIONS: Record<Language, any> = {
       addressLabel: "முகவரி",
       addressVal: "எண். 7, கச்சேரி சாலை, மயிலாப்பூர், சென்னை 600004",
       contactLabel: "தொடர்புக்கு",
-      contactVal: "+91 877 823 6182 · WhatsApp available",
+      contactVal: "+91 917 609 6471 · +91 877 823 6182 · WhatsApp available",
       form: {
         name: "முழு பெயர்",
         namePlaceholder: "உங்கள் பெயர்",
@@ -684,7 +684,7 @@ export const TRANSLATIONS: Record<Language, any> = {
       addressLabel: "മേൽവിലാസം",
       addressVal: "നമ്പർ 7, കച്ചേരി റോഡ്, മൈലാപ്പൂർ, ചെന്നൈ 600004",
       contactLabel: "ബന്ധപ്പെടാൻ",
-      contactVal: "+91 877 823 6182 · WhatsApp available",
+      contactVal: "+91 917 609 6471 · +91 877 823 6182 · WhatsApp available",
       form: {
         name: "മുഴുപേര്",
         namePlaceholder: "നിങ്ങളുടെ പേര്",
