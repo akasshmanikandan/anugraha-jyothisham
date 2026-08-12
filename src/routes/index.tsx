@@ -12,7 +12,7 @@ import ritual5 from "@/assets/ritual-5.jpeg";
 import ritual6 from "@/assets/ritual-6.jpeg";
 import ritual8 from "@/assets/ritual-8.jpeg";
 import sreeChakra from "@/assets/sree-chakra.png";
-import deityVinayagar from "@/assets/deity-vinayagar.jpg";
+import deityVinayagar from "@/assets/vinayagar.png";
 
 import bgBhadrakali from "@/assets/god-photo-4.jpeg";
 import templePhoto from "@/assets/photo.png";
@@ -1317,9 +1317,9 @@ function LandingPage() {
                 {t.footer.headers.contact}
               </div>
               <ul className="mt-4 space-y-2 text-[14px]" style={{ color: "#C9C3B0" }}>
-                <li>+91 99999 99999</li>
-                <li>office@anugrahajyotisham.in</li>
-                <li>Mylapore, Chennai</li>
+                <li>+91 917 609 6471 | +91 877 823 6182</li>
+                <li>anugrahajyothishalaya@gmail.com</li>
+                <li>perambur,chennai</li>
               </ul>
             </div>
           </div>
