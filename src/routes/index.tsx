@@ -462,6 +462,7 @@ function LandingPage() {
       en: "Anugraha Jyothishalaya - Vedic Astrology by Govindan Namboodiri VG",
       ta: "அனுக்ரஹ ஜோதிஷாலயா - கோவிந்தன் நம்பூதிரி VG",
       ml: "അനുഗ്രഹ ജ്യോതിഷാലയ - ഗോവിന്ദൻ നമ്പൂതിരി VG",
+      hi: "अनुग्रह ज्योतिषालय - गोविंदन नंबूथिरी VG",
     };
     document.title = titles[lang];
   }, [lang]);
