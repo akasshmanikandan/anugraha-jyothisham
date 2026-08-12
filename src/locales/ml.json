@@ -1,266 +1,144 @@
 {
   "nav": {
-    "services": "[ML] Services",
-    "about": "[ML] About",
-    "process": "[ML] Process",
-    "voices": "[ML] Voices",
-    "faq": "[ML] FAQ",
-    "book": "[ML] Book ->"
+    "services": "സേവനങ്ങൾ",
+    "about": "ഞങ്ങളെക്കുറിച്ച്",
+    "process": "പ്രക്രിയ",
+    "voices": "അഭിപ്രായങ്ങൾ",
+    "faq": "ചോദ്യങ്ങൾ",
+    "book": "ബുക്ക് ചെയ്യുക ->"
   },
   "hero": {
-    "tagline": "[ML] Since 2009 | Rooted in Sastra",
-    "headline": [
-      "[ML] Guiding",
-      "[ML] Lives",
-      "[ML] Through",
-      "[ML] Ancient",
-      "[ML] Wisdom"
-    ],
-    "description": "[ML] A private consultancy in Vedic astrology, sacred ritual and the quiet arts of remedy, carried forward from a lineage of temple astrologers.",
-    "bookBtn": "[ML] Book Consultation",
-    "whatsappBtn": "[ML] WhatsApp",
-    "yearsPractice": "[ML] Years of Practice",
-    "clientsGuided": "[ML] Clients Guided",
-    "sacredDisciplines": "[ML] Sacred Disciplines",
-    "chooseLang": "[ML] Choose Language"
+    "tagline": "2009 മുതൽ | ശാസ്ത്രത്തിൽ അധിഷ്ഠിതം",
+    "headline": ["പുരാതന", "ജ്ഞാനത്തിലൂടെ", "ജീവിതത്തിന്", "വഴികാട്ടുന്നു"],
+    "description": "വേദ ജ്യോതിഷം, വിശുദ്ധ കർമ്മങ്ങൾ, പരിഹാര കലകൾ എന്നിവയിലെ ഒരു സ്വകാര്യ കൺസൾട്ടൻസി. ക്ഷേത്ര ജ്യോതിഷികളുടെ പരമ്പരയിൽ നിന്ന്.",
+    "bookBtn": "കൺസൾട്ടേഷൻ ബുക്ക് ചെയ്യുക",
+    "whatsappBtn": "വാട്ട്സ്ആപ്പ്",
+    "yearsPractice": "വർഷത്തെ അനുഭവം",
+    "clientsGuided": "വഴികാട്ടിയ ആളുകൾ",
+    "sacredDisciplines": "പുனித ശാസ്ത്രങ്ങൾ",
+    "chooseLang": "ഭാഷ തിരഞ്ഞെടുക്കുക"
   },
   "services": {
-    "eyebrow": "[ML] The Nine Disciplines",
-    "title": "[ML] Sacred Consultations",
-    "quote": "[ML] Each art a lamp; together, they illumine the whole of one life.",
+    "eyebrow": "ഒമ്പത് ശാസ്ത്രങ്ങൾ",
+    "title": "വിശുദ്ധ കൺസൾട്ടേഷനുകൾ",
+    "quote": "ഓരോ കലയും ഒരു വിളക്കാണ്; അവ ഒരുമിച്ച് ജീവിതത്തെ പ്രകാശിപ്പിക്കുന്നു.",
     "items": [
-      {
-        "title": "[ML] Jyotisha",
-        "sub": "[ML] Astrology",
-        "body": "[ML] Vedic birth-chart analysis, dasha periods, and planetary remedies from the sidereal Sastras."
-      },
-      {
-        "title": "[ML] Tantrikam",
-        "sub": "[ML] Sacred Rituals",
-        "body": "[ML] Traditional yantra installation and homa ceremonies for protection, prosperity and clarity."
-      },
-      {
-        "title": "[ML] Mantrikam",
-        "sub": "[ML] Mantra Sadhana",
-        "body": "[ML] Personalized bija and moola mantras with proper vidhi for chanting, initiation and japa."
-      },
-      {
-        "title": "[ML] Vaithiyam",
-        "sub": "[ML] Ayurvedic Guidance",
-        "body": "[ML] Prakriti-based counsel for restoring balance across dosha, diet and daily discipline."
-      },
-      {
-        "title": "[ML] Thambulam",
-        "sub": "[ML] Betel Leaf Divination",
-        "body": "[ML] Ancient south Indian oracle reading for time-sensitive questions and turning points."
-      },
-      {
-        "title": "[ML] Samudrika",
-        "sub": "[ML] Face Reading",
-        "body": "[ML] Reading the temperament and destiny inscribed in the features of the face."
-      },
-      {
-        "title": "[ML] Nadi",
-        "sub": "[ML] Palm-Leaf Reading",
-        "body": "[ML] Consultation of the Nadi granthas, recorded lives inscribed centuries before your birth."
-      },
-      {
-        "title": "[ML] Vaasthu",
-        "sub": "[ML] Sacred Geometry",
-        "body": "[ML] Aligning homes, workplaces and temples with the directions, elements and mandala grid."
-      },
-      {
-        "title": "[ML] Numerology",
-        "sub": "[ML] Science of Numbers",
-        "body": "[ML] Names, dates and vibrational numbers harmonized for personal and family wellbeing."
-      }
+      { "title": "ജ്യോതിഷം", "sub": "Astrology", "body": "വേദ ജാതക വിശകലനം, ദശാ കാലങ്ങൾ, നവഗ്രഹ പരിഹാരങ്ങൾ." },
+      { "title": "താന്ത്രികം", "sub": "വിശുദ്ധ കർമ്മങ്ങൾ", "body": "സംരക്ഷണം, സമൃദ്ധി എന്നിവയ്ക്കായുള്ള പരമ്പരാഗത യന്ത്ര പ്രതിഷ്ഠയും ഹോമങ്ങളും." },
+      { "title": "മാന്ത്രികം", "sub": "മന്ത്ര സാധന", "body": "ജപത്തിന് ശരിയായ രീതിയിലുള്ള വ്യക്തിഗത ബീജ, മൂല മന്ത്രങ്ങൾ." },
+      { "title": "വൈദ്യം", "sub": "ആയുർവേദ മാർഗ്ഗനിർദ്ദേശം", "body": "ദോഷം, ഭക്ഷണം, ദൈനംദിന അച്ചടക്കം എന്നിവയിൽ സന്തുലിതാവസ്ഥ പുനഃസ്ഥാപിക്കാനുള്ള മാർഗ്ഗനിർദ്ദേശം." },
+      { "title": "താംബൂലം", "sub": "വെറ്റില ജ്യോതിഷം", "body": "പ്രധാനപ്പെട്ട വഴിത്തിരിവുകൾക്കുള്ള പുരാതന ദക്ഷിണേന്ത്യൻ പ്രവചനം." },
+      { "title": "സാമുദ്രികം", "sub": "മുഖലക്ഷണം", "body": "മുഖത്തിന്റെ സവിശേഷതകളിൽ രേഖപ്പെടുത്തിയിരിക്കുന്ന സ്വഭാവവും വിധിയും വായിക്കൽ." },
+      { "title": "നാടി", "sub": "താളിയോല ജ്യോതിഷം", "body": "നിങ്ങളുടെ ജനനത്തിന് നൂറ്റാണ്ടുകൾക്ക് മുമ്പ് രേഖപ്പെടുത്തിയ നാടി ഗ്രന്ഥങ്ങളുടെ വായന." },
+      { "title": "വാസ്തു", "sub": "വിശുദ്ധ വാസ്തുവിദ്യ", "body": "ദിശകൾ, പഞ്ചഭൂതങ്ങൾ എന്നിവയുമായി വീടുകളും ജോലിസ്ഥലങ്ങളും ക്രമീകരിക്കൽ." },
+      { "title": "സംഖ്യാശാസ്ത്രം", "sub": "എണ്ണുകളുടെ ശാസ്ത്രം", "body": "വ്യക്തിപരവും കുടുംബപരവുമായ ക്ഷേമത്തിനായി പേരുകളും തീയതികളും സമന്വയിപ്പിക്കുന്നു." }
     ]
   },
   "about": {
-    "eyebrow": "[ML] The Astrologer",
-    "title": "[ML] Govindan Namboodiri VG",
-    "sub": "[ML] Vedic Astrologer",
+    "eyebrow": "ജ്യോതിഷി",
+    "title": "ഗോവിന്ദൻ നമ്പൂതിരി വി.ജി",
+    "sub": "വേദ ജ്യോതിഷി",
     "bullets": [
-      "[ML] Basic Horoscope, Predictions",
-      "[ML] Total Horoscope, Predictions",
-      "[ML] Birthday Annual Forecast",
-      "[ML] Marriage Matching",
-      "[ML] Muhurtha Date and Time",
-      "[ML] Numerology Predictions",
-      "[ML] Suitable & Lucky Name",
-      "[ML] Lucky Rasi Gems",
-      "[ML] Tantrika",
-      "[ML] Pradhista",
-      "[ML] Kumbabishekam"
+      "ജാതക പ്രവചനം",
+      "സമ്പൂർണ്ണ ജാതക ഫലങ്ങൾ",
+      "വാർഷിക ഫലങ്ങൾ",
+      "വിവാഹ പൊരുത്തം",
+      "മുഹൂർത്തം കുറിക്കൽ",
+      "സംഖ്യാശാസ്ത്ര ഫലങ്ങൾ",
+      "ഭാഗ്യ നാമം",
+      "ഭാഗ്യ രത്നങ്ങൾ",
+      "താന്ത്രികം",
+      "പ്രതിഷ്ഠ",
+      "കുംഭാഭിഷേകം"
     ],
-    "parihara": "[ML] All kinds of parihara related religious rituals and Homam are performed.",
-    "bannerText": "[ML] WE PROVIDE ASTROLOGICAL SERVICES ANYWHERE IN THE WORLD",
-    "languagesText": "[ML] Tamil | English | Hindi | Malayalam"
+    "parihara": "എല്ലാത്തരം പരിഹാരങ്ങളും ഹോമങ്ങളും ചെയ്യുന്നു.",
+    "bannerText": "ഞങ്ങൾ ലോകമെമ്പാടും ജ്യോതിഷ സേവനങ്ങൾ നൽകുന്നു",
+    "languagesText": "തമിഴ് | English | Hindi | മലയാളം"
   },
   "whyChooseUs": {
-    "eyebrow": "[ML] Why Anugraha",
-    "title": "[ML] Tradition, Held Whole",
-    "quote": "[ML] What is old must not be antique, it must be alive.",
+    "eyebrow": "എന്തുകൊണ്ട് അനുഗ്രഹ",
+    "title": "പാരമ്പര്യം",
+    "quote": "പഴയത് ഒരു വസ്തു മാത്രമല്ല, അത് ജീവനുള്ളതായിരിക്കണം.",
     "items": [
-      {
-        "t": "[ML] Unbroken Lineage",
-        "d": "[ML] Five generations of temple astrologers, taught in the classical guru-shishya tradition."
-      },
-      {
-        "t": "[ML] Shastric Fidelity",
-        "d": "[ML] Every reading grounded in Parashara, Jaimini and Nadi literature, never intuition alone."
-      },
-      {
-        "t": "[ML] Discreet Practice",
-        "d": "[ML] Consultations by appointment only, held with the confidentiality of a physician."
-      },
-      {
-        "t": "[ML] Practical Remedies",
-        "d": "[ML] Prescriptions calibrated to your life, never asking what you cannot faithfully do."
-      }
+      { "t": "മുറിയാത്ത പരമ്പര", "d": "അഞ്ച് തലമുറകളായുള്ള ക്ഷേത്ര ജ്യോതിഷികൾ, ഗുരു-ശിഷ്യ പാരമ്പര്യത്തിൽ പഠിച്ചവർ." },
+      { "t": "ശാസ്ത്ര വിശ്വാസം", "d": "ഓരോ പ്രവചനവും പരാശര, ജൈമിനി, നാടി ഗ്രന്ഥങ്ങളെ അടിസ്ഥാനമാക്കിയുള്ളതാണ്." },
+      { "t": "രഹസ്യസ്വഭാവം", "d": "മുൻകൂട്ടി ബുക്ക് ചെയ്യുന്നതിലൂടെ മാത്രം കൺസൾട്ടേഷനുകൾ. തികച്ചും രഹസ്യസ്വഭാവം." },
+      { "t": "പ്രായോഗിക പരിഹാരങ്ങൾ", "d": "നിങ്ങൾക്ക് ചെയ്യാൻ കഴിയാത്തതൊന്നും ആവശ്യപ്പെടാതെ, നിങ്ങളുടെ ജീവിതത്തിന് അനുയോജ്യമായ പരിഹാരങ്ങൾ." }
     ]
   },
   "process": {
-    "eyebrow": "[ML] Consultation Path",
-    "title": "[ML] Five Steps, Held with Care",
-    "quote": "[ML] The right path is walked slowly, one lamp at a time.",
+    "eyebrow": "കൺസൾട്ടേഷൻ പ്രക്രിയ",
+    "title": "അഞ്ച് പടികൾ",
+    "quote": "ശരിയായ പാതയിലൂടെ പതുക്കെ നടക്കണം.",
     "steps": [
-      {
-        "n": "[ML] 01",
-        "t": "[ML] Book",
-        "d": "[ML] Reserve a private slot at a time of your choosing."
-      },
-      {
-        "n": "[ML] 02",
-        "t": "[ML] Birth Details",
-        "d": "[ML] Share date, time and place of birth in confidence."
-      },
-      {
-        "n": "[ML] 03",
-        "t": "[ML] Consultation",
-        "d": "[ML] A one-on-one reading held in person or by call."
-      },
-      {
-        "n": "[ML] 04",
-        "t": "[ML] Remedies",
-        "d": "[ML] Receive personalized mantras, yantras and rituals."
-      },
-      {
-        "n": "[ML] 05",
-        "t": "[ML] Follow-up",
-        "d": "[ML] Periodic guidance as the dasha and planets shift."
-      }
+      { "n": "01", "t": "ബുക്കിംഗ്", "d": "നിങ്ങളുടെ സമയത്തിനനുസരിച്ച് ഒരു സമയം ബുക്ക് ചെയ്യുക." },
+      { "n": "02", "t": "ജനന വിവരങ്ങൾ", "d": "ജനന തീയതി, സമയം, സ്ഥലം എന്നിവ പങ്കിടുക." },
+      { "n": "03", "t": "കൺസൾട്ടേഷൻ", "d": "നേരിട്ടോ ഫോണിലൂടെയോ ഉള്ള വ്യക്തിഗത കൺസൾട്ടേഷൻ." },
+      { "n": "04", "t": "പരിഹാരങ്ങൾ", "d": "നിങ്ങൾക്കായുള്ള മന്ത്രങ്ങളും കർമ്മങ്ങളും സ്വീകരിക്കുക." },
+      { "n": "05", "t": "തുടർനടപടികൾ", "d": "ദശാകാലങ്ങൾ മാറുമ്പോൾ ശരിയായ മാർഗ്ഗനിർദ്ദേശം." }
     ]
   },
   "testimonials": {
-    "eyebrow": "[ML] Voices",
-    "title": "[ML] Words Left Behind",
-    "quote": "[ML] Gratitude is the only offering that outlasts the ritual.",
+    "eyebrow": "ശബ്ദങ്ങൾ",
+    "title": "ഉപഭോക്തൃ അഭിപ്രായങ്ങൾ",
+    "quote": "പരിഹാരത്തേക്കാൾ കൂടുതൽ കാലം നിലനിൽക്കുന്നത് നന്ദിയാണ്.",
     "items": [
-      {
-        "q": "[ML] The remedies suggested were precise and deeply rooted in scripture. My family found peace after years of turbulence.",
-        "n": "[ML] Lakshmi Narayanan",
-        "r": "[ML] Chennai"
-      },
-      {
-        "q": "[ML] A rare astrologer who does not sensationalize. Every reading carried the weight of tradition and calm authority.",
-        "n": "[ML] Ananya Iyer",
-        "r": "[ML] Bengaluru"
-      },
-      {
-        "q": "[ML] Consulted for my son's marriage compatibility. The clarity we received made the decision effortless.",
-        "n": "[ML] Rajesh Menon",
-        "r": "[ML] Kochi"
-      },
-      {
-        "q": "[ML] Vaasthu recommendations for our new home changed the entire atmosphere. Quiet, dignified guidance.",
-        "n": "[ML] Priya Subramanian",
-        "r": "[ML] Coimbatore"
-      },
-      {
-        "q": "[ML] The Nadi reading was uncanny. Nothing embellished, nothing withheld, an honest window into karma.",
-        "n": "[ML] Vikram Bhatt",
-        "r": "[ML] Mumbai"
-      },
-      {
-        "q": "[ML] After a year of practising the mantra given to me, I feel a stillness I did not know was possible.",
-        "n": "[ML] Meera Krishnan",
-        "r": "[ML] Trivandrum"
-      }
+      { "q": "നിർദ്ദേശിച്ച പരിഹാരങ്ങൾ കൃത്യമായിരുന്നു. വർഷങ്ങളുടെ ബുദ്ധിമുട്ടുകൾക്ക് ശേഷം എന്റെ കുടുംബത്തിന് സമാധാനം ലഭിച്ചു.", "n": "ലക്ഷ്മി നാരായണൻ", "r": "ചെന്നൈ" },
+      { "q": "വളരെ ശാന്തവും പാരമ്പര്യവുമായ പ്രവചനം. ഇതൊരു അപൂർവ്വ ജ്യോതിഷിയാണ്.", "n": "അനന്യ അയ്യർ", "r": "ബെംഗളൂരു" },
+      { "q": "എന്റെ മകന്റെ വിവാഹ പൊരുത്തത്തിനായി സമീപിച്ചു. ഞങ്ങൾക്ക് ലഭിച്ച വ്യക്തത തീരുമാനമെടുക്കുന്നത് എളുപ്പമാക്കി.", "n": "രാജേഷ് മേനോൻ", "r": "കൊച്ചി" },
+      { "q": "ഞങ്ങളുടെ പുതിയ വീടിനായുള്ള വാസ്തു നിർദ്ദേശങ്ങൾ ആന്തരീക്ഷത്തെ മുഴുവനായും മാറ്റിമറിച്ചു.", "n": "പ്രിയ സുബ്രഹ്മണ്യൻ", "r": "കോയമ്പത്തൂർ" },
+      { "q": "നാടി ജ്യോതിഷം വളരെ അത്ഭുതകരമായിരുന്നു. പൂർണ്ണമായും യഥാർത്ഥമായ വായന.", "n": "വിക്രം ഭട്ട്", "r": "മുംബൈ" },
+      { "q": "ഒരു വർഷം മന്ത്രം ജപിച്ച ശേഷം, എന്നിൽ വലിയൊരു സമാധാനം അനുഭവപ്പെടുന്നു.", "n": "മീര കൃഷ്ണൻ", "r": "തിരുവനന്തപുരം" }
     ]
   },
   "gallery": {
-    "eyebrow": "[ML] Pooja Photos",
-    "title": "[ML] Temple Rituals",
-    "quote": "[ML] Moments from the living practice."
+    "eyebrow": "പൂജ ഫോട്ടോകൾ",
+    "title": "ക്ഷേത്ര കർമ്മങ്ങൾ",
+    "quote": "ജീവിതചര്യയിൽ നിന്നുള്ള ചില നിമിഷങ്ങൾ."
   },
   "faq": {
-    "eyebrow": "[ML] Questions",
-    "title": "[ML] Before You Begin",
-    "quote": "[ML] Ask freely, clarity is itself a first remedy.",
+    "eyebrow": "ചോദ്യങ്ങൾ",
+    "title": "തുടങ്ങുന്നതിന് മുമ്പ്",
+    "quote": "സ്വതന്ത്രമായി ചോദിക്കുക, വ്യക്തതയാണ് ആദ്യത്തെ പരിഹാരം.",
     "items": [
-      {
-        "q": "[ML] How is a traditional consultation different from an online report?",
-        "a": "[ML] A shastric reading examines the interplay of chart, dasha, transits and lineage. Every remedy prescribed considers your capacity to practise it."
-      },
-      {
-        "q": "[ML] What information do I need to share before booking?",
-        "a": "[ML] Your date of birth, exact time of birth as close as possible, and place of birth. If unknown, we can perform a rectification session first."
-      },
-      {
-        "q": "[ML] Are the remedies difficult to follow?",
-        "a": "[ML] Remedies are always calibrated to your life. Some are as simple as a mantra at dawn; others involve pooja on specific tithis."
-      },
-      {
-        "q": "[ML] Is my consultation confidential?",
-        "a": "[ML] Absolutely. Every reading, chart and personal detail remains strictly between you and the astrologer."
-      },
-      {
-        "q": "[ML] Do you offer follow-up consultations?",
-        "a": "[ML] Yes. Most clients return once or twice a year, and during significant dasha transitions or life events."
-      }
+      { "q": "പരമ്പരാഗത കൺസൾട്ടേഷനും ഓൺലൈൻ റിപ്പോർട്ടും തമ്മിലുള്ള വ്യത്യാസം എന്താണ്?", "a": "ഒരു ശാസ്ത്രീയ വായന ജാതകം, ദശ, ഗോചാരം എന്നിവ പരിശോധിക്കുന്നു. നിർദ്ദേശിക്കുന്ന ഓരോ പരിഹാരവും നിങ്ങളുടെ കഴിവ് പരിഗണിച്ചുള്ളതാണ്." },
+      { "q": "ബുക്ക് ചെയ്യുന്നതിന് മുമ്പ് ഞാൻ എന്തൊക്കെ വിവരങ്ങൾ പങ്കിടണം?", "a": "ജനന തീയതി, സമയം, സ്ഥലം. കൃത്യമായി അറിയില്ലെങ്കിൽ, ആദ്യം ഞങ്ങൾ സമയം ശരിയാക്കൽ ചെയ്യാം." },
+      { "q": "പരിഹാരങ്ങൾ ചെയ്യാൻ ബുദ്ധിമുട്ടാണോ?", "a": "പരിഹാരങ്ങൾ എപ്പോഴും നിങ്ങളുടെ ജീവിതത്തിന് അനുയോജ്യമായിരിക്കും. ചിലത് ലളിതമായ മന്ത്രങ്ങൾ, ചിലത് ക്ഷേത്ര പൂജകൾ." },
+      { "q": "എന്റെ കൺസൾട്ടേഷൻ രഹസ്യമായിരിക്കുമോ?", "a": "തീർച്ചയായും. ഓരോ വിവരവും നിങ്ങൾക്കും ജ്യോതിഷിക്കും ഇടയിൽ തികച്ചും രഹസ്യമായിരിക്കും." },
+      { "q": "തുടർ കൺസൾട്ടേഷനുകൾ നൽകാറുണ്ടോ?", "a": "അതെ. മിക്ക ഉപഭോക്താക്കളും വർഷത്തിൽ ഒന്നോ രണ്ടോ തവണ വരാറുണ്ട്." }
     ]
   },
   "book": {
-    "eyebrow": "[ML] Reserve a Sitting",
-    "title": "[ML] A private hour with the Sastra.",
-    "quote": "[ML] Consultations by appointment. In person at our study in Chennai, or by secure video call.",
-    "hoursLabel": "[ML] Hours",
-    "hoursVal": "[ML] Mon-Sat | 08:00 - 17:00 IST",
-    "addressLabel": "[ML] Address",
-    "addressVal": "[ML] Flat No. 6, Saravana Villa, Meenakshi Street, Perambur, Chennai 600011",
-    "contactLabel": "[ML] Contact",
-    "contactVal": "[ML] +91 917 609 6471 | +91 877 823 6182 | WhatsApp available",
+    "eyebrow": "സമയം ബുക്ക് ചെയ്യുക",
+    "title": "ശാസ്ത്രത്തോടൊപ്പം ഒരു മണിക്കൂർ.",
+    "quote": "മുൻകൂട്ടി ബുക്ക് ചെയ്യുന്നതിലൂടെ മാത്രം. നേരിട്ടോ വീഡിയോ കോളിലൂടെയോ.",
+    "hoursLabel": "സമയം",
+    "hoursVal": "തിങ്കൾ-ശനി | 08:00 - 17:00 IST",
+    "addressLabel": "വിലാസം",
+    "addressVal": "ഫ്ലാറ്റ് നമ്പർ 6, ശരവണ വില്ല, മീനാക്ഷി സ്ട്രീറ്റ്, പെരമ്പൂർ, ചെന്നൈ 600011",
+    "contactLabel": "ബന്ധപ്പെടുക",
+    "contactVal": "+91 917 609 6471 | +91 877 823 6182 | വാട്ട്സ്ആപ്പ്",
     "form": {
-      "name": "[ML] Full Name",
-      "namePlaceholder": "[ML] Your name",
-      "phone": "[ML] Phone",
-      "phonePlaceholder": "[ML] +91 ...",
-      "dob": "[ML] Date of Birth",
-      "tob": "[ML] Time of Birth",
-      "pob": "[ML] Place of Birth",
-      "pobPlaceholder": "[ML] Town, State",
-      "nature": "[ML] Nature of Consultation",
-      "natureOptions": [
-        "[ML] Jyotisha - Birth chart reading",
-        "[ML] Nadi - Palm-leaf consultation",
-        "[ML] Vaasthu - Home / workplace",
-        "[ML] Marriage compatibility",
-        "[ML] Other"
-      ],
-      "question": "[ML] Your Question",
-      "questionPlaceholder": "[ML] Briefly describe the concern you wish to bring...",
-      "submit": "[ML] Request Appointment",
-      "replyNote": "[ML] We reply within one working day."
+      "name": "പൂർണ്ണ നാമം",
+      "namePlaceholder": "നിങ്ങളുടെ പേര്",
+      "phone": "ഫോൺ",
+      "phonePlaceholder": "+91 ...",
+      "dob": "ജനന തീയതി",
+      "tob": "ജനന സമയം",
+      "pob": "ജനന സ്ഥലം",
+      "pobPlaceholder": "നഗരം, സംസ്ഥാനം",
+      "nature": "കൺസൾട്ടേഷൻ തരം",
+      "natureOptions": ["ജ്യോതിഷം - ജാതകം", "നാടി ജ്യോതിഷം", "വാസ്തു - വീട് / ഓഫീസ്", "വിവാഹ പൊരുത്തം", "മറ്റുള്ളവ"],
+      "question": "നിങ്ങളുടെ ചോദ്യം",
+      "questionPlaceholder": "നിങ്ങളുടെ ചോദ്യം ചുരുക്കത്തിൽ വിവരിക്കുക...",
+      "submit": "ബുക്ക് ചെയ്യുക",
+      "replyNote": "ഒരു പ്രവൃത്തി ദിവസത്തിനുള്ളിൽ ഞങ്ങൾ മറുപടി നൽകും."
     }
   },
   "footer": {
-    "description": "[ML] A private consultancy in traditional Vedic astrology and spiritual practice.",
-    "headers": {
-      "consultation": "[ML] Consultation",
-      "contact": "[ML] Contact"
-    },
-    "copyright": "[ML] © 2026 Anugraha Jyothishalaya. All rights reserved.",
-    "shanti": "[ML] Om shanti shanti shanti"
+    "description": "പരമ്പരാഗത വേദ ജ്യോതിഷത്തിലും ആത്മീയ പരിശീലനങ്ങളിലുമുള്ള ഒരു കൺസൾട്ടൻസി.",
+    "headers": { "consultation": "കൺസൾട്ടേഷൻ", "contact": "ബന്ധപ്പെടുക" },
+    "copyright": "© 2026 അനുഗ്രഹ ജ്യോതിഷാലയ. എല്ലാ അവകാശങ്ങളും നിക്ഷിപ്തം.",
+    "shanti": "ഓം ശാന്തി ശാന്തി ശാന്തി"
   }
 }
