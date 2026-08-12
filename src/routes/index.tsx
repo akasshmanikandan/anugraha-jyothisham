@@ -1236,6 +1236,18 @@ function LandingPage() {
             className="glass-card p-8 md:p-10"
             onSubmit={(e) => {
               e.preventDefault();
+              const formData = new FormData(e.currentTarget);
+              const name = formData.get("name") || "";
+              const phone = formData.get("phone") || "";
+              const dob = formData.get("dob") || "";
+              const tob = formData.get("tob") || "";
+              const pob = formData.get("pob") || "";
+              const nature = formData.get("nature") || "";
+              const question = formData.get("question") || "";
+
+              const text = `*New Consultation Request*\n\n*Name:* ${name}\n*Phone:* ${phone}\n*Date of Birth:* ${dob}\n*Time of Birth:* ${tob}\n*Place of Birth:* ${pob}\n*Nature:* ${nature}\n*Question:* ${question}`;
+              const encodedText = encodeURIComponent(text);
+              window.open(`https://wa.me/918778236182?text=${encodedText}`, "_blank");
             }}
           >
             <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
@@ -1261,6 +1273,7 @@ function LandingPage() {
                   {t.book.form.question}
                 </label>
                 <textarea
+                  name="question"
                   rows={4}
                   className="field w-full px-4 py-3 text-[14px]"
                   placeholder={t.book.form.questionPlaceholder}
