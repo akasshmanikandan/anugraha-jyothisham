@@ -1239,18 +1239,18 @@ function LandingPage() {
             }}
           >
             <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-              <Field label={t.book.form.name} placeholder={t.book.form.namePlaceholder} />
-              <Field label={t.book.form.phone} placeholder={t.book.form.phonePlaceholder} />
-              <Field label={t.book.form.dob} type="date" />
-              <Field label={t.book.form.tob} type="time" />
+              <Field name="name" label={t.book.form.name} placeholder={t.book.form.namePlaceholder} />
+              <Field name="phone" label={t.book.form.phone} placeholder={t.book.form.phonePlaceholder} />
+              <Field name="dob" label={t.book.form.dob} type="date" />
+              <Field name="tob" label={t.book.form.tob} type="time" />
               <div className="md:col-span-2">
-                <Field label={t.book.form.pob} placeholder={t.book.form.pobPlaceholder} />
+                <Field name="pob" label={t.book.form.pob} placeholder={t.book.form.pobPlaceholder} />
               </div>
               <div className="md:col-span-2">
                 <label className="mb-2 block text-[11px] uppercase tracking-[0.22em]" style={{ color: "#D4AF37" }}>
                   {t.book.form.nature}
                 </label>
-                <select className="field w-full px-4 py-3 text-[14px]">
+                <select name="nature" className="field w-full px-4 py-3 text-[14px]">
                   {t.book.form.natureOptions.map((opt: string) => (
                     <option key={opt}>{opt}</option>
                   ))}
