@@ -643,7 +643,7 @@ function LandingPage() {
             <div className="flex items-center gap-6">
               {/* Header language switcher */}
               <div className="flex items-center gap-2 border px-2.5 py-1 rounded" style={{ borderColor: "rgba(212,175,55,0.25)", background: "rgba(5,15,34,0.4)" }}>
-                {(["en", "ta", "ml"] as const).map((l) => (
+                {(["en", "ta", "ml", "hi"] as const).map((l) => (
                   <button
                     key={l}
                     onClick={() => handleLangChange(l)}
