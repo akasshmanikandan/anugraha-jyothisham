@@ -1333,6 +1333,32 @@ function LandingPage() {
             style={{ borderColor: "rgba(212,175,55,0.2)", color: "#C9C3B0" }}
           >
             <span>{t.footer.copyright}</span>
+            {/* Developer branding — centered in the copyright bar */}
+            <a
+              href="https://www.troyflex.dev"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "5px",
+                textDecoration: "none",
+                fontSize: "10px",
+                letterSpacing: "2.5px",
+                fontFamily: "Inter, sans-serif",
+                fontWeight: 300,
+                color: "rgba(201,195,176,0.5)",
+                textTransform: "uppercase",
+                transition: "color 0.3s ease",
+              }}
+              onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "#D4AF37")}
+              onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "rgba(201,195,176,0.5)")}
+            >
+              <span style={{ opacity: 0.5, fontSize: "8px" }}>✦</span>
+              Designed &amp; Developed by
+              <span style={{ fontWeight: 500, letterSpacing: "2px" }}>Troyflex</span>
+              <span style={{ opacity: 0.5, fontSize: "8px" }}>✦</span>
+            </a>
             <span className="font-serif-italic normal-case tracking-normal text-[13px]" style={{ color: "#D4AF37" }}>
               {t.footer.shanti}
             </span>
@@ -1517,41 +1543,6 @@ function TempleSilhouette({ lang = "en" }: { lang?: Language }) {
           </div>
         </div>
       ))}
-
-      {/* Developer branding */}
-      <div
-        style={{
-          textAlign: "center",
-          marginTop: "18px",
-          paddingBottom: "6px",
-        }}
-      >
-        <a
-          href="https://www.troyflex.dev"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "6px",
-            textDecoration: "none",
-            fontSize: "10px",
-            letterSpacing: "2.5px",
-            fontFamily: "Inter, sans-serif",
-            fontWeight: 300,
-            color: "rgba(201,195,176,0.55)",
-            textTransform: "uppercase",
-            transition: "color 0.3s ease",
-          }}
-          onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "#D4AF37")}
-          onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "rgba(201,195,176,0.55)")}
-        >
-          <span style={{ opacity: 0.6, fontSize: "8px" }}>✦</span>
-          Designed &amp; Developed by
-          <span style={{ fontWeight: 500, letterSpacing: "2px" }}>Troyflex</span>
-          <span style={{ opacity: 0.6, fontSize: "8px" }}>✦</span>
-        </a>
-      </div>
     </div>
   );
 }
