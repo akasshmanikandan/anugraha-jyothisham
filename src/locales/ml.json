@@ -1,0 +1,266 @@
+{
+  "nav": {
+    "services": "[ML] Services",
+    "about": "[ML] About",
+    "process": "[ML] Process",
+    "voices": "[ML] Voices",
+    "faq": "[ML] FAQ",
+    "book": "[ML] Book ->"
+  },
+  "hero": {
+    "tagline": "[ML] Since 2009 | Rooted in Sastra",
+    "headline": [
+      "[ML] Guiding",
+      "[ML] Lives",
+      "[ML] Through",
+      "[ML] Ancient",
+      "[ML] Wisdom"
+    ],
+    "description": "[ML] A private consultancy in Vedic astrology, sacred ritual and the quiet arts of remedy, carried forward from a lineage of temple astrologers.",
+    "bookBtn": "[ML] Book Consultation",
+    "whatsappBtn": "[ML] WhatsApp",
+    "yearsPractice": "[ML] Years of Practice",
+    "clientsGuided": "[ML] Clients Guided",
+    "sacredDisciplines": "[ML] Sacred Disciplines",
+    "chooseLang": "[ML] Choose Language"
+  },
+  "services": {
+    "eyebrow": "[ML] The Nine Disciplines",
+    "title": "[ML] Sacred Consultations",
+    "quote": "[ML] Each art a lamp; together, they illumine the whole of one life.",
+    "items": [
+      {
+        "title": "[ML] Jyotisha",
+        "sub": "[ML] Astrology",
+        "body": "[ML] Vedic birth-chart analysis, dasha periods, and planetary remedies from the sidereal Sastras."
+      },
+      {
+        "title": "[ML] Tantrikam",
+        "sub": "[ML] Sacred Rituals",
+        "body": "[ML] Traditional yantra installation and homa ceremonies for protection, prosperity and clarity."
+      },
+      {
+        "title": "[ML] Mantrikam",
+        "sub": "[ML] Mantra Sadhana",
+        "body": "[ML] Personalized bija and moola mantras with proper vidhi for chanting, initiation and japa."
+      },
+      {
+        "title": "[ML] Vaithiyam",
+        "sub": "[ML] Ayurvedic Guidance",
+        "body": "[ML] Prakriti-based counsel for restoring balance across dosha, diet and daily discipline."
+      },
+      {
+        "title": "[ML] Thambulam",
+        "sub": "[ML] Betel Leaf Divination",
+        "body": "[ML] Ancient south Indian oracle reading for time-sensitive questions and turning points."
+      },
+      {
+        "title": "[ML] Samudrika",
+        "sub": "[ML] Face Reading",
+        "body": "[ML] Reading the temperament and destiny inscribed in the features of the face."
+      },
+      {
+        "title": "[ML] Nadi",
+        "sub": "[ML] Palm-Leaf Reading",
+        "body": "[ML] Consultation of the Nadi granthas, recorded lives inscribed centuries before your birth."
+      },
+      {
+        "title": "[ML] Vaasthu",
+        "sub": "[ML] Sacred Geometry",
+        "body": "[ML] Aligning homes, workplaces and temples with the directions, elements and mandala grid."
+      },
+      {
+        "title": "[ML] Numerology",
+        "sub": "[ML] Science of Numbers",
+        "body": "[ML] Names, dates and vibrational numbers harmonized for personal and family wellbeing."
+      }
+    ]
+  },
+  "about": {
+    "eyebrow": "[ML] The Astrologer",
+    "title": "[ML] Govindan Namboodiri VG",
+    "sub": "[ML] Vedic Astrologer",
+    "bullets": [
+      "[ML] Basic Horoscope, Predictions",
+      "[ML] Total Horoscope, Predictions",
+      "[ML] Birthday Annual Forecast",
+      "[ML] Marriage Matching",
+      "[ML] Muhurtha Date and Time",
+      "[ML] Numerology Predictions",
+      "[ML] Suitable & Lucky Name",
+      "[ML] Lucky Rasi Gems",
+      "[ML] Tantrika",
+      "[ML] Pradhista",
+      "[ML] Kumbabishekam"
+    ],
+    "parihara": "[ML] All kinds of parihara related religious rituals and Homam are performed.",
+    "bannerText": "[ML] WE PROVIDE ASTROLOGICAL SERVICES ANYWHERE IN THE WORLD",
+    "languagesText": "[ML] Tamil | English | Hindi | Malayalam"
+  },
+  "whyChooseUs": {
+    "eyebrow": "[ML] Why Anugraha",
+    "title": "[ML] Tradition, Held Whole",
+    "quote": "[ML] What is old must not be antique, it must be alive.",
+    "items": [
+      {
+        "t": "[ML] Unbroken Lineage",
+        "d": "[ML] Five generations of temple astrologers, taught in the classical guru-shishya tradition."
+      },
+      {
+        "t": "[ML] Shastric Fidelity",
+        "d": "[ML] Every reading grounded in Parashara, Jaimini and Nadi literature, never intuition alone."
+      },
+      {
+        "t": "[ML] Discreet Practice",
+        "d": "[ML] Consultations by appointment only, held with the confidentiality of a physician."
+      },
+      {
+        "t": "[ML] Practical Remedies",
+        "d": "[ML] Prescriptions calibrated to your life, never asking what you cannot faithfully do."
+      }
+    ]
+  },
+  "process": {
+    "eyebrow": "[ML] Consultation Path",
+    "title": "[ML] Five Steps, Held with Care",
+    "quote": "[ML] The right path is walked slowly, one lamp at a time.",
+    "steps": [
+      {
+        "n": "[ML] 01",
+        "t": "[ML] Book",
+        "d": "[ML] Reserve a private slot at a time of your choosing."
+      },
+      {
+        "n": "[ML] 02",
+        "t": "[ML] Birth Details",
+        "d": "[ML] Share date, time and place of birth in confidence."
+      },
+      {
+        "n": "[ML] 03",
+        "t": "[ML] Consultation",
+        "d": "[ML] A one-on-one reading held in person or by call."
+      },
+      {
+        "n": "[ML] 04",
+        "t": "[ML] Remedies",
+        "d": "[ML] Receive personalized mantras, yantras and rituals."
+      },
+      {
+        "n": "[ML] 05",
+        "t": "[ML] Follow-up",
+        "d": "[ML] Periodic guidance as the dasha and planets shift."
+      }
+    ]
+  },
+  "testimonials": {
+    "eyebrow": "[ML] Voices",
+    "title": "[ML] Words Left Behind",
+    "quote": "[ML] Gratitude is the only offering that outlasts the ritual.",
+    "items": [
+      {
+        "q": "[ML] The remedies suggested were precise and deeply rooted in scripture. My family found peace after years of turbulence.",
+        "n": "[ML] Lakshmi Narayanan",
+        "r": "[ML] Chennai"
+      },
+      {
+        "q": "[ML] A rare astrologer who does not sensationalize. Every reading carried the weight of tradition and calm authority.",
+        "n": "[ML] Ananya Iyer",
+        "r": "[ML] Bengaluru"
+      },
+      {
+        "q": "[ML] Consulted for my son's marriage compatibility. The clarity we received made the decision effortless.",
+        "n": "[ML] Rajesh Menon",
+        "r": "[ML] Kochi"
+      },
+      {
+        "q": "[ML] Vaasthu recommendations for our new home changed the entire atmosphere. Quiet, dignified guidance.",
+        "n": "[ML] Priya Subramanian",
+        "r": "[ML] Coimbatore"
+      },
+      {
+        "q": "[ML] The Nadi reading was uncanny. Nothing embellished, nothing withheld, an honest window into karma.",
+        "n": "[ML] Vikram Bhatt",
+        "r": "[ML] Mumbai"
+      },
+      {
+        "q": "[ML] After a year of practising the mantra given to me, I feel a stillness I did not know was possible.",
+        "n": "[ML] Meera Krishnan",
+        "r": "[ML] Trivandrum"
+      }
+    ]
+  },
+  "gallery": {
+    "eyebrow": "[ML] Pooja Photos",
+    "title": "[ML] Temple Rituals",
+    "quote": "[ML] Moments from the living practice."
+  },
+  "faq": {
+    "eyebrow": "[ML] Questions",
+    "title": "[ML] Before You Begin",
+    "quote": "[ML] Ask freely, clarity is itself a first remedy.",
+    "items": [
+      {
+        "q": "[ML] How is a traditional consultation different from an online report?",
+        "a": "[ML] A shastric reading examines the interplay of chart, dasha, transits and lineage. Every remedy prescribed considers your capacity to practise it."
+      },
+      {
+        "q": "[ML] What information do I need to share before booking?",
+        "a": "[ML] Your date of birth, exact time of birth as close as possible, and place of birth. If unknown, we can perform a rectification session first."
+      },
+      {
+        "q": "[ML] Are the remedies difficult to follow?",
+        "a": "[ML] Remedies are always calibrated to your life. Some are as simple as a mantra at dawn; others involve pooja on specific tithis."
+      },
+      {
+        "q": "[ML] Is my consultation confidential?",
+        "a": "[ML] Absolutely. Every reading, chart and personal detail remains strictly between you and the astrologer."
+      },
+      {
+        "q": "[ML] Do you offer follow-up consultations?",
+        "a": "[ML] Yes. Most clients return once or twice a year, and during significant dasha transitions or life events."
+      }
+    ]
+  },
+  "book": {
+    "eyebrow": "[ML] Reserve a Sitting",
+    "title": "[ML] A private hour with the Sastra.",
+    "quote": "[ML] Consultations by appointment. In person at our study in Chennai, or by secure video call.",
+    "hoursLabel": "[ML] Hours",
+    "hoursVal": "[ML] Mon-Sat | 08:00 - 17:00 IST",
+    "addressLabel": "[ML] Address",
+    "addressVal": "[ML] Flat No. 6, Saravana Villa, Meenakshi Street, Perambur, Chennai 600011",
+    "contactLabel": "[ML] Contact",
+    "contactVal": "[ML] +91 917 609 6471 | +91 877 823 6182 | WhatsApp available",
+    "form": {
+      "name": "[ML] Full Name",
+      "namePlaceholder": "[ML] Your name",
+      "phone": "[ML] Phone",
+      "phonePlaceholder": "[ML] +91 ...",
+      "dob": "[ML] Date of Birth",
+      "tob": "[ML] Time of Birth",
+      "pob": "[ML] Place of Birth",
+      "pobPlaceholder": "[ML] Town, State",
+      "nature": "[ML] Nature of Consultation",
+      "natureOptions": [
+        "[ML] Jyotisha - Birth chart reading",
+        "[ML] Nadi - Palm-leaf consultation",
+        "[ML] Vaasthu - Home / workplace",
+        "[ML] Marriage compatibility",
+        "[ML] Other"
+      ],
+      "question": "[ML] Your Question",
+      "questionPlaceholder": "[ML] Briefly describe the concern you wish to bring...",
+      "submit": "[ML] Request Appointment",
+      "replyNote": "[ML] We reply within one working day."
+    }
+  },
+  "footer": {
+    "description": "[ML] A private consultancy in traditional Vedic astrology and spiritual practice.",
+    "headers": {
+      "consultation": "[ML] Consultation",
+      "contact": "[ML] Contact"
+    },
+    "copyright": "[ML] © 2026 Anugraha Jyothishalaya. All rights reserved.",
+    "shanti": "[ML] Om shanti shanti shanti"
+  }
+}

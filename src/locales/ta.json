@@ -1,0 +1,266 @@
+{
+  "nav": {
+    "services": "[TA] Services",
+    "about": "[TA] About",
+    "process": "[TA] Process",
+    "voices": "[TA] Voices",
+    "faq": "[TA] FAQ",
+    "book": "[TA] Book ->"
+  },
+  "hero": {
+    "tagline": "[TA] Since 2009 | Rooted in Sastra",
+    "headline": [
+      "[TA] Guiding",
+      "[TA] Lives",
+      "[TA] Through",
+      "[TA] Ancient",
+      "[TA] Wisdom"
+    ],
+    "description": "[TA] A private consultancy in Vedic astrology, sacred ritual and the quiet arts of remedy, carried forward from a lineage of temple astrologers.",
+    "bookBtn": "[TA] Book Consultation",
+    "whatsappBtn": "[TA] WhatsApp",
+    "yearsPractice": "[TA] Years of Practice",
+    "clientsGuided": "[TA] Clients Guided",
+    "sacredDisciplines": "[TA] Sacred Disciplines",
+    "chooseLang": "[TA] Choose Language"
+  },
+  "services": {
+    "eyebrow": "[TA] The Nine Disciplines",
+    "title": "[TA] Sacred Consultations",
+    "quote": "[TA] Each art a lamp; together, they illumine the whole of one life.",
+    "items": [
+      {
+        "title": "[TA] Jyotisha",
+        "sub": "[TA] Astrology",
+        "body": "[TA] Vedic birth-chart analysis, dasha periods, and planetary remedies from the sidereal Sastras."
+      },
+      {
+        "title": "[TA] Tantrikam",
+        "sub": "[TA] Sacred Rituals",
+        "body": "[TA] Traditional yantra installation and homa ceremonies for protection, prosperity and clarity."
+      },
+      {
+        "title": "[TA] Mantrikam",
+        "sub": "[TA] Mantra Sadhana",
+        "body": "[TA] Personalized bija and moola mantras with proper vidhi for chanting, initiation and japa."
+      },
+      {
+        "title": "[TA] Vaithiyam",
+        "sub": "[TA] Ayurvedic Guidance",
+        "body": "[TA] Prakriti-based counsel for restoring balance across dosha, diet and daily discipline."
+      },
+      {
+        "title": "[TA] Thambulam",
+        "sub": "[TA] Betel Leaf Divination",
+        "body": "[TA] Ancient south Indian oracle reading for time-sensitive questions and turning points."
+      },
+      {
+        "title": "[TA] Samudrika",
+        "sub": "[TA] Face Reading",
+        "body": "[TA] Reading the temperament and destiny inscribed in the features of the face."
+      },
+      {
+        "title": "[TA] Nadi",
+        "sub": "[TA] Palm-Leaf Reading",
+        "body": "[TA] Consultation of the Nadi granthas, recorded lives inscribed centuries before your birth."
+      },
+      {
+        "title": "[TA] Vaasthu",
+        "sub": "[TA] Sacred Geometry",
+        "body": "[TA] Aligning homes, workplaces and temples with the directions, elements and mandala grid."
+      },
+      {
+        "title": "[TA] Numerology",
+        "sub": "[TA] Science of Numbers",
+        "body": "[TA] Names, dates and vibrational numbers harmonized for personal and family wellbeing."
+      }
+    ]
+  },
+  "about": {
+    "eyebrow": "[TA] The Astrologer",
+    "title": "[TA] Govindan Namboodiri VG",
+    "sub": "[TA] Vedic Astrologer",
+    "bullets": [
+      "[TA] Basic Horoscope, Predictions",
+      "[TA] Total Horoscope, Predictions",
+      "[TA] Birthday Annual Forecast",
+      "[TA] Marriage Matching",
+      "[TA] Muhurtha Date and Time",
+      "[TA] Numerology Predictions",
+      "[TA] Suitable & Lucky Name",
+      "[TA] Lucky Rasi Gems",
+      "[TA] Tantrika",
+      "[TA] Pradhista",
+      "[TA] Kumbabishekam"
+    ],
+    "parihara": "[TA] All kinds of parihara related religious rituals and Homam are performed.",
+    "bannerText": "[TA] WE PROVIDE ASTROLOGICAL SERVICES ANYWHERE IN THE WORLD",
+    "languagesText": "[TA] Tamil | English | Hindi | Malayalam"
+  },
+  "whyChooseUs": {
+    "eyebrow": "[TA] Why Anugraha",
+    "title": "[TA] Tradition, Held Whole",
+    "quote": "[TA] What is old must not be antique, it must be alive.",
+    "items": [
+      {
+        "t": "[TA] Unbroken Lineage",
+        "d": "[TA] Five generations of temple astrologers, taught in the classical guru-shishya tradition."
+      },
+      {
+        "t": "[TA] Shastric Fidelity",
+        "d": "[TA] Every reading grounded in Parashara, Jaimini and Nadi literature, never intuition alone."
+      },
+      {
+        "t": "[TA] Discreet Practice",
+        "d": "[TA] Consultations by appointment only, held with the confidentiality of a physician."
+      },
+      {
+        "t": "[TA] Practical Remedies",
+        "d": "[TA] Prescriptions calibrated to your life, never asking what you cannot faithfully do."
+      }
+    ]
+  },
+  "process": {
+    "eyebrow": "[TA] Consultation Path",
+    "title": "[TA] Five Steps, Held with Care",
+    "quote": "[TA] The right path is walked slowly, one lamp at a time.",
+    "steps": [
+      {
+        "n": "[TA] 01",
+        "t": "[TA] Book",
+        "d": "[TA] Reserve a private slot at a time of your choosing."
+      },
+      {
+        "n": "[TA] 02",
+        "t": "[TA] Birth Details",
+        "d": "[TA] Share date, time and place of birth in confidence."
+      },
+      {
+        "n": "[TA] 03",
+        "t": "[TA] Consultation",
+        "d": "[TA] A one-on-one reading held in person or by call."
+      },
+      {
+        "n": "[TA] 04",
+        "t": "[TA] Remedies",
+        "d": "[TA] Receive personalized mantras, yantras and rituals."
+      },
+      {
+        "n": "[TA] 05",
+        "t": "[TA] Follow-up",
+        "d": "[TA] Periodic guidance as the dasha and planets shift."
+      }
+    ]
+  },
+  "testimonials": {
+    "eyebrow": "[TA] Voices",
+    "title": "[TA] Words Left Behind",
+    "quote": "[TA] Gratitude is the only offering that outlasts the ritual.",
+    "items": [
+      {
+        "q": "[TA] The remedies suggested were precise and deeply rooted in scripture. My family found peace after years of turbulence.",
+        "n": "[TA] Lakshmi Narayanan",
+        "r": "[TA] Chennai"
+      },
+      {
+        "q": "[TA] A rare astrologer who does not sensationalize. Every reading carried the weight of tradition and calm authority.",
+        "n": "[TA] Ananya Iyer",
+        "r": "[TA] Bengaluru"
+      },
+      {
+        "q": "[TA] Consulted for my son's marriage compatibility. The clarity we received made the decision effortless.",
+        "n": "[TA] Rajesh Menon",
+        "r": "[TA] Kochi"
+      },
+      {
+        "q": "[TA] Vaasthu recommendations for our new home changed the entire atmosphere. Quiet, dignified guidance.",
+        "n": "[TA] Priya Subramanian",
+        "r": "[TA] Coimbatore"
+      },
+      {
+        "q": "[TA] The Nadi reading was uncanny. Nothing embellished, nothing withheld, an honest window into karma.",
+        "n": "[TA] Vikram Bhatt",
+        "r": "[TA] Mumbai"
+      },
+      {
+        "q": "[TA] After a year of practising the mantra given to me, I feel a stillness I did not know was possible.",
+        "n": "[TA] Meera Krishnan",
+        "r": "[TA] Trivandrum"
+      }
+    ]
+  },
+  "gallery": {
+    "eyebrow": "[TA] Pooja Photos",
+    "title": "[TA] Temple Rituals",
+    "quote": "[TA] Moments from the living practice."
+  },
+  "faq": {
+    "eyebrow": "[TA] Questions",
+    "title": "[TA] Before You Begin",
+    "quote": "[TA] Ask freely, clarity is itself a first remedy.",
+    "items": [
+      {
+        "q": "[TA] How is a traditional consultation different from an online report?",
+        "a": "[TA] A shastric reading examines the interplay of chart, dasha, transits and lineage. Every remedy prescribed considers your capacity to practise it."
+      },
+      {
+        "q": "[TA] What information do I need to share before booking?",
+        "a": "[TA] Your date of birth, exact time of birth as close as possible, and place of birth. If unknown, we can perform a rectification session first."
+      },
+      {
+        "q": "[TA] Are the remedies difficult to follow?",
+        "a": "[TA] Remedies are always calibrated to your life. Some are as simple as a mantra at dawn; others involve pooja on specific tithis."
+      },
+      {
+        "q": "[TA] Is my consultation confidential?",
+        "a": "[TA] Absolutely. Every reading, chart and personal detail remains strictly between you and the astrologer."
+      },
+      {
+        "q": "[TA] Do you offer follow-up consultations?",
+        "a": "[TA] Yes. Most clients return once or twice a year, and during significant dasha transitions or life events."
+      }
+    ]
+  },
+  "book": {
+    "eyebrow": "[TA] Reserve a Sitting",
+    "title": "[TA] A private hour with the Sastra.",
+    "quote": "[TA] Consultations by appointment. In person at our study in Chennai, or by secure video call.",
+    "hoursLabel": "[TA] Hours",
+    "hoursVal": "[TA] Mon-Sat | 08:00 - 17:00 IST",
+    "addressLabel": "[TA] Address",
+    "addressVal": "[TA] Flat No. 6, Saravana Villa, Meenakshi Street, Perambur, Chennai 600011",
+    "contactLabel": "[TA] Contact",
+    "contactVal": "[TA] +91 917 609 6471 | +91 877 823 6182 | WhatsApp available",
+    "form": {
+      "name": "[TA] Full Name",
+      "namePlaceholder": "[TA] Your name",
+      "phone": "[TA] Phone",
+      "phonePlaceholder": "[TA] +91 ...",
+      "dob": "[TA] Date of Birth",
+      "tob": "[TA] Time of Birth",
+      "pob": "[TA] Place of Birth",
+      "pobPlaceholder": "[TA] Town, State",
+      "nature": "[TA] Nature of Consultation",
+      "natureOptions": [
+        "[TA] Jyotisha - Birth chart reading",
+        "[TA] Nadi - Palm-leaf consultation",
+        "[TA] Vaasthu - Home / workplace",
+        "[TA] Marriage compatibility",
+        "[TA] Other"
+      ],
+      "question": "[TA] Your Question",
+      "questionPlaceholder": "[TA] Briefly describe the concern you wish to bring...",
+      "submit": "[TA] Request Appointment",
+      "replyNote": "[TA] We reply within one working day."
+    }
+  },
+  "footer": {
+    "description": "[TA] A private consultancy in traditional Vedic astrology and spiritual practice.",
+    "headers": {
+      "consultation": "[TA] Consultation",
+      "contact": "[TA] Contact"
+    },
+    "copyright": "[TA] © 2026 Anugraha Jyothishalaya. All rights reserved.",
+    "shanti": "[TA] Om shanti shanti shanti"
+  }
+}
