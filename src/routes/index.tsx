@@ -1387,10 +1387,12 @@ function SectionHeading({
 
 function Field({
   label,
+  name,
   placeholder,
   type = "text",
 }: {
   label: string;
+  name?: string;
   placeholder?: string;
   type?: string;
 }) {
@@ -1400,6 +1402,7 @@ function Field({
         {label}
       </label>
       <input
+        name={name}
         type={type}
         placeholder={placeholder}
         className="field w-full px-4 py-3 text-[14px]"
