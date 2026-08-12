@@ -756,6 +756,19 @@ function LandingPage() {
                 >
                   Malayalam
                 </button>
+                <button
+                  type="button"
+                  onClick={() => handleLangChange("hi")}
+                  className="px-5 py-2.5 text-[11px] uppercase tracking-[0.16em] font-medium border transition-all duration-300"
+                  style={{
+                    background: lang === "hi" ? "rgba(212,175,55,0.15)" : "rgba(8,26,52,0.35)",
+                    borderColor: lang === "hi" ? "#D4AF37" : "rgba(212,175,55,0.3)",
+                    color: lang === "hi" ? "#D4AF37" : "#C9C3B0",
+                    boxShadow: lang === "hi" ? "0 0 12px rgba(212,175,55,0.2)" : "none",
+                  }}
+                >
+                  Hindi
+                </button>
               </div>
             </div>
 
