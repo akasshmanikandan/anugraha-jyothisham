@@ -20,9 +20,10 @@ import godPhoto3 from "@/assets/god-photo-3.jpeg";
 import en from "@/locales/en.json";
 import ta from "@/locales/ta.json";
 import ml from "@/locales/ml.json";
+import hi from "@/locales/hi.json";
 
-const TRANSLATIONS = { en, ta, ml };
-type Language = "en" | "ta" | "ml";
+const TRANSLATIONS = { en, ta, ml, hi };
+type Language = "en" | "ta" | "ml" | "hi";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -451,7 +452,7 @@ function LandingPage() {
 
   useEffect(() => {
     const saved = localStorage.getItem("preferredLanguage");
-    if (saved === "en" || saved === "ta" || saved === "ml") {
+    if (saved === "en" || saved === "ta" || saved === "ml" || saved === "hi") {
       setLang(saved as Language);
     }
   }, []);
