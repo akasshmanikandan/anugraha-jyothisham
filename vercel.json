@@ -1,3 +1,7 @@
 {
-  "framework": "tanstack-start"
+  "framework": "tanstack-start",
+  "routes": [
+    { "src": "/assets/(.*)", "continue": true },
+    { "src": "/(.*)", "dest": "/__server" }
+  ]
 }
