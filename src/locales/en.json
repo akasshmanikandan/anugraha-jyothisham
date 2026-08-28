@@ -1,6 +1,7 @@
 {
   "nav": {
     "services": "Services",
+    "rituals": "Rituals",
     "about": "About",
     "process": "Process",
     "voices": "Voices",
@@ -118,7 +119,10 @@
   "gallery": {
     "eyebrow": "Pooja Photos",
     "title": "Temple Rituals",
-    "quote": "Moments from the living practice."
+    "quote": "Moments from the living practice.",
+    "scrollArchive": "Scroll through the ritual archive",
+    "prev": "Prev",
+    "next": "Next"
   },
   "faq": {
     "eyebrow": "Questions",

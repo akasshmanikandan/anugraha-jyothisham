@@ -1,48 +1,79 @@
 import { ClientOnly, createFileRoute } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import { Suspense, lazy, useEffect, useMemo, useRef, useState } from "react";
 
 const VedicScene = lazy(() => import("@/components/VedicScene"));
 
-import godPhoto1 from "@/assets/god-photo-1.jpeg";
-import ritual1 from "@/assets/ritual-1.jpeg";
-import ritual2 from "@/assets/ritual-2.jpeg";
-import ritual3 from "@/assets/ritual-3.jpeg";
-import ritual4 from "@/assets/ritual-4.jpeg";
-import ritual5 from "@/assets/ritual-5.jpeg";
-import ritual6 from "@/assets/ritual-6.jpeg";
-import ritual8 from "@/assets/ritual-8.jpeg";
 import sreeChakra from "@/assets/sree-chakra.png";
-import deityVinayagar from "@/assets/vinayagar.png";
-
 import bgBhadrakali from "@/assets/god-photo-4.jpeg";
 import templePhoto from "@/assets/photo.png";
-import godPhoto3 from "@/assets/god-photo-3.jpeg";
-import en from "@/locales/en.json";
-import ta from "@/locales/ta.json";
-import ml from "@/locales/ml.json";
-import hi from "@/locales/hi.json";
 
-const TRANSLATIONS = { en, ta, ml, hi };
+import { useLanguage } from "@/contexts/LanguageContext";
+import { Header, Footer } from "@/components/Layout";
+import { ServicesSection } from "@/components/ServicesSection";
+import { FAQSection } from "@/components/FAQSection";
+import { ContactSection } from "@/components/ContactSection";
+import { GallerySection } from "@/components/GallerySection";
+import { StatBlock, SectionHeading } from "@/components/Shared";
+
 type Language = "en" | "ta" | "ml" | "hi";
+
+const SITE_URL = "https://www.anugrahajyothishalaya.com/";
+const OG_IMAGE_URL = "https://www.anugrahajyothishalaya.com/og-image.jpg";
+const PAGE_TITLE = "Anugraha Jyothishalaya - Vedic Astrology by Govindan Namboodiri VG";
+const PAGE_DESCRIPTION =
+  "Anugraha Jyothishalaya - Govindan Namboodiri VG, Vedic Astrologer. Horoscope, marriage matching, muhurtha, numerology, lucky name and rasi gems. Services anywhere in the world.";
+
+const homepageSchema = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: "Anugraha Jyothishalaya",
+  url: SITE_URL,
+  image: OG_IMAGE_URL,
+  telephone: "+91 9176096471",
+  email: "anugrahajyothishalaya@gmail.com",
+  description: PAGE_DESCRIPTION,
+  areaServed: ["Chennai", "Perambur", "Tamil Nadu", "India"],
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Flat No. 6, Saravana Villa, Meenakshi Street, Perambur",
+    addressLocality: "Chennai",
+    addressRegion: "Tamil Nadu",
+    postalCode: "600011",
+    addressCountry: "IN",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: 13.1218,
+    longitude: 80.2123,
+  },
+  priceRange: "₹₹",
+  founder: {
+    "@type": "Person",
+    name: "Govindan Namboodiri VG",
+  },
+};
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Anugraha Jyothishalaya - Vedic Astrology by Govindan Namboodiri VG" },
-      {
-        name: "description",
-        content: "Anugraha Jyothishalaya - Govindan Namboodiri VG, Vedic Astrologer. Horoscope, marriage matching, muhurtha, numerology, lucky name and rasi gems. Services anywhere in the world.",
-      },
-      { property: "og:title", content: "Anugraha Jyothishalaya - Vedic Astrology" },
-
-      {
-        property: "og:description",
-        content:
-          "Personal consultations in Jyotisha, Nadi, Vaasthu and Numerology. Rooted in tradition, delivered with discretion.",
-      },
+      { title: PAGE_TITLE },
+      { name: "description", content: PAGE_DESCRIPTION },
+      { property: "og:title", content: PAGE_TITLE },
+      { property: "og:description", content: PAGE_DESCRIPTION },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: SITE_URL },
+      { property: "og:site_name", content: "Anugraha Jyothishalaya" },
+      { property: "og:image", content: OG_IMAGE_URL },
+      { property: "og:locale", content: "en_IN" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: PAGE_TITLE },
+      { name: "twitter:description", content: PAGE_DESCRIPTION },
+      { name: "twitter:image", content: OG_IMAGE_URL },
+      { name: "robots", content: "index, follow, max-image-preview:large" },
     ],
+    links: [{ rel: "canonical", href: SITE_URL }],
+    scripts: [{ type: "application/ld+json", children: JSON.stringify(homepageSchema) }],
   }),
   component: LandingPage,
 });
@@ -440,21 +471,13 @@ const SERVICE_ICONS = [
 function LandingPage() {
   const heroRef = useRef<HTMLDivElement>(null);
   const timelineRef = useRef<HTMLDivElement>(null);
-  const galleryStripRef = useRef<HTMLDivElement>(null);
   const [wick, setWick] = useState(0);
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
-  const [lang, setLang] = useState<Language>("en");
+
+  const { lang, setLang, t } = useLanguage();
 
   /* Reflect 3D mode on <html> for CSS transforms */
   useEffect(() => {
     document.documentElement.dataset.fx = "on";
-  }, []);
-
-  useEffect(() => {
-    const saved = localStorage.getItem("preferredLanguage");
-    if (saved === "en" || saved === "ta" || saved === "ml" || saved === "hi") {
-      setLang(saved as Language);
-    }
   }, []);
 
   useEffect(() => {
@@ -466,13 +489,6 @@ function LandingPage() {
     };
     document.title = titles[lang];
   }, [lang]);
-
-  const handleLangChange = (newLang: Language) => {
-    setLang(newLang);
-    localStorage.setItem("preferredLanguage", newLang);
-  };
-
-  const t: any = TRANSLATIONS[lang] || TRANSLATIONS.en;
 
 
   /* Cursor embers ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â¦ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â desktop hero only */
@@ -604,71 +620,10 @@ function LandingPage() {
     [t]
   );
 
-  const galleryPhotos = useMemo(
-    () => [
-      { src: godPhoto1, alt: "Temple deity adorned with flowers" },
-      { src: ritual1, alt: "Ritual fire ceremony at night" },
-      { src: ritual2, alt: "Ritual altar with lamps and floral arrangement" },
-      { src: ritual3, alt: "Floor ritual with lamps and offerings" },
-      { src: ritual4, alt: "Temple ritual with central fire and devotees" },
-      { src: ritual5, alt: "Decorated shrine with multiple deity frames" },
-      { src: ritual6, alt: "Pooja arrangement with lamps and flowers" },
-      { src: ritual8, alt: "Sacred fire burning in a ritual pit" },
-    ],
-    []
-  );
-
   return (
     <div className="min-h-screen text-ivory" style={{ background: "#081A34", color: "#F7F4EA" }}>
       {/* Navigation */}
-      <header className="fixed top-0 left-0 right-0 z-40">
-        <div
-          className="border-b"
-          style={{
-            borderColor: "rgba(212,175,55,0.15)",
-            background: "rgba(8,26,52,0.55)",
-            backdropFilter: "blur(14px)",
-          }}
-        >
-          <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:px-10">
-            <a href="#top" className="font-display text-[15px] tracking-[0.24em] text-ivory">
-              ANUGRAHA JYOTHISHALAYA
-            </a>
-            <nav className="hidden items-center gap-9 text-[12px] uppercase tracking-[0.22em] md:flex" style={{ color: "#C9C3B0" }}>
-              <a href="#services" className="hover:text-ivory transition-colors">{t.nav.services}</a>
-              <a href="#about" className="hover:text-ivory transition-colors">{t.nav.about}</a>
-              <a href="#process" className="hover:text-ivory transition-colors">{t.nav.process}</a>
-              <a href="#testimonials" className="hover:text-ivory transition-colors">{t.nav.voices}</a>
-              <a href="#faq" className="hover:text-ivory transition-colors">{t.nav.faq}</a>
-            </nav>
-            <div className="flex items-center gap-6">
-              {/* Header language switcher */}
-              <div className="flex items-center gap-2 border px-2.5 py-1 rounded" style={{ borderColor: "rgba(212,175,55,0.25)", background: "rgba(5,15,34,0.4)" }}>
-                {(["en", "ta", "ml", "hi"] as const).map((l) => (
-                  <button
-                    key={l}
-                    onClick={() => handleLangChange(l)}
-                    className="px-1.5 py-0.5 rounded text-[10px] uppercase font-semibold transition-all"
-                    style={{
-                      background: lang === l ? "#D4AF37" : "transparent",
-                      color: lang === l ? "#050F22" : "#C9C3B0",
-                    }}
-                  >
-                    {l}
-                  </button>
-                ))}
-              </div>
-              <a
-                href="#book"
-                className="hidden text-[12px] uppercase tracking-[0.22em] md:inline-block"
-                style={{ color: "#D4AF37" }}
-              >
-                {t.nav.book}
-              </a>
-            </div>
-          </div>
-        </div>
-      </header>
+      <Header />
 
       {/* Hero */}
       <section
@@ -774,10 +729,26 @@ function LandingPage() {
             </div>
 
             <div className="hero-ctas mt-10 flex flex-wrap items-center gap-4">
-              <CtaButton href="#book">{t.hero.bookBtn}</CtaButton>
-              <CtaButton href="https://wa.me/918778236182" variant="maroon">
-                {t.hero.whatsappBtn}
-              </CtaButton>
+              <a
+                href="/contact"
+                className="cta-btn group inline-flex items-center gap-3 px-7 py-4 text-[13px] uppercase tracking-[0.22em] font-medium border border-gold/40 transition-colors duration-300 bg-transparent text-ivory"
+                style={{ borderColor: "rgba(212,175,55,0.4)" }}
+              >
+                <svg className="cta-trace" preserveAspectRatio="none" viewBox="0 0 200 60">
+                  <rect x="0.5" y="0.5" width="199" height="59" />
+                </svg>
+                <span className="relative z-10">{t.hero.bookBtn}</span>
+              </a>
+              <a
+                href="https://wa.me/918778236182"
+                className="cta-btn group inline-flex items-center gap-3 px-7 py-4 text-[13px] uppercase tracking-[0.22em] font-medium border border-gold/40 transition-colors duration-300 bg-maroon text-ivory"
+                style={{ borderColor: "rgba(212,175,55,0.4)" }}
+              >
+                <svg className="cta-trace" preserveAspectRatio="none" viewBox="0 0 200 60">
+                  <rect x="0.5" y="0.5" width="199" height="59" />
+                </svg>
+                <span className="relative z-10">{t.hero.whatsappBtn}</span>
+              </a>
             </div>
 
             <div className="hero-stats mt-16 grid grid-cols-3 gap-6 border-t pt-8" style={{ borderColor: "rgba(212,175,55,0.18)" }}>
@@ -807,32 +778,18 @@ function LandingPage() {
           title={t.services.title}
           quote={t.services.quote}
         />
-        <div className="mt-16 grid grid-cols-1 gap-px sm:grid-cols-2 lg:grid-cols-3" style={{ background: "rgba(212,175,55,0.15)" }}>
-          {t.services.items.map((s: any, idx: number) => {
-            const Icon = SERVICE_ICONS[idx];
-            return (
-              <article
-                key={idx}
-                data-d3="card"
-                className="service-card group relative overflow-hidden p-8 md:p-10"
-                style={{ background: "#081A34" }}
-              >
-                <div className="mb-6">
-                  {Icon && <Icon />}
-                </div>
-                <div
-                  className="mb-1 text-[10px] uppercase tracking-[0.28em]"
-                  style={{ color: "#D4AF37" }}
-                >
-                  {s.sub}
-                </div>
-                <h3 className="font-display text-2xl text-ivory">{s.title}</h3>
-                <p className="mt-4 text-[14.5px] leading-relaxed" style={{ color: "#C9C3B0" }}>
-                  {s.body}
-                </p>
-              </article>
-            );
-          })}
+        <ServicesSection limit={6} />
+        <div className="mt-12 flex justify-center">
+          <a
+            href="/services"
+            className="cta-btn group inline-flex items-center gap-3 px-7 py-4 text-[13px] uppercase tracking-[0.22em] font-medium border border-gold/40 transition-colors duration-300 bg-transparent text-ivory"
+            style={{ borderColor: "rgba(212,175,55,0.4)" }}
+          >
+            <svg className="cta-trace" preserveAspectRatio="none" viewBox="0 0 200 60">
+              <rect x="0.5" y="0.5" width="199" height="59" />
+            </svg>
+            <span className="relative z-10">View All Services →</span>
+          </a>
         </div>
       </section>
 
@@ -946,7 +903,6 @@ function LandingPage() {
 
       <SectionDivider />
 
-      {/* Why Choose Us */}
       {/* Why Choose Us */}
       <section className="mx-auto max-w-7xl px-6 md:px-10">
         <SectionHeading
@@ -1062,469 +1018,34 @@ function LandingPage() {
 
       <SectionDivider />
 
-      {/* Gallery */}
-      <section className="mx-auto max-w-7xl px-6 md:px-10">
-        <SectionHeading
-          eyebrow={t.gallery.eyebrow}
-          title={t.gallery.title}
-          quote={t.gallery.quote}
-        />
-        <div className="mt-16">
-          <div className="mb-5 flex items-center justify-between gap-4">
-            <p className="text-[11px] uppercase tracking-[0.28em]" style={{ color: "#C9C3B0" }}>
-              Scroll through the ritual archive
-            </p>
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={() => {
-                  galleryStripRef.current?.scrollBy({ left: -420, behavior: "smooth" });
-                }}
-                className="border px-3 py-2 text-[11px] uppercase tracking-[0.2em] transition-colors hover:bg-[rgba(212,175,55,0.08)]"
-                style={{ borderColor: "rgba(212,175,55,0.25)", color: "#D4AF37" }}
-                aria-label="Scroll gallery left"
-              >
-                Prev
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  galleryStripRef.current?.scrollBy({ left: 420, behavior: "smooth" });
-                }}
-                className="border px-3 py-2 text-[11px] uppercase tracking-[0.2em] transition-colors hover:bg-[rgba(212,175,55,0.08)]"
-                style={{ borderColor: "rgba(212,175,55,0.25)", color: "#D4AF37" }}
-                aria-label="Scroll gallery right"
-              >
-                Next
-              </button>
-            </div>
-          </div>
-          <div
-            ref={galleryStripRef}
-            className="flex gap-4 overflow-x-auto pb-4 pr-2"
-            style={{ scrollbarWidth: "thin", scrollbarColor: "rgba(212,175,55,0.35) transparent" }}
-          >
-            {galleryPhotos.map((photo, i) => (
-              <figure
-                key={photo.src}
-                data-d3="deep"
-                className="relative shrink-0 overflow-hidden"
-                style={{
-                  borderRadius: 12,
-                  border: "1px solid rgba(212,175,55,0.2)",
-                  width: "min(78vw, 320px)",
-                  aspectRatio: "3 / 4",
-                  transitionDelay: `${i * 40}ms`,
-                }}
-              >
-                <img
-                  src={photo.src}
-                  alt={photo.alt}
-                  width={1024}
-                  height={1280}
-                  loading="lazy"
-                  className="h-full w-full object-cover"
-                />
-                <div
-                  className="pointer-events-none absolute inset-0"
-                  style={{
-                    background:
-                      "linear-gradient(180deg, transparent 58%, rgba(5,15,34,0.72) 100%)",
-                  }}
-                />
-              </figure>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Gallery / Rituals preview */}
+      <GallerySection />
 
       <SectionDivider />
 
-      {/* FAQ */}
-      <section id="faq" className="mx-auto max-w-4xl px-6 md:px-10">
-        <SectionHeading
-          eyebrow={t.faq.eyebrow}
-          title={t.faq.title}
-          quote={t.faq.quote}
-        />
-        <div className="mt-14 divide-y" style={{ borderColor: "rgba(212,175,55,0.2)" }}>
-          {t.faq.items.map((f: any, i: number) => {
-            const open = openFaq === i;
-            return (
-              <div key={i} className="py-6" style={{ borderTop: i === 0 ? "1px solid rgba(212,175,55,0.2)" : undefined, borderBottom: "1px solid rgba(212,175,55,0.2)" }}>
-                <button
-                  onClick={() => setOpenFaq(open ? null : i)}
-                  className="flex w-full items-center justify-between gap-4 text-left"
-                >
-                  <span className="font-display text-lg text-ivory md:text-xl">{f.q}</span>
-                  <span
-                    className="inline-block h-6 w-6 shrink-0 border transition-transform duration-500"
-                    style={{
-                      borderColor: "rgba(212,175,55,0.6)",
-                      transform: open ? "rotate(45deg)" : "rotate(0deg)",
-                    }}
-                  >
-                    <span
-                      className="relative block h-full w-full"
-                      style={{ color: "#D4AF37" }}
-                    >
-                      <span
-                        className="absolute left-1/2 top-1/2 h-px w-3 -translate-x-1/2 -translate-y-1/2"
-                        style={{ background: "#D4AF37" }}
-                      />
-                      <span
-                        className="absolute left-1/2 top-1/2 h-3 w-px -translate-x-1/2 -translate-y-1/2"
-                        style={{ background: "#D4AF37" }}
-                      />
-                    </span>
-                  </span>
-                </button>
-                <div className={`faq-panel ${open ? "open" : ""} mt-0`}>
-                  <div>
-                    <p
-                      className="pt-5 pr-10 text-[15px] leading-relaxed"
-                      style={{ color: "#C9C3B0" }}
-                    >
-                      {f.a}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </section>
+      {/* FAQ Preview */}
+      <FAQSection />
+      <div className="mt-8 flex justify-center pb-16">
+        <a
+          href="/faq"
+          className="cta-btn group inline-flex items-center gap-3 px-7 py-4 text-[13px] uppercase tracking-[0.22em] font-medium border border-gold/40 transition-colors duration-300 bg-transparent text-ivory"
+          style={{ borderColor: "rgba(212,175,55,0.4)" }}
+        >
+          <svg className="cta-trace" preserveAspectRatio="none" viewBox="0 0 200 60">
+            <rect x="0.5" y="0.5" width="199" height="59" />
+          </svg>
+          <span className="relative z-10">View All FAQs →</span>
+        </a>
+      </div>
 
       <SectionDivider />
 
       {/* Appointment Form */}
-      <section id="book" className="relative py-24" style={{ background: "#050F22" }}>
-        <div className="mx-auto grid max-w-6xl grid-cols-1 gap-16 px-6 md:px-10 lg:grid-cols-[1fr_1.1fr]">
-          <div>
-            <div className="text-[10px] uppercase tracking-[0.32em]" style={{ color: "#D4AF37" }}>
-              {t.book.eyebrow}
-            </div>
-            <h2 className="mt-4 font-display text-4xl leading-tight text-ivory md:text-[44px]">
-              {t.book.title}
-            </h2>
-            <p className="mt-6 font-serif-italic text-xl" style={{ color: "#C9C3B0" }}>
-              {t.book.quote}
-            </p>
-            <div className="mt-10 space-y-4 text-[14px]" style={{ color: "#C9C3B0" }}>
-              <div className="flex items-baseline gap-4">
-                <span className="w-24 uppercase tracking-[0.22em] text-[11px]" style={{ color: "#D4AF37" }}>
-                  {t.book.hoursLabel}
-                </span>
-                <span>{t.book.hoursVal}</span>
-              </div>
-              <div className="flex items-baseline gap-4">
-                <span className="w-24 uppercase tracking-[0.22em] text-[11px]" style={{ color: "#D4AF37" }}>
-                  {t.book.addressLabel}
-                </span>
-                <span>{t.book.addressVal}</span>
-              </div>
-              <div className="flex items-baseline gap-4">
-                <span className="w-24 uppercase tracking-[0.22em] text-[11px]" style={{ color: "#D4AF37" }}>
-                  {t.book.contactLabel}
-                </span>
-                <span>{t.book.contactVal}</span>
-              </div>
-            </div>
-          </div>
+      <ContactSection />
 
-          <form
-            className="glass-card p-8 md:p-10"
-            onSubmit={(e) => {
-              e.preventDefault();
-              const formData = new FormData(e.currentTarget);
-              const name = formData.get("name") || "";
-              const phone = formData.get("phone") || "";
-              const dob = formData.get("dob") || "";
-              const tob = formData.get("tob") || "";
-              const pob = formData.get("pob") || "";
-              const nature = formData.get("nature") || "";
-              const question = formData.get("question") || "";
-
-              const text = `*New Consultation Request*\n\n*Name:* ${name}\n*Phone:* ${phone}\n*Date of Birth:* ${dob}\n*Time of Birth:* ${tob}\n*Place of Birth:* ${pob}\n*Nature:* ${nature}\n*Question:* ${question}`;
-              const encodedText = encodeURIComponent(text);
-              window.open(`https://wa.me/918778236182?text=${encodedText}`, "_blank");
-            }}
-          >
-            <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-              <Field name="name" label={t.book.form.name} placeholder={t.book.form.namePlaceholder} />
-              <Field name="phone" label={t.book.form.phone} placeholder={t.book.form.phonePlaceholder} />
-              <Field name="dob" label={t.book.form.dob} type="date" />
-              <Field name="tob" label={t.book.form.tob} type="time" />
-              <div className="md:col-span-2">
-                <Field name="pob" label={t.book.form.pob} placeholder={t.book.form.pobPlaceholder} />
-              </div>
-              <div className="md:col-span-2">
-                <label className="mb-2 block text-[11px] uppercase tracking-[0.22em]" style={{ color: "#D4AF37" }}>
-                  {t.book.form.nature}
-                </label>
-                <select name="nature" className="field w-full px-4 py-3 text-[14px]">
-                  {t.book.form.natureOptions.map((opt: string) => (
-                    <option key={opt}>{opt}</option>
-                  ))}
-                </select>
-              </div>
-              <div className="md:col-span-2">
-                <label className="mb-2 block text-[11px] uppercase tracking-[0.22em]" style={{ color: "#D4AF37" }}>
-                  {t.book.form.question}
-                </label>
-                <textarea
-                  name="question"
-                  rows={4}
-                  className="field w-full px-4 py-3 text-[14px]"
-                  placeholder={t.book.form.questionPlaceholder}
-                />
-              </div>
-            </div>
-            <div className="mt-8 flex flex-wrap items-center gap-4">
-              <CtaButton type="submit">{t.book.form.submit}</CtaButton>
-              <span className="font-serif-italic text-[13px]" style={{ color: "#C9C3B0" }}>
-                {t.book.form.replyNote}
-              </span>
-            </div>
-          </form>
-        </div>
-      </section>
-
-      {/* Footer with temple silhouette */}
-      <footer className="relative overflow-hidden pt-16" style={{ background: "#050F22" }}>
-        <div className="mx-auto max-w-7xl px-6 md:px-10">
-          <div className="grid grid-cols-1 gap-10 md:grid-cols-4">
-            <div className="md:col-span-2">
-              <div className="font-display text-[15px] tracking-[0.28em] text-ivory">
-                ANUGRAHA JYOTHISHALAYA
-              </div>
-              <p className="mt-5 max-w-md font-serif-italic text-lg" style={{ color: "#C9C3B0" }}>
-                {t.footer.description}
-              </p>
-            </div>
-            <div>
-              <div className="text-[11px] uppercase tracking-[0.28em]" style={{ color: "#D4AF37" }}>
-                {t.footer.headers.consultation}
-              </div>
-              <ul className="mt-4 space-y-2 text-[14px]" style={{ color: "#C9C3B0" }}>
-                <li><a href="#services">{t.nav.services}</a></li>
-                <li><a href="#process">{t.nav.process}</a></li>
-                <li><a href="#book">{t.nav.book}</a></li>
-              </ul>
-            </div>
-            <div>
-              <div className="text-[11px] uppercase tracking-[0.28em]" style={{ color: "#D4AF37" }}>
-                {t.footer.headers.contact}
-              </div>
-              <ul className="mt-4 space-y-2 text-[14px]" style={{ color: "#C9C3B0" }}>
-                <li>+91 917 609 6471 | +91 877 823 6182</li>
-                <li>anugrahajyothishalaya@gmail.com</li>
-                <li>perambur,chennai</li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Temple silhouette */}
-          <div className="mt-16 -mb-2">
-            <TempleSilhouette lang={lang} />
-          </div>
-          <div
-            className="flex items-center justify-between border-t py-6 text-[11px] uppercase tracking-[0.22em]"
-            style={{ borderColor: "rgba(212,175,55,0.2)", color: "#C9C3B0" }}
-          >
-            <span>{t.footer.copyright}</span>
-            <span className="font-serif-italic normal-case tracking-normal text-[13px]" style={{ color: "#D4AF37" }}>
-              {t.footer.shanti}
-            </span>
-          </div>
-        </div>
-      </footer>
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }
-
-/* ---------------- Small components ---------------- */
-
-function StatBlock({ end, suffix, label }: { end: number; suffix: string; label: string }) {
-  return (
-    <div>
-      <div className="font-display text-3xl md:text-4xl" style={{ color: "#D4AF37" }}>
-        <Counter end={end} suffix={suffix} />
-      </div>
-      <div
-        className="mt-2 text-[11px] uppercase tracking-[0.22em]"
-        style={{ color: "#C9C3B0" }}
-      >
-        {label}
-      </div>
-    </div>
-  );
-}
-
-function SectionHeading({
-  eyebrow,
-  title,
-  quote,
-}: {
-  eyebrow: string;
-  title: string;
-  quote: string;
-}) {
-  return (
-    <div data-d3="float" className="mx-auto max-w-3xl text-center">
-      <div className="text-[10px] uppercase tracking-[0.36em]" style={{ color: "#D4AF37" }}>
-        {eyebrow}
-      </div>
-      <h2 className="mt-5 font-display text-4xl leading-tight text-ivory md:text-[48px]">
-        {title}
-      </h2>
-      <p className="mt-6 font-serif-italic text-xl" style={{ color: "#C9C3B0" }}>
-        {quote}
-      </p>
-    </div>
-  );
-}
-
-function Field({
-  label,
-  name,
-  placeholder,
-  type = "text",
-}: {
-  label: string;
-  name?: string;
-  placeholder?: string;
-  type?: string;
-}) {
-  return (
-    <div>
-      <label className="mb-2 block text-[11px] uppercase tracking-[0.22em]" style={{ color: "#D4AF37" }}>
-        {label}
-      </label>
-      <input
-        name={name}
-        type={type}
-        placeholder={placeholder}
-        className="field w-full px-4 py-3 text-[14px]"
-      />
-    </div>
-  );
-}
-
-function TempleSilhouette({ lang = "en" }: { lang?: Language }) {
-  const deityNames = {
-    en: ["Bhadrakali", "Vinayagar", "Vishnumaya"],
-    ta: ["பத்ரகாளி", "விநாயகர்", "விஷ்ணுமாயா"],
-    ml: ["ഭദ്രകാളി", "ഗണപതി", "വിഷ്ണുമായ"],
-  };
-
-  const names = deityNames[lang] || deityNames.en;
-
-  const temples = [
-    { id: "t1", img: godPhoto3, name: names[0] },
-    { id: "t2", img: deityVinayagar, name: names[1] },
-    { id: "t3", img: templePhoto, name: names[2] },
-  ];
-
-  // Temple arch as a CSS polygon clip-path (percentage-based).
-  // Wide stepped gopuram: narrow peak at very top, broad base ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â¦ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â face always
-  // sits in the wide middle section of the arch where plenty of width is visible.
-  const archClip =
-    "polygon(50% 0%, 56% 3%, 62% 7%, 68% 12%, 74% 19%, 80% 28%, 85% 39%, 89% 51%, 92% 65%, 94% 80%, 96% 100%, 4% 100%, 6% 80%, 8% 65%, 11% 51%, 15% 39%, 20% 28%, 26% 19%, 32% 12%, 38% 7%, 44% 3%)";
-
-  // Same polygon in 0-100 coordinate space for the SVG border overlay
-  const archPoints =
-    "50,0 56,3 62,7 68,12 74,19 80,28 85,39 89,51 92,65 94,80 96,100 4,100 6,80 8,65 11,51 15,39 20,28 26,19 32,12 38,7 44,3";
-
-  return (
-    <div style={{ display: "flex", gap: "6px", width: "100%", alignItems: "flex-end" }}>
-      {temples.map(({ id, img, name }) => (
-        <div key={id} style={{ flex: 1, position: "relative" }}>
-          <div style={{ position: "relative" }}>
-            {/* Deity photo ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â¦ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â objectPosition "center 20%" keeps face/head in view */}
-            <img
-              src={img}
-              alt={name}
-              style={{
-                width: "100%",
-                height: "300px",
-                objectFit: "cover",
-                objectPosition: "center 20%",
-                display: "block",
-                clipPath: archClip,
-              }}
-            />
-            {/* Subtle bottom-fade so name label reads cleanly */}
-            <div
-              style={{
-                position: "absolute",
-                inset: 0,
-                background:
-                  "linear-gradient(to bottom, transparent 50%, rgba(5,15,34,0.7) 100%)",
-                clipPath: archClip,
-                pointerEvents: "none",
-              }}
-            />
-            {/* Gold border drawn as an SVG polygon overlay */}
-            <svg
-              viewBox="0 0 100 100"
-              preserveAspectRatio="none"
-              style={{
-                position: "absolute",
-                inset: 0,
-                width: "100%",
-                height: "100%",
-                overflow: "visible",
-                pointerEvents: "none",
-              }}
-            >
-              <polygon
-                points={archPoints}
-                fill="none"
-                stroke="#D4AF37"
-                strokeWidth="0.8"
-                vectorEffect="non-scaling-stroke"
-              />
-            </svg>
-            {/* Kalasha ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â¦ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â gold orb at the very tip */}
-            <div
-              style={{
-                position: "absolute",
-                top: "-5px",
-                left: "50%",
-                transform: "translateX(-50%)",
-                width: "11px",
-                height: "11px",
-                borderRadius: "50%",
-                background: "#D4AF37",
-                boxShadow: "0 0 8px rgba(212,175,55,0.7)",
-              }}
-            />
-          </div>
-          {/* Deity name label */}
-          <div
-            style={{
-              textAlign: "center",
-              color: "#D4AF37",
-              fontSize: "11px",
-              letterSpacing: "3px",
-              fontFamily: "Cormorant Garamond, Georgia, serif",
-              marginTop: "10px",
-              paddingBottom: "4px",
-            }}
-          >
-            {name.toUpperCase()}
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-
-
-
-
-
-
 

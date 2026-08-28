@@ -1,0 +1,19 @@
+/* responsive.css - mobile first styles */
+/* Base mobile styles (applies to all widths) */
+body {font-family: var(--font-primary); margin: 0;}
+/* Utility classes */
+.flex-col-mobile {display: flex; flex-direction: column;}
+.text-center-mobile {text-align: center;}
+.mt-4-mobile {margin-top: 1rem;}
+.gap-4-mobile > * + * {margin-top: 1rem;}
+/* Images */
+img:not([class*="h-"]), picture:not([class*="h-"]) {max-width: 100%; height: auto;}
+img, picture {max-width: 100%;}
+/* Desktop overrides */
+@media (min-width: 769px) {
+  .flex-col-mobile {flex-direction: row;}
+  .text-center-mobile {text-align: inherit;}
+  .mt-4-mobile {margin-top: 0;}
+  .gap-4-mobile > * + * {margin-top: 0; margin-left: 1rem;}
+  /* Preserve existing desktop styles (no changes needed) */
+}
