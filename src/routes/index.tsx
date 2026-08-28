@@ -23,12 +23,106 @@ import ml from "@/locales/ml.json";
 import hi from "@/locales/hi.json";
 
 const TRANSLATIONS = { en, ta, ml, hi };
+type TranslationContent = typeof en;
 type Language = "en" | "ta" | "ml" | "hi";
+
+const SITE_URL = "https://anugrahajyothishalaya.com";
+const BUSINESS_ID = `${SITE_URL}/#professional-service`;
+const FAQ_ID = `${SITE_URL}/#faq`;
+const LANGUAGE_TAGS: Record<Language, string> = {
+  en: "en",
+  ta: "ta",
+  ml: "ml",
+  hi: "hi",
+};
+const DOCUMENT_TITLES: Record<Language, string> = {
+  en: "Anugraha Jyothishalaya - Vedic Astrology by Govindan Namboodiri VG",
+  ta: "அனுக்ரஹ ஜோதிஷாலயா - கோவிந்தன் நம்பூதிரி VG",
+  ml: "അനുഗ്രഹ ജ്യോതിഷാലയ - ഗോവിന്ദൻ നമ്പൂതിരി VG",
+  hi: "अनुग्रह ज्योतिषालय - गोविंदन नंबूथिरी VG",
+};
+const BUSINESS_TELEPHONES = ["+91 9176096471", "+91 8778236182"] as const;
+
+function buildFaqSchema(content: TranslationContent, lang: Language) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": FAQ_ID,
+    url: `${SITE_URL}/#faq`,
+    inLanguage: LANGUAGE_TAGS[lang],
+    mainEntity: content.faq.items.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.a,
+      },
+    })),
+  };
+}
+
+function buildProfessionalServiceSchema(content: TranslationContent, lang: Language) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "@id": BUSINESS_ID,
+    name: content.seo.businessName,
+    url: SITE_URL,
+    inLanguage: LANGUAGE_TAGS[lang],
+    description: content.hero.description,
+    telephone: BUSINESS_TELEPHONES[0],
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: content.seo.streetAddress,
+      addressLocality: content.seo.addressLocality,
+      addressRegion: content.seo.addressRegion,
+      postalCode: content.seo.postalCode,
+      addressCountry: content.seo.addressCountry,
+    },
+    areaServed: content.seo.areaServed.map((place) => ({
+      "@type": "Place",
+      name: place,
+    })),
+    contactPoint: BUSINESS_TELEPHONES.map((telephone, index) => ({
+      "@type": "ContactPoint",
+      telephone,
+      contactType: index === 1 ? "WhatsApp" : "customer service",
+      areaServed: content.seo.areaServed,
+    })),
+    serviceType: content.services.items.map((service) => service.title),
+    review: content.testimonials.items.map((item, index) => ({
+      "@type": "Review",
+      "@id": `${SITE_URL}/#review-${lang}-${index + 1}`,
+      inLanguage: LANGUAGE_TAGS[lang],
+      author: {
+        "@type": "Person",
+        name: item.n,
+      },
+      reviewBody: item.q,
+      itemReviewed: {
+        "@id": BUSINESS_ID,
+        "@type": "ProfessionalService",
+        name: content.seo.businessName,
+      },
+    })),
+  };
+}
+
+function upsertJsonLdScript(id: string, data: unknown) {
+  let script = document.head.querySelector<HTMLScriptElement>(`script[data-schema-id="${id}"]`);
+  if (!script) {
+    script = document.createElement("script");
+    script.type = "application/ld+json";
+    script.dataset.schemaId = id;
+    document.head.appendChild(script);
+  }
+  script.textContent = JSON.stringify(data);
+}
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Anugraha Jyothishalaya - Vedic Astrology by Govindan Namboodiri VG" },
+      { title: DOCUMENT_TITLES.en },
       {
         name: "description",
         content: "Anugraha Jyothishalaya - Govindan Namboodiri VG, Vedic Astrologer. Horoscope, marriage matching, muhurtha, numerology, lucky name and rasi gems. Services anywhere in the world.",
@@ -458,13 +552,8 @@ function LandingPage() {
   }, []);
 
   useEffect(() => {
-    const titles: Record<Language, string> = {
-      en: "Anugraha Jyothishalaya - Vedic Astrology by Govindan Namboodiri VG",
-      ta: "அனுக்ரஹ ஜோதிஷாலயா - கோவிந்தன் நம்பூதிரி VG",
-      ml: "അനുഗ്രഹ ജ്യോതിഷാലയ - ഗോവിന്ദൻ നമ്പൂതിരി VG",
-      hi: "अनुग्रह ज्योतिषालय - गोविंदन नंबूथिरी VG",
-    };
-    document.title = titles[lang];
+    document.title = DOCUMENT_TITLES[lang];
+    document.documentElement.lang = LANGUAGE_TAGS[lang];
   }, [lang]);
 
   const handleLangChange = (newLang: Language) => {
@@ -472,7 +561,17 @@ function LandingPage() {
     localStorage.setItem("preferredLanguage", newLang);
   };
 
-  const t: any = TRANSLATIONS[lang] || TRANSLATIONS.en;
+  const t: TranslationContent = TRANSLATIONS[lang] || TRANSLATIONS.en;
+  const faqSchema = useMemo(() => buildFaqSchema(t, lang), [lang, t]);
+  const professionalServiceSchema = useMemo(
+    () => buildProfessionalServiceSchema(t, lang),
+    [lang, t]
+  );
+
+  useEffect(() => {
+    upsertJsonLdScript("faq-page", faqSchema);
+    upsertJsonLdScript("professional-service", professionalServiceSchema);
+  }, [faqSchema, professionalServiceSchema]);
 
 
   /* Cursor embers ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â¦ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â desktop hero only */

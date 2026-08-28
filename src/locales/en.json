@@ -126,24 +126,36 @@
     "quote": "Ask freely, clarity is itself a first remedy.",
     "items": [
       {
-        "q": "How is a traditional consultation different from an online report?",
-        "a": "A shastric reading examines the interplay of chart, dasha, transits and lineage. Every remedy prescribed considers your capacity to practise it."
+        "q": "How much does a Nadi astrology consultation cost in Chennai?",
+        "a": "The fee depends on whether you need a standard consultation, a dedicated Nadi session, or follow-up guidance alongside the reading. Share your concern and birth details, and the appropriate format and fee will be confirmed before booking."
       },
       {
-        "q": "What information do I need to share before booking?",
-        "a": "Your date of birth, exact time of birth as close as possible, and place of birth. If unknown, we can perform a rectification session first."
+        "q": "Is Nadi astrology accurate?",
+        "a": "Nadi reading is approached with reverence and care. Its value lies in whether the reading resonates clearly with your life, timing, and questions, and it is best received as guidance rather than spectacle."
       },
       {
-        "q": "Are the remedies difficult to follow?",
-        "a": "Remedies are always calibrated to your life. Some are as simple as a mantra at dawn; others involve pooja on specific tithis."
+        "q": "What does a Vedic astrologer in Chennai do?",
+        "a": "A Vedic astrologer studies the birth chart, planetary periods, transits, and relevant remedies to clarify patterns around marriage, career, family, health, and spiritual practice."
+      },
+      {
+        "q": "How do I book an astrologer consultation in Perambur?",
+        "a": "You can request an appointment through the form on this page or by WhatsApp. Once your name, contact number, and consultation details are received, a suitable time will be confirmed."
+      },
+      {
+        "q": "What details do I need to share before a horoscope consultation?",
+        "a": "Please share your date of birth, exact time of birth as closely as possible, and place of birth. If the birth time is uncertain, a rectification session can be arranged first."
+      },
+      {
+        "q": "Are remedies and parihara rituals difficult to follow?",
+        "a": "Remedies are prescribed with practicality in mind. Some may be as simple as daily mantra japa, while others may involve temple worship on specific days."
       },
       {
         "q": "Is my consultation confidential?",
-        "a": "Absolutely. Every reading, chart and personal detail remains strictly between you and the astrologer."
+        "a": "Yes. Personal details, charts, questions, and remedies are treated with discretion and remain private between you and the astrologer."
       },
       {
-        "q": "Do you offer follow-up consultations?",
-        "a": "Yes. Most clients return once or twice a year, and during significant dasha transitions or life events."
+        "q": "Do you offer follow-up consultations after the first reading?",
+        "a": "Yes. Many people return during major dasha changes, before marriage discussions, house decisions, or other important life transitions."
       }
     ]
   },
@@ -179,6 +191,15 @@
       "submit": "Request Appointment",
       "replyNote": "We reply within one working day."
     }
+  },
+  "seo": {
+    "businessName": "Anugraha Jyothishalaya",
+    "streetAddress": "Flat No. 6, Saravana Villa, Meenakshi Street, Perambur",
+    "addressLocality": "Chennai",
+    "addressRegion": "Tamil Nadu",
+    "postalCode": "600011",
+    "addressCountry": "IN",
+    "areaServed": ["Chennai", "Perambur"]
   },
   "footer": {
     "description": "A private consultancy in traditional Vedic astrology and spiritual practice.",
