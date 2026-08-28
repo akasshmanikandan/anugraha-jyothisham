@@ -403,27 +403,39 @@ function Counter({ end, suffix = "" }: { end: number; suffix?: string }) {
   const doneRef = useRef(false);
   useEffect(() => {
     if (!ref.current) return;
+    const animate = () => {
+      if (doneRef.current) return;
+      doneRef.current = true;
+      const dur = 1600;
+      const start = performance.now();
+      const step = (t: number) => {
+        const p = Math.min(1, (t - start) / dur);
+        const eased = 1 - Math.pow(1 - p, 3);
+        setValue(Math.round(end * eased));
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setValue(end);
+      doneRef.current = true;
+      return;
+    }
+
     const obs = new IntersectionObserver(
       (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting && !doneRef.current) {
-            doneRef.current = true;
-            const dur = 1600;
-            const start = performance.now();
-            const step = (t: number) => {
-              const p = Math.min(1, (t - start) / dur);
-              const eased = 1 - Math.pow(1 - p, 3);
-              setValue(Math.round(end * eased));
-              if (p < 1) requestAnimationFrame(step);
-            };
-            requestAnimationFrame(step);
-          }
-        });
+        if (entries.some((e) => e.isIntersecting)) animate();
       },
-      { threshold: 0.4 }
+      { threshold: 0.2 }
     );
     obs.observe(ref.current);
-    return () => obs.disconnect();
+
+    const fallback = window.setTimeout(animate, 350);
+    return () => {
+      window.clearTimeout(fallback);
+      obs.disconnect();
+    };
   }, [end]);
   return (
     <span ref={ref}>
