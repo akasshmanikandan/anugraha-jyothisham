@@ -474,6 +474,9 @@ function LandingPage() {
   const [wick, setWick] = useState(0);
 
   const { lang, setLang, t } = useLanguage();
+  const handleLangChange = (nextLang: Language) => {
+    setLang(nextLang);
+  };
 
   /* Reflect 3D mode on <html> for CSS transforms */
   useEffect(() => {
