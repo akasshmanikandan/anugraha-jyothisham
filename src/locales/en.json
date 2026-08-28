@@ -9,7 +9,13 @@
   },
   "hero": {
     "tagline": "Since 2009 | Rooted in Sastra",
-    "headline": ["Guiding", "Lives", "Through", "Ancient", "Wisdom"],
+    "headline": [
+      "Guiding",
+      "Lives",
+      "Through",
+      "Ancient",
+      "Wisdom"
+    ],
     "description": "A private consultancy in Vedic astrology, sacred ritual and the quiet arts of remedy, carried forward from a lineage of temple astrologers.",
     "bookBtn": "Book Consultation",
     "whatsappBtn": "WhatsApp",
@@ -23,15 +29,51 @@
     "title": "Sacred Consultations",
     "quote": "Each art a lamp; together, they illumine the whole of one life.",
     "items": [
-      { "title": "Jyotisha", "sub": "Astrology", "body": "Vedic birth-chart analysis, dasha periods, and planetary remedies from the sidereal Sastras." },
-      { "title": "Tantrikam", "sub": "Sacred Rituals", "body": "Traditional yantra installation and homa ceremonies for protection, prosperity and clarity." },
-      { "title": "Mantrikam", "sub": "Mantra Sadhana", "body": "Personalized bija and moola mantras with proper vidhi for chanting, initiation and japa." },
-      { "title": "Vaithiyam", "sub": "Ayurvedic Guidance", "body": "Prakriti-based counsel for restoring balance across dosha, diet and daily discipline." },
-      { "title": "Thambulam", "sub": "Betel Leaf Divination", "body": "Ancient south Indian oracle reading for time-sensitive questions and turning points." },
-      { "title": "Samudrika", "sub": "Face Reading", "body": "Reading the temperament and destiny inscribed in the features of the face." },
-      { "title": "Nadi", "sub": "Palm-Leaf Reading", "body": "Consultation of the Nadi granthas, recorded lives inscribed centuries before your birth." },
-      { "title": "Vaasthu", "sub": "Sacred Geometry", "body": "Aligning homes, workplaces and temples with the directions, elements and mandala grid." },
-      { "title": "Numerology", "sub": "Science of Numbers", "body": "Names, dates and vibrational numbers harmonized for personal and family wellbeing." }
+      {
+        "title": "Jyotisha",
+        "sub": "Astrology",
+        "body": "Vedic birth-chart analysis, dasha periods, and planetary remedies from the sidereal Sastras."
+      },
+      {
+        "title": "Tantrikam",
+        "sub": "Sacred Rituals",
+        "body": "Traditional yantra installation and homa ceremonies for protection, prosperity and clarity."
+      },
+      {
+        "title": "Mantrikam",
+        "sub": "Mantra Sadhana",
+        "body": "Personalized bija and moola mantras with proper vidhi for chanting, initiation and japa."
+      },
+      {
+        "title": "Vaithiyam",
+        "sub": "Ayurvedic Guidance",
+        "body": "Prakriti-based counsel for restoring balance across dosha, diet and daily discipline."
+      },
+      {
+        "title": "Thambulam",
+        "sub": "Betel Leaf Divination",
+        "body": "Ancient south Indian oracle reading for time-sensitive questions and turning points."
+      },
+      {
+        "title": "Samudrika",
+        "sub": "Face Reading",
+        "body": "Reading the temperament and destiny inscribed in the features of the face."
+      },
+      {
+        "title": "Nadi",
+        "sub": "Palm-Leaf Reading",
+        "body": "Consultation of the Nadi granthas, recorded lives inscribed centuries before your birth."
+      },
+      {
+        "title": "Vaasthu",
+        "sub": "Sacred Geometry",
+        "body": "Aligning homes, workplaces and temples with the directions, elements and mandala grid."
+      },
+      {
+        "title": "Numerology",
+        "sub": "Science of Numbers",
+        "body": "Names, dates and vibrational numbers harmonized for personal and family wellbeing."
+      }
     ]
   },
   "about": {
@@ -60,10 +102,22 @@
     "title": "Tradition, Held Whole",
     "quote": "What is old must not be antique, it must be alive.",
     "items": [
-      { "t": "Unbroken Lineage", "d": "Five generations of temple astrologers, taught in the classical guru-shishya tradition." },
-      { "t": "Shastric Fidelity", "d": "Every reading grounded in Parashara, Jaimini and Nadi literature, never intuition alone." },
-      { "t": "Discreet Practice", "d": "Consultations by appointment only, held with the confidentiality of a physician." },
-      { "t": "Practical Remedies", "d": "Prescriptions calibrated to your life, never asking what you cannot faithfully do." }
+      {
+        "t": "Unbroken Lineage",
+        "d": "Five generations of temple astrologers, taught in the classical guru-shishya tradition."
+      },
+      {
+        "t": "Shastric Fidelity",
+        "d": "Every reading grounded in Parashara, Jaimini and Nadi literature, never intuition alone."
+      },
+      {
+        "t": "Discreet Practice",
+        "d": "Consultations by appointment only, held with the confidentiality of a physician."
+      },
+      {
+        "t": "Practical Remedies",
+        "d": "Prescriptions calibrated to your life, never asking what you cannot faithfully do."
+      }
     ]
   },
   "process": {
@@ -71,11 +125,31 @@
     "title": "Five Steps, Held with Care",
     "quote": "The right path is walked slowly, one lamp at a time.",
     "steps": [
-      { "n": "01", "t": "Book", "d": "Reserve a private slot at a time of your choosing." },
-      { "n": "02", "t": "Birth Details", "d": "Share date, time and place of birth in confidence." },
-      { "n": "03", "t": "Consultation", "d": "A one-on-one reading held in person or by call." },
-      { "n": "04", "t": "Remedies", "d": "Receive personalized mantras, yantras and rituals." },
-      { "n": "05", "t": "Follow-up", "d": "Periodic guidance as the dasha and planets shift." }
+      {
+        "n": "01",
+        "t": "Book",
+        "d": "Reserve a private slot at a time of your choosing."
+      },
+      {
+        "n": "02",
+        "t": "Birth Details",
+        "d": "Share date, time and place of birth in confidence."
+      },
+      {
+        "n": "03",
+        "t": "Consultation",
+        "d": "A one-on-one reading held in person or by call."
+      },
+      {
+        "n": "04",
+        "t": "Remedies",
+        "d": "Receive personalized mantras, yantras and rituals."
+      },
+      {
+        "n": "05",
+        "t": "Follow-up",
+        "d": "Periodic guidance as the dasha and planets shift."
+      }
     ]
   },
   "testimonials": {
@@ -199,7 +273,30 @@
     "addressRegion": "Tamil Nadu",
     "postalCode": "600011",
     "addressCountry": "IN",
-    "areaServed": ["Chennai", "Perambur"]
+    "areaServed": [
+      "Chennai",
+      "Perambur"
+    ],
+    "title": "Anugraha Jyothishalaya - Vedic Astrologer in Chennai | Govindan Namboodiri VG",
+    "description": "Anugraha Jyothishalaya in Chennai and Perambur with Govindan Namboodiri VG, offering Vedic astrology, Nadi reading, marriage matching, numerology, Vaasthu, and sacred ritual guidance.",
+    "geoLatitude": "13.1218",
+    "geoLongitude": "80.2123",
+    "priceRange": "₹₹",
+    "altBhadrakali": "Bhadrakali pooja image with Sri Chakra in Perambur, Chennai",
+    "altSriChakra": "Sri Chakra plaque with Bhadrakali pooja backdrop in Chennai",
+    "altTemplePhoto": "Vishnumaya shrine image used for astrologer description in Perambur, Chennai",
+    "altGalleryArchive": "Ritual archive photo from temple worship in Chennai",
+    "altDeityPrefix": "Temple deity portrait from Anugraha Jyothishalaya in Chennai:",
+    "galleryAlts": [
+      "Temple deity adorned with flowers in Chennai",
+      "Night ritual fire ceremony in Chennai",
+      "Temple altar with lamps and floral arrangement in Chennai",
+      "Floor ritual with lamps and offerings in Chennai",
+      "Temple ritual with central fire and devotees in Chennai",
+      "Decorated shrine with multiple deity frames in Chennai",
+      "Pooja arrangement with lamps and flowers in Chennai",
+      "Sacred fire burning in a ritual pit in Chennai"
+    ]
   },
   "footer": {
     "description": "A private consultancy in traditional Vedic astrology and spiritual practice.",

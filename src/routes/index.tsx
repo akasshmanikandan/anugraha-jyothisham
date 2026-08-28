@@ -29,6 +29,7 @@ type Language = "en" | "ta" | "ml" | "hi";
 const SITE_URL = "https://anugrahajyothishalaya.com";
 const BUSINESS_ID = `${SITE_URL}/#professional-service`;
 const FAQ_ID = `${SITE_URL}/#faq`;
+const CANONICAL_URL = SITE_URL;
 const LANGUAGE_TAGS: Record<Language, string> = {
   en: "en",
   ta: "ta",
@@ -62,6 +63,8 @@ function buildFaqSchema(content: TranslationContent, lang: Language) {
 }
 
 function buildProfessionalServiceSchema(content: TranslationContent, lang: Language) {
+  const latitude = Number(content.seo.geoLatitude);
+  const longitude = Number(content.seo.geoLongitude);
   return {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
@@ -69,8 +72,9 @@ function buildProfessionalServiceSchema(content: TranslationContent, lang: Langu
     name: content.seo.businessName,
     url: SITE_URL,
     inLanguage: LANGUAGE_TAGS[lang],
-    description: content.hero.description,
-    telephone: BUSINESS_TELEPHONES[0],
+    description: content.seo.description,
+    telephone: [...BUSINESS_TELEPHONES],
+    priceRange: content.seo.priceRange,
     address: {
       "@type": "PostalAddress",
       streetAddress: content.seo.streetAddress,
@@ -79,10 +83,30 @@ function buildProfessionalServiceSchema(content: TranslationContent, lang: Langu
       postalCode: content.seo.postalCode,
       addressCountry: content.seo.addressCountry,
     },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude,
+      longitude,
+    },
     areaServed: content.seo.areaServed.map((place) => ({
       "@type": "Place",
       name: place,
     })),
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: [
+          "Sunday",
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+        ],
+        opens: "08:00",
+        closes: "17:00",
+      },
+    ],
     contactPoint: BUSINESS_TELEPHONES.map((telephone, index) => ({
       "@type": "ContactPoint",
       telephone,
@@ -90,21 +114,6 @@ function buildProfessionalServiceSchema(content: TranslationContent, lang: Langu
       areaServed: content.seo.areaServed,
     })),
     serviceType: content.services.items.map((service) => service.title),
-    review: content.testimonials.items.map((item, index) => ({
-      "@type": "Review",
-      "@id": `${SITE_URL}/#review-${lang}-${index + 1}`,
-      inLanguage: LANGUAGE_TAGS[lang],
-      author: {
-        "@type": "Person",
-        name: item.n,
-      },
-      reviewBody: item.q,
-      itemReviewed: {
-        "@id": BUSINESS_ID,
-        "@type": "ProfessionalService",
-        name: content.seo.businessName,
-      },
-    })),
   };
 }
 
@@ -122,21 +131,20 @@ function upsertJsonLdScript(id: string, data: unknown) {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: DOCUMENT_TITLES.en },
+      { title: en.seo.title },
       {
         name: "description",
-        content: "Anugraha Jyothishalaya - Govindan Namboodiri VG, Vedic Astrologer. Horoscope, marriage matching, muhurtha, numerology, lucky name and rasi gems. Services anywhere in the world.",
+        content: en.seo.description,
       },
-      { property: "og:title", content: "Anugraha Jyothishalaya - Vedic Astrology" },
-
+      { property: "og:title", content: en.seo.title },
       {
         property: "og:description",
-        content:
-          "Personal consultations in Jyotisha, Nadi, Vaasthu and Numerology. Rooted in tradition, delivered with discretion.",
+        content: en.seo.description,
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [{ rel: "canonical", href: CANONICAL_URL }],
   }),
   component: LandingPage,
 });
@@ -552,8 +560,24 @@ function LandingPage() {
   }, []);
 
   useEffect(() => {
-    document.title = DOCUMENT_TITLES[lang];
+    document.title = t.seo.title;
     document.documentElement.lang = LANGUAGE_TAGS[lang];
+
+    const setMetaContent = (selector: string, content: string) => {
+      let tag = document.head.querySelector<HTMLMetaElement>(selector);
+      if (!tag) {
+        tag = document.createElement("meta");
+        const [name, value] = selector.includes('property=') ? ['property', selector.match(/property=\"([^\"]+)\"/)?.[1] ?? ""] : ['name', selector.match(/name=\"([^\"]+)\"/)?.[1] ?? ""];
+        if (name === "name") tag.setAttribute("name", value);
+        else tag.setAttribute("property", value);
+        document.head.appendChild(tag);
+      }
+      tag.setAttribute("content", content);
+    };
+
+    setMetaContent('meta[name="description"]', t.seo.description);
+    setMetaContent('meta[property="og:title"]', t.seo.title);
+    setMetaContent('meta[property="og:description"]', t.seo.description);
   }, [lang]);
 
   const handleLangChange = (newLang: Language) => {
@@ -563,10 +587,7 @@ function LandingPage() {
 
   const t: TranslationContent = TRANSLATIONS[lang] || TRANSLATIONS.en;
   const faqSchema = useMemo(() => buildFaqSchema(t, lang), [lang, t]);
-  const professionalServiceSchema = useMemo(
-    () => buildProfessionalServiceSchema(t, lang),
-    [lang, t]
-  );
+  const professionalServiceSchema = useMemo(() => buildProfessionalServiceSchema(t, lang), [lang, t]);
 
   useEffect(() => {
     upsertJsonLdScript("faq-page", faqSchema);
@@ -715,6 +736,15 @@ function LandingPage() {
       { src: ritual8, alt: "Sacred fire burning in a ritual pit" },
     ],
     []
+  );
+
+  const localizedGalleryPhotos = useMemo(
+    () =>
+      galleryPhotos.map((photo, idx) => ({
+        ...photo,
+        alt: t.seo.galleryAlts[idx] ?? photo.alt,
+      })),
+    [galleryPhotos, t]
   );
 
   return (
@@ -954,7 +984,7 @@ function LandingPage() {
               {/* Bhadrakali Background Image */}
               <img
                 src={bgBhadrakali}
-                alt="Pooja ceremony photo"
+                alt={t.seo.altBhadrakali}
                 className="absolute inset-0 h-full w-full object-cover opacity-96 filter contrast-130 saturate-120 brightness-110"
               />
               <div
@@ -968,7 +998,7 @@ function LandingPage() {
               {/* Sree Chakra Image */}
               <img
                 src={sreeChakra}
-                alt="Sri Chakra (Sri Yantra) plaque in gold and maroon"
+                alt={t.seo.altSriChakra}
                 width={512}
                 height={512}
                 loading="lazy"
@@ -994,7 +1024,7 @@ function LandingPage() {
             {/* Description background image */}
             <img
               src={templePhoto}
-              alt="Pooja ceremony photo"
+              alt={t.seo.altTemplePhoto}
               className="absolute inset-0 h-full w-full object-cover object-center opacity-88 filter brightness-110 contrast-115"
             />
             <div
@@ -1203,7 +1233,7 @@ function LandingPage() {
             className="flex gap-4 overflow-x-auto pb-4 pr-2"
             style={{ scrollbarWidth: "thin", scrollbarColor: "rgba(212,175,55,0.35) transparent" }}
           >
-            {galleryPhotos.map((photo, i) => (
+            {localizedGalleryPhotos.map((photo, i) => (
               <figure
                 key={photo.src}
                 data-d3="deep"
@@ -1541,6 +1571,7 @@ function TempleSilhouette({ lang = "en" }: { lang?: Language }) {
     en: ["Bhadrakali", "Vinayagar", "Vishnumaya"],
     ta: ["பத்ரகாளி", "விநாயகர்", "விஷ்ணுமாயா"],
     ml: ["ഭദ്രകാളി", "ഗണപതി", "വിഷ്ണുമായ"],
+    hi: ["भद्रकाली", "विनायक", "विष्णुमाया"],
   };
 
   const names = deityNames[lang] || deityNames.en;
@@ -1569,7 +1600,7 @@ function TempleSilhouette({ lang = "en" }: { lang?: Language }) {
             {/* Deity photo ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â¦ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â objectPosition "center 20%" keeps face/head in view */}
             <img
               src={img}
-              alt={name}
+              alt={`${t.seo.altDeityPrefix} ${name}`}
               style={{
                 width: "100%",
                 height: "300px",
