@@ -6,7 +6,12 @@ export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
       { title: "Our Services | Anugraha Jyothishalaya" },
-      { name: "description", content: "Explore traditional Vedic astrology services, rituals, and consultations offered by Anugraha Jyothishalaya." },
+      {
+        name: "description",
+        content:
+          "Explore traditional Vedic astrology services, rituals, and consultations offered by Anugraha Jyothishalaya.",
+      },
+      { name: "robots", content: "index, follow" },
     ],
     links: [{ rel: "canonical", href: "https://www.anugrahajyothishalaya.com/services/" }],
   }),

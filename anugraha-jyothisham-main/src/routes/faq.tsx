@@ -6,7 +6,12 @@ export const Route = createFileRoute("/faq")({
   head: () => ({
     meta: [
       { title: "FAQ | Anugraha Jyothishalaya" },
-      { name: "description", content: "Frequently asked questions about astrology, consultations, and the process at Anugraha Jyothishalaya." },
+      {
+        name: "description",
+        content:
+          "Frequently asked questions about astrology, consultations, and the process at Anugraha Jyothishalaya.",
+      },
+      { name: "robots", content: "index, follow" },
     ],
     links: [{ rel: "canonical", href: "https://www.anugrahajyothishalaya.com/faq/" }],
   }),

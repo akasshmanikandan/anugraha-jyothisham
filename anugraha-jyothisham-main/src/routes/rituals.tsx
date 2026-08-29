@@ -6,7 +6,12 @@ export const Route = createFileRoute("/rituals")({
   head: () => ({
     meta: [
       { title: "Temple Rituals | Anugraha Jyothishalaya" },
-      { name: "description", content: "View our temple rituals, sacred ceremonies, and traditional practices at Anugraha Jyothishalaya." },
+      {
+        name: "description",
+        content:
+          "View our temple rituals, sacred ceremonies, and traditional practices at Anugraha Jyothishalaya.",
+      },
+      { name: "robots", content: "index, follow" },
     ],
     links: [{ rel: "canonical", href: "https://www.anugrahajyothishalaya.com/rituals/" }],
   }),
