@@ -10,15 +10,42 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as AstrologerChennaiRouteImport } from './routes/astrologer-chennai'
+import { Route as AstrologerPeramburRouteImport } from './routes/astrologer-perambur'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as RitualsRouteImport } from './routes/rituals'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as ServicesFaceReadingRouteImport } from './routes/services/face-reading'
+import { Route as ServicesJyotishaRouteImport } from './routes/services/jyotisha'
+import { Route as ServicesMantraTantraRouteImport } from './routes/services/mantra-tantra'
+import { Route as ServicesMarriageMatchingRouteImport } from './routes/services/marriage-matching'
+import { Route as ServicesNadiRouteImport } from './routes/services/nadi'
+import { Route as ServicesNadiReadingRouteImport } from './routes/services/nadi-reading'
+import { Route as ServicesNumerologyRouteImport } from './routes/services/numerology'
+import { Route as ServicesSpiritualRitualsRouteImport } from './routes/services/spiritual-rituals'
+import { Route as ServicesVaasthuRouteImport } from './routes/services/vaasthu'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AstrologerChennaiRoute = AstrologerChennaiRouteImport.update({
+  id: '/astrologer-chennai',
+  path: '/astrologer-chennai',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AstrologerPeramburRoute = AstrologerPeramburRouteImport.update({
+  id: '/astrologer-perambur',
+  path: '/astrologer-perambur',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -46,54 +73,187 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ServicesFaceReadingRoute = ServicesFaceReadingRouteImport.update({
+  id: '/face-reading',
+  path: '/face-reading',
+  getParentRoute: () => ServicesRoute,
+} as any)
+const ServicesJyotishaRoute = ServicesJyotishaRouteImport.update({
+  id: '/jyotisha',
+  path: '/jyotisha',
+  getParentRoute: () => ServicesRoute,
+} as any)
+const ServicesMantraTantraRoute = ServicesMantraTantraRouteImport.update({
+  id: '/mantra-tantra',
+  path: '/mantra-tantra',
+  getParentRoute: () => ServicesRoute,
+} as any)
+const ServicesMarriageMatchingRoute =
+  ServicesMarriageMatchingRouteImport.update({
+    id: '/marriage-matching',
+    path: '/marriage-matching',
+    getParentRoute: () => ServicesRoute,
+  } as any)
+const ServicesNadiRoute = ServicesNadiRouteImport.update({
+  id: '/nadi',
+  path: '/nadi',
+  getParentRoute: () => ServicesRoute,
+} as any)
+const ServicesNadiReadingRoute = ServicesNadiReadingRouteImport.update({
+  id: '/nadi-reading',
+  path: '/nadi-reading',
+  getParentRoute: () => ServicesRoute,
+} as any)
+const ServicesNumerologyRoute = ServicesNumerologyRouteImport.update({
+  id: '/numerology',
+  path: '/numerology',
+  getParentRoute: () => ServicesRoute,
+} as any)
+const ServicesSpiritualRitualsRoute =
+  ServicesSpiritualRitualsRouteImport.update({
+    id: '/spiritual-rituals',
+    path: '/spiritual-rituals',
+    getParentRoute: () => ServicesRoute,
+  } as any)
+const ServicesVaasthuRoute = ServicesVaasthuRouteImport.update({
+  id: '/vaasthu',
+  path: '/vaasthu',
+  getParentRoute: () => ServicesRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/astrologer-chennai': typeof AstrologerChennaiRoute
+  '/astrologer-perambur': typeof AstrologerPeramburRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
   '/rituals': typeof RitualsRoute
-  '/services': typeof ServicesRoute
+  '/services': typeof ServicesRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/services/face-reading': typeof ServicesFaceReadingRoute
+  '/services/jyotisha': typeof ServicesJyotishaRoute
+  '/services/mantra-tantra': typeof ServicesMantraTantraRoute
+  '/services/marriage-matching': typeof ServicesMarriageMatchingRoute
+  '/services/nadi': typeof ServicesNadiRoute
+  '/services/nadi-reading': typeof ServicesNadiReadingRoute
+  '/services/numerology': typeof ServicesNumerologyRoute
+  '/services/spiritual-rituals': typeof ServicesSpiritualRitualsRoute
+  '/services/vaasthu': typeof ServicesVaasthuRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/astrologer-chennai': typeof AstrologerChennaiRoute
+  '/astrologer-perambur': typeof AstrologerPeramburRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
   '/rituals': typeof RitualsRoute
-  '/services': typeof ServicesRoute
+  '/services': typeof ServicesRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/services/face-reading': typeof ServicesFaceReadingRoute
+  '/services/jyotisha': typeof ServicesJyotishaRoute
+  '/services/mantra-tantra': typeof ServicesMantraTantraRoute
+  '/services/marriage-matching': typeof ServicesMarriageMatchingRoute
+  '/services/nadi': typeof ServicesNadiRoute
+  '/services/nadi-reading': typeof ServicesNadiReadingRoute
+  '/services/numerology': typeof ServicesNumerologyRoute
+  '/services/spiritual-rituals': typeof ServicesSpiritualRitualsRoute
+  '/services/vaasthu': typeof ServicesVaasthuRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/astrologer-chennai': typeof AstrologerChennaiRoute
+  '/astrologer-perambur': typeof AstrologerPeramburRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
   '/rituals': typeof RitualsRoute
-  '/services': typeof ServicesRoute
+  '/services': typeof ServicesRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/services/face-reading': typeof ServicesFaceReadingRoute
+  '/services/jyotisha': typeof ServicesJyotishaRoute
+  '/services/mantra-tantra': typeof ServicesMantraTantraRoute
+  '/services/marriage-matching': typeof ServicesMarriageMatchingRoute
+  '/services/nadi': typeof ServicesNadiRoute
+  '/services/nadi-reading': typeof ServicesNadiReadingRoute
+  '/services/numerology': typeof ServicesNumerologyRoute
+  '/services/spiritual-rituals': typeof ServicesSpiritualRitualsRoute
+  '/services/vaasthu': typeof ServicesVaasthuRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/contact' | '/faq' | '/rituals' | '/services' | '/sitemap.xml'
-  fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/contact' | '/faq' | '/rituals' | '/services' | '/sitemap.xml'
-  id:
-    | '__root__'
     | '/'
+    | '/about'
+    | '/astrologer-chennai'
+    | '/astrologer-perambur'
     | '/contact'
     | '/faq'
     | '/rituals'
     | '/services'
     | '/sitemap.xml'
+    | '/services/face-reading'
+    | '/services/jyotisha'
+    | '/services/mantra-tantra'
+    | '/services/marriage-matching'
+    | '/services/nadi'
+    | '/services/nadi-reading'
+    | '/services/numerology'
+    | '/services/spiritual-rituals'
+    | '/services/vaasthu'
+  fileRoutesByTo: FileRoutesByTo
+  to:
+    | '/'
+    | '/about'
+    | '/astrologer-chennai'
+    | '/astrologer-perambur'
+    | '/contact'
+    | '/faq'
+    | '/rituals'
+    | '/services'
+    | '/sitemap.xml'
+    | '/services/face-reading'
+    | '/services/jyotisha'
+    | '/services/mantra-tantra'
+    | '/services/marriage-matching'
+    | '/services/nadi'
+    | '/services/nadi-reading'
+    | '/services/numerology'
+    | '/services/spiritual-rituals'
+    | '/services/vaasthu'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/astrologer-chennai'
+    | '/astrologer-perambur'
+    | '/contact'
+    | '/faq'
+    | '/rituals'
+    | '/services'
+    | '/sitemap.xml'
+    | '/services/face-reading'
+    | '/services/jyotisha'
+    | '/services/mantra-tantra'
+    | '/services/marriage-matching'
+    | '/services/nadi'
+    | '/services/nadi-reading'
+    | '/services/numerology'
+    | '/services/spiritual-rituals'
+    | '/services/vaasthu'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  AstrologerChennaiRoute: typeof AstrologerChennaiRoute
+  AstrologerPeramburRoute: typeof AstrologerPeramburRoute
   ContactRoute: typeof ContactRoute
   FaqRoute: typeof FaqRoute
   RitualsRoute: typeof RitualsRoute
-  ServicesRoute: typeof ServicesRoute
+  ServicesRoute: typeof ServicesRouteWithChildren
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
 }
 
@@ -104,6 +264,27 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/astrologer-chennai': {
+      id: '/astrologer-chennai'
+      path: '/astrologer-chennai'
+      fullPath: '/astrologer-chennai'
+      preLoaderRoute: typeof AstrologerChennaiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/astrologer-perambur': {
+      id: '/astrologer-perambur'
+      path: '/astrologer-perambur'
+      fullPath: '/astrologer-perambur'
+      preLoaderRoute: typeof AstrologerPeramburRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -141,15 +322,109 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/services/face-reading': {
+      id: '/services/face-reading'
+      path: '/face-reading'
+      fullPath: '/services/face-reading'
+      preLoaderRoute: typeof ServicesFaceReadingRouteImport
+      parentRoute: typeof ServicesRoute
+    }
+    '/services/jyotisha': {
+      id: '/services/jyotisha'
+      path: '/jyotisha'
+      fullPath: '/services/jyotisha'
+      preLoaderRoute: typeof ServicesJyotishaRouteImport
+      parentRoute: typeof ServicesRoute
+    }
+    '/services/mantra-tantra': {
+      id: '/services/mantra-tantra'
+      path: '/mantra-tantra'
+      fullPath: '/services/mantra-tantra'
+      preLoaderRoute: typeof ServicesMantraTantraRouteImport
+      parentRoute: typeof ServicesRoute
+    }
+    '/services/marriage-matching': {
+      id: '/services/marriage-matching'
+      path: '/marriage-matching'
+      fullPath: '/services/marriage-matching'
+      preLoaderRoute: typeof ServicesMarriageMatchingRouteImport
+      parentRoute: typeof ServicesRoute
+    }
+    '/services/nadi': {
+      id: '/services/nadi'
+      path: '/nadi'
+      fullPath: '/services/nadi'
+      preLoaderRoute: typeof ServicesNadiRouteImport
+      parentRoute: typeof ServicesRoute
+    }
+    '/services/nadi-reading': {
+      id: '/services/nadi-reading'
+      path: '/nadi-reading'
+      fullPath: '/services/nadi-reading'
+      preLoaderRoute: typeof ServicesNadiReadingRouteImport
+      parentRoute: typeof ServicesRoute
+    }
+    '/services/numerology': {
+      id: '/services/numerology'
+      path: '/numerology'
+      fullPath: '/services/numerology'
+      preLoaderRoute: typeof ServicesNumerologyRouteImport
+      parentRoute: typeof ServicesRoute
+    }
+    '/services/spiritual-rituals': {
+      id: '/services/spiritual-rituals'
+      path: '/spiritual-rituals'
+      fullPath: '/services/spiritual-rituals'
+      preLoaderRoute: typeof ServicesSpiritualRitualsRouteImport
+      parentRoute: typeof ServicesRoute
+    }
+    '/services/vaasthu': {
+      id: '/services/vaasthu'
+      path: '/vaasthu'
+      fullPath: '/services/vaasthu'
+      preLoaderRoute: typeof ServicesVaasthuRouteImport
+      parentRoute: typeof ServicesRoute
+    }
   }
 }
 
+interface ServicesRouteChildren {
+  ServicesFaceReadingRoute: typeof ServicesFaceReadingRoute
+  ServicesJyotishaRoute: typeof ServicesJyotishaRoute
+  ServicesMantraTantraRoute: typeof ServicesMantraTantraRoute
+  ServicesMarriageMatchingRoute: typeof ServicesMarriageMatchingRoute
+  ServicesNadiRoute: typeof ServicesNadiRoute
+  ServicesNadiReadingRoute: typeof ServicesNadiReadingRoute
+  ServicesNumerologyRoute: typeof ServicesNumerologyRoute
+  ServicesSpiritualRitualsRoute: typeof ServicesSpiritualRitualsRoute
+  ServicesVaasthuRoute: typeof ServicesVaasthuRoute
+}
+
+const ServicesRouteChildren: ServicesRouteChildren = {
+  ServicesFaceReadingRoute: ServicesFaceReadingRoute,
+  ServicesJyotishaRoute: ServicesJyotishaRoute,
+  ServicesMantraTantraRoute: ServicesMantraTantraRoute,
+  ServicesMarriageMatchingRoute: ServicesMarriageMatchingRoute,
+  ServicesNadiRoute: ServicesNadiRoute,
+  ServicesNadiReadingRoute: ServicesNadiReadingRoute,
+  ServicesNumerologyRoute: ServicesNumerologyRoute,
+  ServicesSpiritualRitualsRoute: ServicesSpiritualRitualsRoute,
+  ServicesVaasthuRoute: ServicesVaasthuRoute,
+}
+
+const ServicesRouteWithChildren = ServicesRoute._addFileChildren(
+  ServicesRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  AstrologerChennaiRoute: AstrologerChennaiRoute,
+  AstrologerPeramburRoute: AstrologerPeramburRoute,
   ContactRoute: ContactRoute,
   FaqRoute: FaqRoute,
   RitualsRoute: RitualsRoute,
-  ServicesRoute: ServicesRoute,
+  ServicesRoute: ServicesRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
 }
 export const routeTree = rootRouteImport

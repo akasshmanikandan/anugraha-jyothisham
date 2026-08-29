@@ -125,12 +125,13 @@ export function Header() {
             ANUGRAHA JYOTHISHALAYA
           </Link>
           <nav className={`${menuOpen ? 'flex' : 'hidden'} items-center gap-9 text-[12px] uppercase tracking-[0.22em] md:flex absolute md:relative top-full left-0 w-full md:w-auto flex-col md:flex-row bg-[#081A34] md:bg-transparent py-4 md:py-0 border-b md:border-none border-gold/20`} style={{ color: "#C9C3B0" }}>
+            <Link to="/about" className="hover:text-ivory transition-colors">{t.nav.about}</Link>
             <Link to="/services" className="hover:text-ivory transition-colors">{t.nav.services}</Link>
             <Link to="/rituals" className="hover:text-ivory transition-colors">{t.nav.rituals}</Link>
-            <a href="/#about" className="hover:text-ivory transition-colors">{t.nav.about}</a>
             <a href="/#process" className="hover:text-ivory transition-colors">{t.nav.process}</a>
             <a href="/#testimonials" className="hover:text-ivory transition-colors">{t.nav.voices}</a>
             <Link to="/faq" className="hover:text-ivory transition-colors">{t.nav.faq}</Link>
+            <Link to="/contact" className="hover:text-ivory transition-colors">{t.nav.book}</Link>
           </nav>
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-2 border px-2.5 py-1 rounded" style={{ borderColor: "rgba(212,175,55,0.25)", background: "rgba(5,15,34,0.4)" }}>
@@ -192,8 +193,10 @@ export function Footer() {
               {t.footer.headers.consultation}
             </div>
             <ul className="mt-4 space-y-2 text-[14px]" style={{ color: "#C9C3B0" }}>
+              <li><Link to="/about">About</Link></li>
               <li><Link to="/services">{t.nav.services}</Link></li>
               <li><Link to="/rituals">{t.nav.rituals}</Link></li>
+              <li><Link to="/faq">{t.nav.faq}</Link></li>
               <li><Link to="/contact">{t.nav.book}</Link></li>
             </ul>
           </div>
